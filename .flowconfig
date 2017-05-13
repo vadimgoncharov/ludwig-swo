@@ -16,6 +16,7 @@ module.file_ext=.js
 module.file_ext=.json
 
 module.name_mapper='.*\.scss$' -> 'ModuleStub'
+module.name_mapper='^shared/\(.*\)'->'/<PROJECT_ROOT>/src/shared/\1'
 
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
 suppress_comment=\\(.\\|\n\\)*\\$FlowIssue

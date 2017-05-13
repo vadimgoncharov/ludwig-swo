@@ -6,8 +6,6 @@ import {AppContainer} from 'react-hot-loader';
 
 import SwoPage from '../shared/pages/SwoPage/SwoPage';
 
-import '../shared/global/global.scss';
-
 const render = Component => {
   return ReactDOM.render(
     <AppContainer>
