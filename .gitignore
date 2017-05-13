@@ -15,3 +15,4 @@ npm-debug.log*
 .babel-cache
 .happypack
 /tmp
+flow-typed
