@@ -23,6 +23,7 @@
   "homepage": "https://github.com/vadimgoncharov/ludwig-swo#readme",
   "private": true,
   "dependencies": {
+    "autoprefixer": "^7.0.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "6",
     "babel-loader": "^7.0.0",
@@ -38,6 +39,7 @@
     "flow-bin": "^0.46.0",
     "flow-typed": "^2.1.2",
     "node-sass": "^4.5.2",
+    "postcss-loader": "^2.0.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "next",

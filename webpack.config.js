@@ -57,6 +57,9 @@ module.exports = {
         {loader: 'sass-loader', options: {
           sourceMap: true,
         }},
+        {loader: 'postcss-loader', options: {
+          sourceMap: true,
+        }},
       ]},
     ]
   },
