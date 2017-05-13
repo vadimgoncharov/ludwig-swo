@@ -3,15 +3,7 @@
   text-align: center;
   max-width: 700px;
 
-  .Link:link,
-  .Link:visited {
-    color: red;
-  }
-
-  .Link:hover,
-  .Link:active {
-    color: #428bca;
-  }
+  @include LinkRed();
 }
 
 .Hero-swo {

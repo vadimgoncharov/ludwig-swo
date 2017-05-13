@@ -1,0 +1,31 @@
+.StatTotal {
+  text-align: center;
+
+  @include LinkRed();
+}
+
+.StatTotal-title {
+  font-size: 42px;
+  color: #808080;
+}
+
+.StatTotal-subTitle {
+  margin-top: 60px;
+  font-size: 24px;
+}
+
+.StatTotal-totalValue {
+  font-size: 56px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.StatTotal-description {
+  margin-top: 30px;
+  line-height: 22px;
+}
+
+.StatTotal-sumOfNum {
+  margin-top: 15px;
+}
+

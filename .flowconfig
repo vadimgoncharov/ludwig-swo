@@ -3,6 +3,7 @@
 .*/node_modules/fbjs/.*
 .*/node_modules/lunr/.*
 .*/node_modules/react-addons-shallow-compare/.*
+.*/node_modules/stylelint/.*
 [include]
 
 [libs]

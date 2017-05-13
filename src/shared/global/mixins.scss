@@ -1,0 +1,11 @@
+@mixin LinkRed {
+  .Link:link,
+  .Link:visited {
+    color: red;
+  }
+
+  .Link:hover,
+  .Link:active {
+    color: #428bca;
+  }
+}
