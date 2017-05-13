@@ -9,7 +9,11 @@ export default class Header extends Component {
     return (
       <div className="Header">
         <div className="Header-nav">
-          <Link href="/">this is link</Link>
+          <div className="Header-navItem is-main">
+            <Link className="Header-navItemLink" href="/">
+              <div className="Header-navItemContent" />
+            </Link>
+          </div>
         </div>
       </div>
     );
