@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 
+import './Link.scss';
+
 type DefaultProps = {
   className: ?string,
 };
