@@ -11,9 +11,11 @@
   line-height: 120px;
   @include tablet {
     font-size: 60px;
+    line-height: 68px;
   }
   @include phone {
-    font-size: 24px;
+    font-size: 42px;
+    line-height: 48px;
   }
 }
 
@@ -24,4 +26,9 @@
 .Hero-nav {
   margin-top: 50px;
   font-size: 32px;
+  @include phone {
+    margin-top: 25px;
+    font-size: 28px;
+    line-height: 36px;
+  }
 }

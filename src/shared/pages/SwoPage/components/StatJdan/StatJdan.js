@@ -15,19 +15,19 @@ type State = {
   togglerSelectedKey: ToggleSelectedKey,
 };
 
-export default class StatJdan extends Component<void, void, State> {
+export default class StatJdan extends Component<any, any, State> {
   state: State;
   state = {
     togglerSelectedKey: 'hal',
   };
 
-  onTogglerHalClick = (event: Event): void => {
+  onTogglerHalClick = (): void => {
     this.setState({
       togglerSelectedKey: 'hal',
     });
   };
 
-  onTogglerChClick = (event: Event): void => {
+  onTogglerChClick = (): void => {
     this.setState({
       togglerSelectedKey: 'ch',
     });
@@ -95,8 +95,8 @@ export default class StatJdan extends Component<void, void, State> {
       <div className="StatJdan">
         <div className="StatJdan-title">
           Если бы рост
-          Ждана Филиппова <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span> либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span> в зависимости
-          от количества открытий сайта, то в разные дни Ждан выглядел бы вот так:
+          Ждана Филиппова <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span> либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span> в&nbsp;зависимости
+          от&nbsp;количества открытий сайта, то&nbsp;в&nbsp;разные дни Ждан выглядел бы вот так:
         </div>
         <ol className="StatJdan-items">
           {dates.map(this.renderItem)}

@@ -9,3 +9,15 @@
     color: #428bca;
   }
 }
+
+@mixin LinkBlue {
+  .Link:link,
+  .Link:visited {
+    color: #428bca;
+  }
+
+  .Link:hover,
+  .Link:active {
+    color: red;
+  }
+}

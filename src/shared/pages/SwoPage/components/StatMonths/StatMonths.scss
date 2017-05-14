@@ -9,6 +9,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  @include phone {
+    margin-top: 10px;
+  }
 }
 
 .StatMonths-item {

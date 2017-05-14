@@ -21,18 +21,36 @@
     }
   }
 
-  .Hero,
+  .Hero {
+    @include not-phone {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @include phone {
+      padding-top: 60px;
+    }
+  }
+
+  .StatMonths {
+    margin-top: 60px;
+  }
+
   .StatTotal,
-  .StatMonths,
   .StatMinMax,
-  .DayInYearScale {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    @media screen and (max-height: 600px) {
-      margin: 100px auto;
-      max-height: 0;
+  .DayInYearScale,
+  .StatJdan {
+    margin-top: 200px;
+    @include phone {
+      margin-top: 60px;
+    }
+  }
+
+  .Footer {
+    margin-top: 100px;
+    @include phone {
+      margin-top: 60px;
     }
   }
 }

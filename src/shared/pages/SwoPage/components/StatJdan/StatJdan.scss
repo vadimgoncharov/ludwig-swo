@@ -22,6 +22,8 @@
   background: center center no-repeat;
   background-size: cover;
   width: 180px;
+  margin-left: auto;
+  margin-right: auto;
   @include phone {
     width: 60px;
   }

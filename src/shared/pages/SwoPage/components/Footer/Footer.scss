@@ -1,0 +1,63 @@
+.Footer {
+  font-size: 14px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Footer-authorsDevs {
+  margin-top: 10px;
+}
+
+.Footer-authorsDevsItems {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  @include not-phone {
+    display: inline-block;
+  }
+}
+
+.Footer-authorsDevsItem {
+  @include not-phone {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  @include phone {
+    margin-top: 3px;
+  }
+}
+
+.Footer-authorsDevsItem {
+  &:last-child {
+    .Footer-authorsDevsItemDate::after {
+      content: '-м).';
+    }
+  }
+}
+
+.Footer-authorsDevsItemDate {
+  margin-left: 5px;
+
+  &::before {
+    content: '(в ';
+  }
+
+  &::after {
+    content: '-м),';
+  }
+}
+
+.Footer-contacts {
+  padding-top: 50px;
+  margin-top: 50px;
+  border-top: 1px #fff solid;
+
+  @include phone {
+    padding-top: 30px;
+    margin-top: 30px;
+  }
+
+  @include LinkBlue();
+}

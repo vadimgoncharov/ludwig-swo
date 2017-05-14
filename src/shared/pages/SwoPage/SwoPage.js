@@ -8,6 +8,7 @@ import StatMonths     from './components/StatMonths';
 import StatMinMax     from './components/StatMinMax';
 import DayInYearScale from './components/DayInYearScale';
 import StatJdan       from './components/StatJdan';
+import Footer         from './components/Footer';
 
 import './SwoPage.scss';
 
@@ -22,6 +23,7 @@ export default class SwoPage extends Component {
         <StatMinMax />
         <DayInYearScale />
         <StatJdan />
+        <Footer />
       </div>
     );
   }

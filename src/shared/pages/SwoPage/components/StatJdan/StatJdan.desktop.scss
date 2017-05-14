@@ -1,14 +1,11 @@
 @include not-phone {
-  .StatJdan {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .StatJdan-title {
     font-size: 16px;
     line-height: 24px;
     text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .StatJdan-items {
@@ -21,7 +18,7 @@
   }
 
   .StatJdan-item {
-    width: 180px;
+    width: 25%;
     text-align: center;
   }
 
@@ -29,5 +26,4 @@
     font-size: 14px;
     margin-top: 30px;
   }
-
 }
