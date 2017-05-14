@@ -1,7 +1,7 @@
 // @flow
 import React, {Component} from 'react';
 
-import Link from 'shared/components/Link/Link';
+import Link from 'shared/components/Link';
 
 import './Hero.scss';
 

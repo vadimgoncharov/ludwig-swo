@@ -1,11 +1,12 @@
 // @flow
 import React, {Component} from 'react';
 
-import Header     from './components/Header/Header';
-import Hero       from './components/Hero/Hero';
-import StatTotal  from './components/StatTotal/StatTotal';
-import StatMonths from './components/StatMonths/StatMonths';
-import StatMinMax from './components/StatMinMax/StatMinMax';
+import Header         from './components/Header';
+import Hero           from './components/Hero';
+import StatTotal      from './components/StatTotal';
+import StatMonths     from './components/StatMonths';
+import StatMinMax     from './components/StatMinMax';
+import DayInYearScale from './components/DayInYearScale';
 
 import './SwoPage.scss';
 
@@ -18,6 +19,7 @@ export default class SwoPage extends Component {
         <StatTotal />
         <StatMonths />
         <StatMinMax />
+        <DayInYearScale />
       </div>
     );
   }

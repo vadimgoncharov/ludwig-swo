@@ -1,0 +1,31 @@
+@include phone {
+  .DayInYearScale-title {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .DayInYearScale-items {
+    list-style: none;
+    padding: 0;
+    margin: 50px auto 0;
+  }
+
+  .DayInYearScale-item {
+    width: 100px;
+    height: 1px;
+    background-color: #333;
+    margin-top: 1px;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &.is-selected {
+      background-color: #fff;
+      width: 150px;
+      height: 2px;
+    }
+  }
+}
