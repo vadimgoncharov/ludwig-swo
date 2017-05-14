@@ -1,15 +1,37 @@
 .SwoPage {
   margin: 0 0 100px;
-
-  .Hero {
-    margin-top: 200px;
+  position: relative;
+  padding: 0 20px;
+  @include phone {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @include tablet {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
-  .StatTotal {
-    margin-top: 500px;
+  .Header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    @media screen and (max-height: 600px) {
+      position: static;
+    }
   }
 
-  .StatMonths {
-    margin-top: 100px;
+  .Hero,
+  .StatTotal,
+  .StatMonths,
+  .StatMinMax {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    @media screen and (max-height: 600px) {
+      margin: 100px auto;
+      max-height: 0;
+    }
   }
 }

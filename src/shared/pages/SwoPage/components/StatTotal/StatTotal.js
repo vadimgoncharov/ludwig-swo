@@ -10,8 +10,9 @@ import './StatTotal.scss';
 export default class StatTotal extends Component {
   renderTotalValueFormatted(value: number): string {
     const formatted: string = formatThousands(value);
-    const suffix: string    = pluralize(value, 'раз', 'раза', 'раз');
-    return `${formatted} ${suffix}`;
+    const postfix: string = pluralize(value, 'раз', 'раза', 'раз');
+
+    return `${formatted} ${postfix}`;
   }
 
   renderSumOfNumber(value: number): string {
@@ -34,11 +35,14 @@ export default class StatTotal extends Component {
     const totalValue: number = 2963178;
 
     return (
-      <div className="StatTotal" name="stat">
+      <div className="StatTotal">
+        <a name="stat" />
         <div className="StatTotal-title">Минутка статистика</div>
         <div className="StatTotal-subTitle">Всего сайт откроется</div>
         <div className="StatTotal-totalValue">{this.renderTotalValueFormatted(totalValue)}</div>
-        <Link className="StatTotal-refreshLink" href="/#stat">И еще раз</Link>
+        <div className="StatTotal-refreshLinkContainer">
+          <Link className="StatTotal-refreshLink" href="/#stat">И еще раз</Link>
+        </div>
         <div className="StatTotal-description">
           Каждый раз сайт сообщает новую случайную дату открытия.<br />
           Все обещания бережно записываются, и на их основе строится статистика.</div>
