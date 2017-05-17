@@ -1,19 +1,77 @@
 // @flow
 import React, {Component} from 'react';
+import Waypoint from 'react-waypoint';
 import classNames from 'classnames';
+import TWEEN from 'tween.js';
+
+import {dateToDayMonth, getDaysInYear, getDayInYear} from 'shared/utils/date';
+import type {StatTotal} from 'shared/reducers/stats';
 
 import './DayInYearScale.scss';
 
-export default class DayInYearScale extends Component {
-  getDaysInYear(year: number): number {
-    let days: number = 0;
+type Props = {|
+  isFetching: boolean,
+  statTotal: StatTotal,
+|};
 
-    for(let month = 1; month <= 12; month++) {
-      days += (new Date(year, month, 0).getDate());
-    }
+type State = {|
+  isAnimationInProgress: boolean,
+  isInViewport: boolean,
+  deltaDate: ?Date,
+|};
 
-    return days;
+export default class DayInYearScale extends Component<void, Props, State> {
+  props: Props;
+  state: State;
+  state = {
+    isAnimationInProgress: false,
+    isInViewport: false,
+    deltaDate: null
+  };
+
+  componentWillReceiveProps(nextProps: Props) {
+    const oldDate = this.props.statTotal.date;
+    const newDate = nextProps.statTotal.date;
+
+    this.startAnimation(oldDate, newDate);
   }
+
+  startAnimation(oldDate: Date, newDate: Date) {
+    this.setState({
+      isAnimationInProgress: true,
+    });
+    const data = {time: oldDate.getTime()};
+    const tween = new TWEEN.Tween(data);
+    tween.to({time: newDate.getTime()}, this.state.isInViewport ? 4000 : 0);
+    tween.onUpdate(() => {
+      this.setState({
+        deltaDate: new Date(data.time),
+      });
+    });
+    tween.easing(TWEEN.Easing.Exponential.InOut);
+    tween.start();
+    this.animate();
+  }
+
+  animate = () => {
+    if (!this.state.isAnimationInProgress) {
+      return;
+    }
+    requestAnimationFrame(this.animate);
+    TWEEN.update();
+  };
+
+  onWaypointEnter = () => {
+    this.setState({
+      isInViewport: true,
+    });
+  };
+
+  onWaypointLeave = () => {
+    this.setState({
+      isInViewport: false,
+    });
+  };
 
   getDayInYear(year: number, month: number, day: number): number {
     const end: Date = new Date(year, month, day);
@@ -26,32 +84,40 @@ export default class DayInYearScale extends Component {
   }
 
   renderScale(daysInYear: number, dayInYear: number): React$Element<any> {
-    const content: React$Element<any>[] = [];
+    const content = [];
 
     for (let i: number = 0; i < daysInYear; i++) {
-      const className = classNames('DayInYearScale-item', {'is-selected': i === dayInYear});
-      content.push(
-        <li className={className} key={i} />
-      );
+      content.push(i);
     }
+
     return (
       <ol className="DayInYearScale-items">
-        {content}
+        {content.map((item, index) => {
+          const className = classNames('DayInYearScale-item', {'is-selected': index === dayInYear});
+          return (
+            <li className={className} key={index} />
+          );
+        })}
       </ol>
     );
   }
 
   render(): React$Element<any> {
-    const date: string = '7 сентября';
-    const currYear = (new Date()).getFullYear();
-    const daysInYear = this.getDaysInYear(currYear);
-    const dayInYear = this.getDayInYear(currYear, 9-1, 7);
+    const {deltaDate} = this.state;
+    const {statTotal} = this.props;
+    const date: Date = deltaDate || statTotal.date;
+    const dateStr: string = dateToDayMonth(date);
+    const currYear = date.getFullYear();
+    const daysInYear = getDaysInYear(currYear);
+    const dayInYear = getDayInYear(currYear, date.getMonth(), date.getDate());
 
     return (
-      <div className="DayInYearScale">
-        <div className="DayInYearScale-title">{date} в году:</div>
-        {this.renderScale(daysInYear, dayInYear)}
-      </div>
+      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+        <div className="DayInYearScale">
+          <div className="DayInYearScale-title">{dateStr} в году:</div>
+          {this.renderScale(daysInYear, dayInYear)}
+        </div>
+      </Waypoint>
     );
   }
 }

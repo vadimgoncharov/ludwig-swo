@@ -6,7 +6,7 @@ import Hero           from './containers/Hero';
 import StatTotal      from './containers/StatTotal';
 import StatPrevDates  from './containers/StatPrevDates';
 import StatMinMax     from './components/StatMinMax';
-import DayInYearScale from './components/DayInYearScale';
+import DayInYearScale from './containers/DayInYearScale';
 import StatJdan       from './components/StatJdan';
 import Footer         from './components/Footer';
 

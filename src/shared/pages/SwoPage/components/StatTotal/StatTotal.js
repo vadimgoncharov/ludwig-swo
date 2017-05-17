@@ -1,5 +1,6 @@
 // @flow
 import React, {Component} from 'react';
+import Waypoint from 'react-waypoint';
 import TWEEN from 'tween.js';
 
 import formatThousands from 'format-thousands';
@@ -17,6 +18,7 @@ type Props = {|
 
 type State = {|
   isAnimationInProgress: boolean,
+  isInViewport: boolean,
   deltaValue: ?number,
 |};
 
@@ -25,6 +27,7 @@ export default class StatTotal extends Component<void, Props, State> {
   state: State;
   state = {
     isAnimationInProgress: false,
+    isInViewport: false,
     deltaValue: null
   };
 
@@ -41,7 +44,7 @@ export default class StatTotal extends Component<void, Props, State> {
     });
     const data = {value: oldValue};
     const tween = new TWEEN.Tween(data);
-    tween.to({value: newValue}, 1000);
+    tween.to({value: newValue}, this.state.isInViewport ? 1000 : 0);
     tween.onUpdate(() => {
       this.setState({
         deltaValue: parseInt(data.value),
@@ -63,6 +66,18 @@ export default class StatTotal extends Component<void, Props, State> {
     }
     requestAnimationFrame(this.animate);
     TWEEN.update();
+  };
+
+  onWaypointEnter = () => {
+    this.setState({
+      isInViewport: true,
+    });
+  };
+
+  onWaypointLeave = () => {
+    this.setState({
+      isInViewport: false,
+    });
   };
 
   renderTotalValueFormatted(value: number): string {
@@ -97,19 +112,21 @@ export default class StatTotal extends Component<void, Props, State> {
     const totalValue: number = deltaValue || statTotal.value;
 
     return (
-      <div className="StatTotal">
-        <a name="stat" />
-        <div className="StatTotal-title">Минутка статистика</div>
-        <div className="StatTotal-subTitle">Всего сайт откроется</div>
-        <div className="StatTotal-totalValue">{this.renderTotalValueFormatted(totalValue)}</div>
-        <div className="StatTotal-refreshLinkContainer">
-          <Link className="StatTotal-refreshLink" href="/#stat">И еще раз</Link>
+      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+        <div className="StatTotal">
+          <a name="stat" />
+          <div className="StatTotal-title">Минутка статистика</div>
+          <div className="StatTotal-subTitle">Всего сайт откроется</div>
+          <div className="StatTotal-totalValue">{this.renderTotalValueFormatted(totalValue)}</div>
+          <div className="StatTotal-refreshLinkContainer">
+            <Link className="StatTotal-refreshLink" href="/#stat">И еще раз</Link>
+          </div>
+          <div className="StatTotal-description">
+            Каждый раз сайт сообщает новую случайную дату открытия.<br />
+            Все обещания бережно записываются, и на их основе строится статистика.</div>
+          <div className="StatTotal-sumOfNum">Кстати, {this.renderSumOfNumber(totalValue)}.</div>
         </div>
-        <div className="StatTotal-description">
-          Каждый раз сайт сообщает новую случайную дату открытия.<br />
-          Все обещания бережно записываются, и на их основе строится статистика.</div>
-        <div className="StatTotal-sumOfNum">Кстати, {this.renderSumOfNumber(totalValue)}.</div>
-      </div>
+      </Waypoint>
     );
   }
 }

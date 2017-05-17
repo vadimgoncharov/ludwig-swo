@@ -1,5 +1,6 @@
 // @flow
 import React, {Component} from 'react';
+import Waypoint from 'react-waypoint';
 import TWEEN from 'tween.js';
 
 import {dateToMonthStr} from 'shared/utils/date';
@@ -21,6 +22,7 @@ type Props = {|
 
 type State = {|
   isAnimationInProgress: boolean,
+  isInViewport: boolean,
   deltaDates: StatPrevDatesType,
 |};
 
@@ -40,6 +42,7 @@ export default class StatPrevDates extends Component<void, Props, State> {
   state: State;
   state = {
     isAnimationInProgress: false,
+    isInViewport: false,
     deltaDates: [
       initalDate,
       initalDate,
@@ -69,7 +72,7 @@ export default class StatPrevDates extends Component<void, Props, State> {
       const newDate = newDates[index];
       const data = {time: oldDate.getTime()};
       const tween = new TWEEN.Tween(data);
-      tween.to({time: newDate.getTime()}, 3000);
+      tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
       tween.onUpdate(() => {
         this.state.deltaDates[index] = new Date(data.time);
         if (index === oldDates.length-1) {
@@ -96,6 +99,18 @@ export default class StatPrevDates extends Component<void, Props, State> {
     TWEEN.update();
   };
 
+  onWaypointEnter = () => {
+    this.setState({
+      isInViewport: true,
+    });
+  };
+
+  onWaypointLeave = () => {
+    this.setState({
+      isInViewport: false,
+    });
+  };
+
   renderItem = (date: Date, index: number): React$Element<any> => {
     const backgroundColor = backgroundColors[date.getMonth() % 6];
     const color = '#000';
@@ -112,12 +127,14 @@ export default class StatPrevDates extends Component<void, Props, State> {
     const {deltaDates} = this.state;
     const stat = deltaDates[0] !== initalDate ? deltaDates : statPrevDates;
     return (
-      <div className="StatPrevDates">
-        <div className="StatPrevDates-title">Предыдущие дни открытия сайта:</div>
-        <ul className="StatPrevDates-items">
-          {stat.map(this.renderItem)}
-        </ul>
-      </div>
+      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+        <div className="StatPrevDates">
+          <div className="StatPrevDates-title">Предыдущие дни открытия сайта:</div>
+          <ul className="StatPrevDates-items">
+            {stat.map(this.renderItem)}
+          </ul>
+        </div>
+      </Waypoint>
     );
   }
 }
