@@ -32,7 +32,7 @@ function _fetchStats() {
           }
         };
         resolve(dispatch(_receiveStats(json)));
-      }, 2000);
+      }, 500);
     });
   };
 }

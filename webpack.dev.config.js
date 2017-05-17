@@ -34,7 +34,7 @@ module.exports = {
     noInfo: false,
     stats: 'minimal',
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally

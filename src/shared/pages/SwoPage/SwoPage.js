@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 import Header         from './containers/Header';
 import Hero           from './containers/Hero';
-import StatTotal      from './components/StatTotal';
+import StatTotal      from './containers/StatTotal';
 import StatMonths     from './components/StatMonths';
 import StatMinMax     from './components/StatMinMax';
 import DayInYearScale from './components/DayInYearScale';
