@@ -14,12 +14,19 @@ type Props = {
 export default class Header extends Component<void, Props, void> {
   props: Props;
 
-  renderFetchButton() {
+  onFetchLinkClick = () => {
     const {isFetching, onFetchLinkClick} = this.props;
+    if (!isFetching) {
+      onFetchLinkClick();
+    }
+  }
+
+  renderFetchButton() {
+    const {isFetching} = this.props;
     const className = classNames('Header-fetchButton', `is-fetching_${isFetching ? 'yes' : 'no'}`);
 
     return (
-      <div className={className} onClick={onFetchLinkClick}>
+      <div className={className} onClick={this.onFetchLinkClick}>
         <div className="Header-navItemContent">Другая дата</div>
       </div>
     );

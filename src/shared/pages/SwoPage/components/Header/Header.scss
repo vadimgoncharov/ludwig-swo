@@ -1,3 +1,11 @@
+.Header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: rgba(#000, 0.4);
+}
+
 .Header-nav {
   display: flex;
   justify-content: center;

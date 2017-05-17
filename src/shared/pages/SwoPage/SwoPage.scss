@@ -12,16 +12,6 @@
     padding-right: 15px;
   }
 
-  .Header {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    @media screen and (max-height: 600px) {
-      position: static;
-    }
-  }
-
   .Hero {
     @include not-phone {
       min-height: 100vh;

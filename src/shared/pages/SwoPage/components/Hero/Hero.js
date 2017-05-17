@@ -1,5 +1,6 @@
 // @flow
 import React, {Component} from 'react';
+import TWEEN from 'tween.js';
 
 import Link from 'shared/components/Link';
 import {dateToDayMonth} from 'shared/utils/date';
@@ -12,12 +13,47 @@ type Props = {|
   statTotal: StatTotal,
 |};
 
-export default class Hero extends Component<void, Props, any> {
+type State = {|
+  deltaDate: ?Date,
+|};
+
+export default class Hero extends Component<void, Props, State> {
   props: Props;
+  state: State;
+  state = {
+    deltaDate: null
+  };
+
+  componentWillReceiveProps(nextProps: Props) {
+    const oldDate = this.props.statTotal.date;
+    const newDate = nextProps.statTotal.date;
+
+    this.startAnimation(oldDate, newDate);
+  }
+
+  startAnimation(oldDate: Date, newDate: Date) {
+    const data = {time: oldDate.getTime()};
+    const tween = new TWEEN.Tween(data);
+    tween.to({time: newDate.getTime()}, 3000);
+    tween.onUpdate(() => {
+      this.setState({
+        deltaDate: new Date(data.time),
+      });
+    });
+    tween.easing(TWEEN.Easing.Exponential.Out);
+    tween.start();
+    this.animate();
+  }
+
+  animate = () => {
+    requestAnimationFrame(this.animate);
+    TWEEN.update();
+  };
 
   render(): React$Element<any> {
+    const {deltaDate} = this.state;
     const {statTotal} = this.props;
-    const date: string = dateToDayMonth(statTotal.date);
+    const date: string = dateToDayMonth(deltaDate || statTotal.date);
 
     return (
       <div className="Hero">
