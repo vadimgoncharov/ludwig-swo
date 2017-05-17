@@ -25,3 +25,34 @@
     }
   }
 }
+
+.Header-navItem.is-fetch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: auto;
+  height: auto;
+  text-align: right;
+
+  .Header-fetchButton {
+    transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
+
+    &.is-fetching_no {
+      border-bottom: 1px dashed #fff;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        opacity: 0.5;
+      }
+    }
+
+    &.is-fetching_yes {
+      opacity: 0.2;
+      border-bottom: 1px dashed transparent;
+    }
+  }
+}

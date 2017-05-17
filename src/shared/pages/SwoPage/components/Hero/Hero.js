@@ -2,12 +2,22 @@
 import React, {Component} from 'react';
 
 import Link from 'shared/components/Link';
+import {dateToDayMonth} from 'shared/utils/date';
+import type {StatTotal} from 'shared/reducers/stats';
 
 import './Hero.scss';
 
-export default class Hero extends Component {
+type Props = {|
+  isFetching: boolean,
+  statTotal: StatTotal,
+|};
+
+export default class Hero extends Component<void, Props, any> {
+  props: Props;
+
   render(): React$Element<any> {
-    const date: string = '7 сентября';
+    const {statTotal} = this.props;
+    const date: string = dateToDayMonth(statTotal.date);
 
     return (
       <div className="Hero">

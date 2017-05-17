@@ -1,10 +1,30 @@
+// @flow
 import React, {Component} from 'react';
+import classNames from 'classnames';
 
 import Link from 'shared/components/Link';
 
 import './Header.scss';
 
-export default class Header extends Component {
+type Props = {
+  isFetching: boolean,
+  onFetchLinkClick: Function,
+};
+
+export default class Header extends Component<void, Props, void> {
+  props: Props;
+
+  renderFetchButton() {
+    const {isFetching, onFetchLinkClick} = this.props;
+    const className = classNames('Header-fetchButton', `is-fetching_${isFetching ? 'yes' : 'no'}`);
+
+    return (
+      <div className={className} onClick={onFetchLinkClick}>
+        <div className="Header-navItemContent">Другая дата</div>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="Header">
@@ -13,6 +33,9 @@ export default class Header extends Component {
             <Link className="Header-navItemLink" href="/">
               <div className="Header-navItemContent" />
             </Link>
+          </div>
+          <div className="Header-navItem is-fetch">
+            {this.renderFetchButton()}
           </div>
         </div>
       </div>

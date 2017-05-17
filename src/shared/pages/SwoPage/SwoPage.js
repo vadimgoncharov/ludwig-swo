@@ -1,8 +1,8 @@
 // @flow
 import React, {Component} from 'react';
 
-import Header         from './components/Header';
-import Hero           from './components/Hero';
+import Header         from './containers/Header';
+import Hero           from './containers/Hero';
 import StatTotal      from './components/StatTotal';
 import StatMonths     from './components/StatMonths';
 import StatMinMax     from './components/StatMinMax';
@@ -16,7 +16,7 @@ export default class SwoPage extends Component {
   render(): React$Element<any> {
     return (
       <div className="SwoPage">
-        <Header/>
+        <Header />
         <Hero />
         <StatTotal />
         <StatMonths />

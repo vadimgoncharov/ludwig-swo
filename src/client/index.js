@@ -1,15 +1,29 @@
 /* global document, module, require */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
+import React            from 'react';
+import ReactDOM         from 'react-dom';
+import {Provider}       from 'react-redux';
+import {AppContainer}   from 'react-hot-loader';
+import {createStore, applyMiddleware} from 'redux';
+import thunkMiddleware  from 'redux-thunk';
+
+import reducers from '../shared/reducers';
 
 import SwoPage from '../shared/pages/SwoPage/SwoPage';
+
+const store = createStore(
+  reducers,
+  applyMiddleware(
+    thunkMiddleware,
+  ),
+);
 
 const render = Component => {
   return ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider store={store}>
+        <Component />
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   );
