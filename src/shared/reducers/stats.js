@@ -33,7 +33,7 @@ const INITIAL_STATE: Stats = {
   data: {
     statTotal: {
       date: getDateByMD(9, 7),
-      value: 1000,
+      value: 2963000,
     },
     statPrevDates: [
       getDateByMD(8, 25),

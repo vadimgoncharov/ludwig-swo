@@ -34,8 +34,14 @@ function dateToDayMonth(date: Date): string {
   return `${day} ${monthStr}`;
 }
 
+function dateToMonthStr(date: Date): string {
+  const month: number = date.getMonth();
+  return monthes[month];
+}
+
 export {
   getDateByMD,
   getRandomDate,
   dateToDayMonth,
+  dateToMonthStr,
 };

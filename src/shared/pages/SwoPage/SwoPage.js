@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import Header         from './containers/Header';
 import Hero           from './containers/Hero';
 import StatTotal      from './containers/StatTotal';
-import StatMonths     from './components/StatMonths';
+import StatPrevDates  from './containers/StatPrevDates';
 import StatMinMax     from './components/StatMinMax';
 import DayInYearScale from './components/DayInYearScale';
 import StatJdan       from './components/StatJdan';
@@ -19,7 +19,7 @@ export default class SwoPage extends Component {
         <Header />
         <Hero />
         <StatTotal />
-        <StatMonths />
+        <StatPrevDates />
         <StatMinMax />
         <DayInYearScale />
         <StatJdan />

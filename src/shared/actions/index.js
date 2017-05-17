@@ -29,7 +29,19 @@ function _fetchStats() {
           statTotal: {
             date: getRandomDate(),
             value: 2963000 + getRandomInt(1, 1000),
-          }
+          },
+          statPrevDates: [
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+            getRandomDate(),
+          ]
         };
         resolve(dispatch(_receiveStats(json)));
       }, 500);

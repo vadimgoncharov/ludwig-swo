@@ -14,6 +14,7 @@ type Props = {|
 |};
 
 type State = {|
+  isAnimationInProgress: boolean,
   deltaDate: ?Date,
 |};
 
@@ -21,6 +22,7 @@ export default class Hero extends Component<void, Props, State> {
   props: Props;
   state: State;
   state = {
+    isAnimationInProgress: false,
     deltaDate: null
   };
 
@@ -32,6 +34,9 @@ export default class Hero extends Component<void, Props, State> {
   }
 
   startAnimation(oldDate: Date, newDate: Date) {
+    this.setState({
+      isAnimationInProgress: true,
+    });
     const data = {time: oldDate.getTime()};
     const tween = new TWEEN.Tween(data);
     tween.to({time: newDate.getTime()}, 3000);
@@ -46,6 +51,9 @@ export default class Hero extends Component<void, Props, State> {
   }
 
   animate = () => {
+    if (!this.state.isAnimationInProgress) {
+      return;
+    }
     requestAnimationFrame(this.animate);
     TWEEN.update();
   };
