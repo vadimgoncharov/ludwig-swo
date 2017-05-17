@@ -7,7 +7,7 @@ import {
   RECEIVE_STATS,
 } from '../actions';
 
-type StatValueDate = {
+export type StatValueDate = {
   value: number,
   date: Date,
 };

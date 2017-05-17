@@ -1,68 +1,146 @@
 // @flow
 import React, {Component} from 'react';
+import Waypoint from 'react-waypoint';
 import pluralize from 'plural-ru';
+import TWEEN from 'tween.js';
+
+import {dateToDayMonth} from 'shared/utils/date';
+import type {StatMinMax as StatMinMaxType, StatValueDate} from 'shared/reducers/stats';
+
 
 import './StatMinMax.scss';
 
-type StatMinMaxItem = {|
-  date: string,
-  value: number,
+type Props = {|
+  isFetching: boolean,
+  statMinMax: StatMinMaxType,
 |};
 
-export default class StatMinMax extends Component {
-  renderItem = (item: StatMinMaxItem, index: number): React$Element<any> => {
+type State = {|
+  isAnimationInProgress: boolean,
+  isInViewport: boolean,
+  deltaItems: StatMinMaxType,
+|};
+
+const initalDate: Date = new Date();
+
+export default class StatMinMax extends Component<void, Props, State> {
+  props: Props;
+  state: State;
+  state = {
+    isAnimationInProgress: false,
+    isInViewport: false,
+    deltaItems: [
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+      {date: initalDate, value: 0},
+    ],
+  };
+
+  componentWillReceiveProps(nextProps: Props) {
+    const oldStat = this.props.statMinMax;
+    const newStat = nextProps.statMinMax;
+
+    this.startAnimation(oldStat, newStat);
+  }
+
+  startAnimation(oldStat: StatMinMaxType, newStat: StatMinMaxType) {
+    this.setState({
+      isAnimationInProgress: true,
+    });
+    oldStat.forEach((oldStatItem: StatValueDate, index: number) => {
+      const newStatItem = newStat[index];
+      const data = {time: oldStatItem.date.getTime(), value: oldStatItem.value};
+      const tween = new TWEEN.Tween(data);
+      tween.to({time: newStatItem.date.getTime(), value: newStatItem.value}, this.state.isInViewport ? 3000 : 0);
+      tween.onUpdate(() => {
+        this.state.deltaItems[index].date = new Date(data.time);
+        this.state.deltaItems[index].value = parseInt(data.value);
+        if (index === oldStat.length-1) {
+          this.forceUpdate();
+        }
+      });
+      tween.easing(TWEEN.Easing.Exponential.Out);
+      tween.onComplete(() => {
+        this.setState({
+          isAnimationInProgress: false,
+        });
+      });
+      tween.start();
+    });
+
+    this.animate();
+  }
+
+  animate = () => {
+    if (!this.state.isAnimationInProgress) {
+      return;
+    }
+    requestAnimationFrame(this.animate);
+    TWEEN.update();
+  };
+
+  onWaypointEnter = () => {
+    this.setState({
+      isInViewport: true,
+    });
+  };
+
+  onWaypointLeave = () => {
+    this.setState({
+      isInViewport: false,
+    });
+  };
+
+  renderItem = (item: StatValueDate, index: number): React$Element<any> => {
     const {date, value} = item;
     const valueWithPostfix: string = pluralize(value, '%d раз', '%d раза', '%d раз');
 
     return (
       <li className="StatMinMax-item" key={index}>
-        <div className="StatMinMax-itemDate">{date}</div>
+        <div className="StatMinMax-itemDate">{dateToDayMonth(date)}</div>
         <div className="StatMinMax-itemValue">{valueWithPostfix}</div>
       </li>
     );
   };
 
   render(): React$Element<any> {
-    const maxItems: StatMinMaxItem[] = [
-      {date: '18 октября', value: 8327},
-      {date: '15 марта', value: 8304},
-      {date: '13 февраля', value: 8302},
-      {date: '14 мая', value: 8300},
-    ];
-
-    const minItems: StatMinMaxItem[] = [
-      {date: '25 мая', value: 7854},
-      {date: '29 декабря', value: 7852},
-      {date: '7 ноября', value: 7827},
-      {date: '6 декабря', value: 7825},
-    ];
+    const {statMinMax} = this.props;
+    const {deltaItems} = this.state;
+    const items = deltaItems[0].date !== initalDate ? deltaItems : statMinMax;
 
     return (
-      <div className="StatMinMax">
-        <div className="StatMinMax-columns">
-          <div className="StatMinMax-column is-max">
-            <div className="StatMinMax-columnTitle">Сайт откроется чаще всего:</div>
-            <ol className="StatMinMax-items">
-              {maxItems.map(this.renderItem)}
-            </ol>
-          </div>
-          <div className="StatMinMax-column is-middle">
-            <div className="StatMinMax-columnTitle">&nbsp;</div>
-            <ol className="StatMinMax-items">
-              <li className="StatMinMax-item">
-                <div className="StatMinMax-itemDate">...</div>
-                <div className="StatMinMax-itemValue">...</div>
-              </li>
-            </ol>
-          </div>
-          <div className="StatMinMax-column is-min">
-            <div className="StatMinMax-columnTitle">Сайт откроется реже всего:</div>
-            <ol className="StatMinMax-items">
-              {minItems.map(this.renderItem)}
-            </ol>
+      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+        <div className="StatMinMax">
+          <div className="StatMinMax-columns">
+            <div className="StatMinMax-column is-max">
+              <div className="StatMinMax-columnTitle">Сайт откроется чаще всего:</div>
+              <ol className="StatMinMax-items">
+                {items.slice(0, 4).map(this.renderItem)}
+              </ol>
+            </div>
+            <div className="StatMinMax-column is-middle">
+              <div className="StatMinMax-columnTitle">&nbsp;</div>
+              <ol className="StatMinMax-items">
+                <li className="StatMinMax-item">
+                  <div className="StatMinMax-itemDate">...</div>
+                  <div className="StatMinMax-itemValue">...</div>
+                </li>
+              </ol>
+            </div>
+            <div className="StatMinMax-column is-min">
+              <div className="StatMinMax-columnTitle">Сайт откроется реже всего:</div>
+              <ol className="StatMinMax-items">
+                {items.slice(4).map(this.renderItem)}
+              </ol>
+            </div>
           </div>
         </div>
-      </div>
+      </Waypoint>
     );
   }
 }

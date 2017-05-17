@@ -41,7 +41,48 @@ function _fetchStats() {
             getRandomDate(),
             getRandomDate(),
             getRandomDate(),
-          ]
+          ],
+          statMinMax: [
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(1, 2000),
+            },
+          ].sort((a, b) => {
+            if (a.value > b.value) {
+              return -1;
+            } else if (a.value < b.value) {
+              return 1;
+            }
+            return 0;
+          }),
         };
         resolve(dispatch(_receiveStats(json)));
       }, 500);
