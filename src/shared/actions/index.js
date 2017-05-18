@@ -83,6 +83,33 @@ function _fetchStats() {
             }
             return 0;
           }),
+          statJdan: [
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(0, 1000),
+              chValue: 100 + getRandomInt(0, 100),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(0, 1000),
+              chValue: 100 + getRandomInt(0, 100),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(0, 1000),
+              chValue: 100 + getRandomInt(0, 100),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(0, 1000),
+              chValue: 100 + getRandomInt(0, 100),
+            },
+            {
+              date: getRandomDate(),
+              value: 7800 + getRandomInt(0, 1000),
+              chValue: 100 + getRandomInt(0, 100),
+            },
+          ],
         };
         resolve(dispatch(_receiveStats(json)));
       }, 500);

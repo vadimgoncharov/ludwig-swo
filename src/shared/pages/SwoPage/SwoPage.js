@@ -7,7 +7,7 @@ import StatTotal      from './containers/StatTotal';
 import StatPrevDates  from './containers/StatPrevDates';
 import StatMinMax     from './containers/StatMinMax';
 import DayInYearScale from './containers/DayInYearScale';
-import StatJdan       from './components/StatJdan';
+import StatJdan       from './containers/StatJdan';
 import Footer         from './components/Footer';
 
 import './SwoPage.scss';

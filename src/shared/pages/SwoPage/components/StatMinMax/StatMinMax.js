@@ -45,44 +45,45 @@ export default class StatMinMax extends Component<void, Props, State> {
     const oldStat = this.props.statMinMax;
     const newStat = nextProps.statMinMax;
 
+    if (oldStat === newStat) {
+      return;
+    }
+
     this.startAnimation(oldStat, newStat);
   }
 
   startAnimation(oldStat: StatMinMaxType, newStat: StatMinMaxType) {
     this.setState({
       isAnimationInProgress: true,
-    });
-    oldStat.forEach((oldStatItem: StatValueDate, index: number) => {
-      const newStatItem = newStat[index];
-      const data = {time: oldStatItem.date.getTime(), value: oldStatItem.value};
-      const tween = new TWEEN.Tween(data);
-      tween.to({time: newStatItem.date.getTime(), value: newStatItem.value}, this.state.isInViewport ? 3000 : 0);
-      tween.onUpdate(() => {
-        this.state.deltaItems[index].date = new Date(data.time);
-        this.state.deltaItems[index].value = parseInt(data.value);
-        if (index === oldStat.length-1) {
-          this.forceUpdate();
-        }
-      });
-      tween.easing(TWEEN.Easing.Exponential.Out);
-      tween.onComplete(() => {
-        this.setState({
-          isAnimationInProgress: false,
+    }, () => {
+      oldStat.forEach((oldStatItem: StatValueDate, index: number) => {
+        const newStatItem = newStat[index];
+        const data = {time: oldStatItem.date.getTime(), value: oldStatItem.value};
+        const tween = new TWEEN.Tween(data);
+        tween.to({time: newStatItem.date.getTime(), value: newStatItem.value}, this.state.isInViewport ? 3000 : 0);
+        tween.onUpdate(() => {
+          this.state.deltaItems[index].date = new Date(data.time);
+          this.state.deltaItems[index].value = parseInt(data.value);
         });
+        tween.easing(TWEEN.Easing.Exponential.Out);
+        tween.onComplete(() => {
+          this.setState({
+            isAnimationInProgress: false,
+          });
+        });
+        tween.start();
       });
-      tween.start();
+      const animate = () => {
+        if (!this.state.isAnimationInProgress) {
+          return;
+        }
+        requestAnimationFrame(animate);
+        TWEEN.update();
+        this.forceUpdate();
+      };
+      animate();
     });
-
-    this.animate();
   }
-
-  animate = () => {
-    if (!this.state.isAnimationInProgress) {
-      return;
-    }
-    requestAnimationFrame(this.animate);
-    TWEEN.update();
-  };
 
   onWaypointEnter = () => {
     this.setState({

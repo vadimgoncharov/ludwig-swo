@@ -35,38 +35,41 @@ export default class StatTotal extends Component<void, Props, State> {
     const oldValue = this.props.statTotal.value;
     const newValue = nextProps.statTotal.value;
 
+    if (oldValue === newValue) {
+      return;
+    }
+
     this.startAnimation(oldValue, newValue);
   }
 
   startAnimation(oldValue: number, newValue: number) {
     this.setState({
       isAnimationInProgress: true,
-    });
-    const data = {value: oldValue};
-    const tween = new TWEEN.Tween(data);
-    tween.to({value: newValue}, this.state.isInViewport ? 1000 : 0);
-    tween.onUpdate(() => {
-      this.setState({
-        deltaValue: parseInt(data.value),
+    }, () => {
+      const data = {value: oldValue};
+      const tween = new TWEEN.Tween(data);
+      tween.to({value: newValue}, this.state.isInViewport ? 1000 : 0);
+      tween.onUpdate(() => {
+        this.state.deltaValue = parseInt(data.value);
       });
-    });
-    tween.easing(TWEEN.Easing.Exponential.Out);
-    tween.onComplete(() => {
-      this.setState({
-        isAnimationInProgress: false,
+      tween.easing(TWEEN.Easing.Exponential.Out);
+      tween.onComplete(() => {
+        this.setState({
+          isAnimationInProgress: false,
+        });
       });
+      tween.start();
+      const animate = () => {
+        if (!this.state.isAnimationInProgress) {
+          return;
+        }
+        requestAnimationFrame(animate);
+        TWEEN.update();
+        this.forceUpdate();
+      };
+      animate();
     });
-    tween.start();
-    this.animate();
   }
-
-  animate = () => {
-    if (!this.state.isAnimationInProgress) {
-      return;
-    }
-    requestAnimationFrame(this.animate);
-    TWEEN.update();
-  };
 
   onWaypointEnter = () => {
     this.setState({

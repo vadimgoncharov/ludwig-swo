@@ -1,6 +1,12 @@
 // @flow
 import React, {Component} from 'react';
+import Waypoint from 'react-waypoint';
 import classNames from 'classnames';
+import TWEEN from 'tween.js';
+
+import {dateToDayMonth} from 'shared/utils/date';
+import type {StatJdan as StatJdanType, StatValueDateJdan} from 'shared/reducers/stats';
+
 
 import './StatJdan.scss';
 
@@ -11,14 +17,37 @@ type StatJdanDate = {|
 |};
 
 type ToggleSelectedKey = 'hal' | 'ch';
-type State = {
-  togglerSelectedKey: ToggleSelectedKey,
-};
 
-export default class StatJdan extends Component<any, any, State> {
+type Props = {|
+  isFetching: boolean,
+  statJdan: StatJdanType,
+|};
+
+type State = {|
+  isAnimationInProgress: boolean,
+  isInViewport: boolean,
+  togglerSelectedKey: ToggleSelectedKey,
+|};
+
+export default class StatJdan extends Component<void, Props, State> {
+  props: Props;
   state: State;
   state = {
+    isAnimationInProgress: false,
+    isInViewport: false,
     togglerSelectedKey: 'hal',
+  };
+
+  onWaypointEnter = () => {
+    this.setState({
+      isInViewport: true,
+    });
+  };
+
+  onWaypointLeave = () => {
+    this.setState({
+      isInViewport: false,
+    });
   };
 
   onTogglerHalClick = (): void => {
@@ -33,11 +62,11 @@ export default class StatJdan extends Component<any, any, State> {
     });
   };
 
-  renderItem = (item: StatJdanDate, index: number): React$Element<any> => {
+  renderItem = (item: StatValueDateJdan, index: number): React$Element<any> => {
     const {togglerSelectedKey} = this.state;
-    const {date, halValue, chValue} = item;
+    const {date, value, chValue} = item;
 
-    const imgBodyHeight = togglerSelectedKey === 'hal' ? halValue : chValue;
+    const imgBodyHeight = togglerSelectedKey === 'hal' ? value : chValue;
     const imgBodyStyle = {
       height: imgBodyHeight + 'px',
     };
@@ -49,40 +78,14 @@ export default class StatJdan extends Component<any, any, State> {
           <div className="StatJdan-itemImg is-body" style={imgBodyStyle} />
           <div className="StatJdan-itemImg is-legs" />
         </div>
-       <div className="StatJdan-itemDate">{date}</div>
+       <div className="StatJdan-itemDate">{dateToDayMonth(date)}</div>
       </li>
     );
   };
 
   render(): React$Element<any> {
-    const dates: StatJdanDate[] = [
-      {
-        date: '6 декабря',
-        halValue: 7825,
-        chValue: 122,
-      },
-      {
-        date: '18 октября',
-        halValue: 8327,
-        chValue: 130,
-      },
-      {
-        date: '5 января',
-        halValue: 7872,
-        chValue: 122,
-      },
-      {
-        date: '25 февраля',
-        halValue: 8298,
-        chValue: 129,
-      },
-      {
-        date: '29 декабря',
-        halValue: 7854,
-        chValue: 122,
-      },
-    ];
-
+    const {statJdan} = this.props;
+    const items = statJdan;
     const {togglerSelectedKey} = this.state;
     const togglerHalClassName = classNames('StatJdan-toggler is-hal', {
       'is-selected': togglerSelectedKey === 'hal',
@@ -92,16 +95,18 @@ export default class StatJdan extends Component<any, any, State> {
     });
 
     return (
-      <div className="StatJdan">
-        <div className="StatJdan-title">
-          Если бы рост
-          Ждана Филиппова <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span> либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span> в&nbsp;зависимости
-          от&nbsp;количества открытий сайта, то&nbsp;в&nbsp;разные дни Ждан выглядел бы вот так:
+      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+        <div className="StatJdan">
+          <div className="StatJdan-title">
+            Если бы рост
+            Ждана Филиппова <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span> либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span> в&nbsp;зависимости
+            от&nbsp;количества открытий сайта, то&nbsp;в&nbsp;разные дни Ждан выглядел бы вот так:
+          </div>
+          <ol className="StatJdan-items">
+            {items.map(this.renderItem)}
+          </ol>
         </div>
-        <ol className="StatJdan-items">
-          {dates.map(this.renderItem)}
-        </ol>
-      </div>
+      </Waypoint>
     );
   }
 }

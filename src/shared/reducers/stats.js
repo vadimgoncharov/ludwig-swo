@@ -12,10 +12,16 @@ export type StatValueDate = {
   date: Date,
 };
 
+export type StatValueDateJdan = {
+  value: number,
+  chValue: number,
+  date: Date,
+};
+
 export type StatTotal = StatValueDate;
 export type StatPrevDates = Date[];
 export type StatMinMax = StatValueDate[];
-export type StatJdan = StatValueDate[];
+export type StatJdan = StatValueDateJdan[];
 export type StatsData = {|
   statTotal: StatTotal,
   statPrevDates: StatPrevDates,

@@ -45,6 +45,7 @@
   .Header-fetchButton {
     transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
     user-select: none;
+    padding: 2px;
 
     &.is-fetching_no {
       border-bottom: 1px dashed #fff;

@@ -33,33 +33,41 @@ export default class DayInYearScale extends Component<void, Props, State> {
     const oldDate = this.props.statTotal.date;
     const newDate = nextProps.statTotal.date;
 
+    if (oldDate.getTime() === newDate.getTime()) {
+      return;
+    }
+
     this.startAnimation(oldDate, newDate);
   }
 
   startAnimation(oldDate: Date, newDate: Date) {
     this.setState({
       isAnimationInProgress: true,
-    });
-    const data = {time: oldDate.getTime()};
-    const tween = new TWEEN.Tween(data);
-    tween.to({time: newDate.getTime()}, this.state.isInViewport ? 4000 : 0);
-    tween.onUpdate(() => {
-      this.setState({
-        deltaDate: new Date(data.time),
+    }, () => {
+      const data = {time: oldDate.getTime()};
+      const tween = new TWEEN.Tween(data);
+      tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
+      tween.onUpdate(() => {
+        this.state.deltaDate = new Date(data.time);
       });
+      tween.easing(TWEEN.Easing.Exponential.Out);
+      tween.onComplete(() => {
+        this.setState({
+          isAnimationInProgress: false,
+        });
+      });
+      tween.start();
+      const animate = () => {
+        if (!this.state.isAnimationInProgress) {
+          return;
+        }
+        requestAnimationFrame(animate);
+        TWEEN.update();
+        this.forceUpdate();
+      };
+      animate();
     });
-    tween.easing(TWEEN.Easing.Exponential.InOut);
-    tween.start();
-    this.animate();
   }
-
-  animate = () => {
-    if (!this.state.isAnimationInProgress) {
-      return;
-    }
-    requestAnimationFrame(this.animate);
-    TWEEN.update();
-  };
 
   onWaypointEnter = () => {
     this.setState({
