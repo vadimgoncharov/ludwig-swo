@@ -23,7 +23,7 @@ export default class DayInYearScale extends React.Component<Props, State> {
   state = {
     isAnimationInProgress: false,
     isInViewport: false,
-    deltaDate: null
+    deltaDate: null,
   };
 
   componentWillReceiveProps(nextProps: Props) {

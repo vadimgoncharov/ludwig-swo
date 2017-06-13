@@ -2,6 +2,35 @@
 # yarn lockfile v1
 
 
+"@types/node@^7.0.31":
+  version "7.0.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
+
+"@types/react-dom@^15.5.0":
+  version "15.5.0"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.0.tgz#7f4fb9613d4051141773242f7b6b5f1a46b34bd9"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-redux@^4.4.43":
+  version "4.4.43"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-4.4.43.tgz#f17d1b59b7899ada072c1c18ac5641245ad3aabd"
+  dependencies:
+    "@types/react" "*"
+    redux "^3.6.0"
+
+"@types/react@*", "@types/react@^15.0.28":
+  version "15.0.28"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.28.tgz#0120d64ca143b74196324ccbe132d09df48a8d46"
+
+"@types/tween.js@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/tween.js/-/tween.js-0.0.31.tgz#4e83a6ae518d3b0c07db34c13eb26805e08a5073"
+
+"@types/webpack-env@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.0.tgz#3044381647e11ee973c5af2e925323930f691d80"
+
 JSONStream@^0.8.4:
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-0.8.4.tgz#91657dfe6ff857483066132b4618b62e8f4887bd"
@@ -5501,9 +5530,13 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.1.4, typescript@^2.3.4:
+typescript@^2.1.4:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.0.tgz#aef5a8d404beba36ad339abf079ddddfffba86dd"
+
+typescript@next:
+  version "2.5.0-dev.20170613"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.0-dev.20170613.tgz#0819ffc7be1617b10728154dba65568ec454fd12"
 
 typings-core@^2.3.3:
   version "2.3.3"

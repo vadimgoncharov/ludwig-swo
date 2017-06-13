@@ -11,6 +11,10 @@ type Props = {
 };
 
 export default class Header extends React.Component<Props, void> {
+  constructor(props: Props) {
+    super(props);
+  }
+
   public onFetchLinkClick = () => {
     const {isFetching, onFetchLinkClick} = this.props;
     if (!isFetching) {

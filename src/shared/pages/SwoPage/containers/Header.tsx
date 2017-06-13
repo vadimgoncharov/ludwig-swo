@@ -5,13 +5,22 @@ import Header from '../components/Header';
 import {fetchStats} from 'shared/actions';
 import {StoreState} from 'shared/reducers';
 
-const mapStateToProps = (state: StoreState) => {
+interface IStateFromProps {
+  isFetching: boolean;
+}
+
+interface IDispatchFromProps {
+  onFetchLinkClick: () => void;
+}
+
+
+const mapStateToProps = (state: StoreState): IStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch): IDispatchFromProps => {
   return {
     onFetchLinkClick: () => {
       dispatch(fetchStats());
@@ -19,11 +28,15 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-@connect(mapStateToProps, mapDispatchToProps)
-export default class HeaderContainer extends React.Component<any, void> {
+class HeaderContainer extends React.Component<IStateFromProps & IDispatchFromProps, any> {
   public render() {
     return (
       <Header {...this.props} />
     );
   }
 }
+
+export default connect<IStateFromProps, IDispatchFromProps, void>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HeaderContainer);

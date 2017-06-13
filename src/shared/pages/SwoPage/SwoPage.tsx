@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Header       from './containers/Header';
+import Header         from './containers/Header';
 import Hero           from './containers/Hero';
 import StatTotal      from './containers/StatTotal';
 import StatPrevDates  from './containers/StatPrevDates';
@@ -11,7 +11,7 @@ import Footer         from './components/Footer';
 
 import './SwoPage.scss';
 
-export default class SwoPage extends React.Component<void, void> {
+export default class SwoPage extends React.Component<any, any> {
   public render() {
     return (
       <div className="SwoPage">
@@ -26,18 +26,4 @@ export default class SwoPage extends React.Component<void, void> {
       </div>
     );
   }
-  // render2(): React$Element<any> {
-  //   return (
-  //     <div className="SwoPage">
-  //       <Header />
-  //       <Hero />
-  //       <StatTotal />
-  //       <StatPrevDates />
-  //       <StatMinMax />
-  //       <DayInYearScale />
-  //       <StatJdan />
-  //       <Footer />
-  //     </div>
-  //   );
-  // }
 }

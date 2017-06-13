@@ -43,7 +43,6 @@ export default class Hero extends React.Component<Props, State> {
     }, () => {
       const data = {time: oldDate.getTime()};
       const tween = new TWEEN.Tween(data);
-
       tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
       tween.onUpdate(() => {
         this.state.deltaDate = new Date(data.time);
