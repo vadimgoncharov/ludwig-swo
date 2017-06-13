@@ -1,4 +1,5 @@
 
 {
-  "main": "StatMinMax.js"
+  "main": "StatMinMax.tsx",
+  "typings": "StatMinMax.tsx"
 }

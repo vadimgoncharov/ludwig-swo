@@ -1,38 +1,35 @@
-// @flow
-import React, {Component} from 'react';
-import Waypoint from 'react-waypoint';
-import classNames from 'classnames';
-import TWEEN from 'tween.js';
+import * as React from 'react';
+import * as Waypoint from 'react-waypoint';
+import * as classNames from 'classnames';
+import * as TWEEN from 'tween.js';
 
 import {dateToDayMonth} from 'shared/utils/date';
-import type {StatJdan as StatJdanType, StatValueDateJdan} from 'shared/reducers/stats';
+import {StatJdan as StatJdanType, StatValueDateJdan} from 'shared/reducers/stats';
 
 
 import './StatJdan.scss';
 
-type StatJdanDate = {|
+type StatJdanDate = {
   date: string,
   halValue: number,
   chValue: number,
-|};
+};
 
 type ToggleSelectedKey = 'hal' | 'ch';
 
-type Props = {|
+type Props = {
   isFetching: boolean,
   statJdan: StatJdanType,
-|};
+};
 
-type State = {|
-  isAnimationInProgress: boolean,
-  isInViewport: boolean,
-  togglerSelectedKey: ToggleSelectedKey,
-|};
+type State = {
+  isAnimationInProgress?: boolean,
+  isInViewport?: boolean,
+  togglerSelectedKey?: string,
+};
 
-export default class StatJdan extends Component<void, Props, State> {
-  props: Props;
-  state: State;
-  state = {
+export default class StatJdan extends React.Component<Props, State> {
+  public state = {
     isAnimationInProgress: false,
     isInViewport: false,
     togglerSelectedKey: 'hal',
@@ -62,7 +59,7 @@ export default class StatJdan extends Component<void, Props, State> {
     });
   };
 
-  renderItem = (item: StatValueDateJdan, index: number): React$Element<any> => {
+  renderItem = (item: StatValueDateJdan, index: number) => {
     const {togglerSelectedKey} = this.state;
     const {date, value, chValue} = item;
 
@@ -83,7 +80,7 @@ export default class StatJdan extends Component<void, Props, State> {
     );
   };
 
-  render(): React$Element<any> {
+  render() {
     const {statJdan} = this.props;
     const items = statJdan;
     const {togglerSelectedKey} = this.state;
@@ -99,8 +96,11 @@ export default class StatJdan extends Component<void, Props, State> {
         <div className="StatJdan">
           <div className="StatJdan-title">
             Если бы рост
-            Ждана Филиппова <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span> либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span> в&nbsp;зависимости
-            от&nbsp;количества открытий сайта, то&nbsp;в&nbsp;разные дни Ждан выглядел бы вот так:
+            Ждана Филиппова{' '}
+            <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span>{' '}
+            либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span>{' '}
+            в&nbsp;зависимости от&nbsp;количества открытий сайта,{' '}
+            то&nbsp;в&nbsp;разные дни Ждан выглядел бы вот так:
           </div>
           <ol className="StatJdan-items">
             {items.map(this.renderItem)}

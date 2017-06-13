@@ -1,8 +1,6 @@
-// @flow
-
 import {getRandomDate} from 'shared/utils/date';
 import {getRandomInt} from 'shared/utils/random';
-import type {StatsData} from 'shared/reducers/stats';
+import {StatsData} from 'shared/reducers/stats';
 
 export const REQUEST_STATS = 'REQUEST_STATS';
 function _requestStat() {

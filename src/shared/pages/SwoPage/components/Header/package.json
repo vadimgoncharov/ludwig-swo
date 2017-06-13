@@ -1,3 +1,4 @@
 {
-  "main": "Header.js"
+  "main": "Header.tsx",
+  "typings": "Header.tsx"
 }

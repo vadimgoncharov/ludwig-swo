@@ -1,3 +1,4 @@
 {
-  "main": "StatJdan.js"
+  "main": "StatJdan.tsx",
+  "typings": "StatJdan.tsx"
 }

@@ -1,9 +1,8 @@
-// @flow
-import React, {Component} from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 
 import StatMinMax from '../components/StatMinMax';
-import type {StoreState} from 'shared/reducers';
+import {StoreState} from 'shared/reducers';
 
 const mapStateToProps = (state: StoreState) => {
   return {
@@ -13,7 +12,7 @@ const mapStateToProps = (state: StoreState) => {
 };
 
 @connect(mapStateToProps)
-export default class StatMinMaxContainer extends Component {
+export default class StatMinMaxContainer extends React.Component<any, void> {
   render() {
     return (
       <StatMinMax {...this.props} />

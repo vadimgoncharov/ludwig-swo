@@ -13,12 +13,10 @@
     "requestAnimationFrame": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:flowtype/recommended"
+    "eslint:recommended"
   ],
   "plugins": [
-    "react",
-    "flowtype"
+    "react"
   ],
   "rules": {
     "indent": [2, 2, {"SwitchCase": 1}],

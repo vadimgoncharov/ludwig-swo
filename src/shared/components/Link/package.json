@@ -1,3 +1,4 @@
 {
-  "main": "Link.js"
+  "main": "Link.tsx",
+  "typings": "Link.tsx"
 }

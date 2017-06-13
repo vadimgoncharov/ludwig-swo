@@ -1,3 +1,4 @@
 {
-  "main": "Hero.js"
+  "main": "Hero.tsx",
+  "typings": "Hero.tsx"
 }

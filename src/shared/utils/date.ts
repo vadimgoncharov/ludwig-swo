@@ -1,5 +1,3 @@
-// @flow
-
 import {getRandomInt} from './random';
 
 const dateNow: Date = new Date();
@@ -44,7 +42,7 @@ function getDayInYear(year: number, month: number, day: number): number {
   if (!dayInYearCache[key]) {
     const end: Date = new Date(year, month, day);
     const start: Date = new Date(end.getFullYear(), 0, 0);
-    const diff: number = end - start;
+    const diff: number = end.getTime() - start.getTime();
     const oneDay: number = 1000 * 60 * 60 * 24;
     const dayInYear: number = Math.floor(diff / oneDay);
 

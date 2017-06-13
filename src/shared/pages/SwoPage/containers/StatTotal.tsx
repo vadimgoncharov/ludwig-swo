@@ -1,9 +1,8 @@
-// @flow
-import React, {Component} from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 
 import StatTotal from '../components/StatTotal';
-import type {StoreState} from 'shared/reducers';
+import {StoreState} from 'shared/reducers';
 
 const mapStateToProps = (state: StoreState) => {
   return {
@@ -13,8 +12,8 @@ const mapStateToProps = (state: StoreState) => {
 };
 
 @connect(mapStateToProps)
-export default class StatTotalContainer extends Component {
-  render() {
+export default class StatTotalContainer extends React.Component<any, void> {
+  public render() {
     return (
       <StatTotal {...this.props} />
     );

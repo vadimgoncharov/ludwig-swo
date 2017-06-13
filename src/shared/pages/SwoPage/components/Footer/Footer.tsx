@@ -1,17 +1,16 @@
-// @flow
-import React, {Component} from 'react';
+import * as React from 'react';
 
 import Link from 'shared/components/Link';
 
 import './Footer.scss';
 
-type AuthorItem = {|
+type AuthorItem = {
   name: string,
   date: number,
-|};
+};
 
-export default class Footer extends Component {
-  renderAuthors(): React$Element<any> {
+export default class Footer extends React.Component<any, void> {
+  renderAuthors() {
     const authors: AuthorItem[] = [
       {
         name: 'Сергей Муратов',
@@ -32,7 +31,7 @@ export default class Footer extends Component {
         <div className="Footer-authorsDevs">
           <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали</span>
           <ol className="Footer-authorsDevsItems">
-            {authors.map((item: AuthorItem, index: number): React$Element<any> => {
+            {authors.map((item: AuthorItem, index: number) => {
               const {name, date} = item;
               return (
                 <li className="Footer-authorsDevsItem" key={index}>
@@ -47,7 +46,7 @@ export default class Footer extends Component {
     );
   }
 
-  renderContacts(): React$Element<any> {
+  renderContacts() {
     return (
       <div className="Footer-contacts">
         Эл. почта: <Link href="mailto:ludwig@ludwigbistronovsky.ru">ludwig@ludwigbistronovsky.ru</Link>
@@ -55,7 +54,7 @@ export default class Footer extends Component {
     );
   }
 
-  render(): React$Element<any> {
+  render() {
     return (
       <div className="Footer">
         {this.renderAuthors()}

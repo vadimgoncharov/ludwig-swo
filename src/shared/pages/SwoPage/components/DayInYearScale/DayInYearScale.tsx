@@ -1,28 +1,25 @@
-// @flow
-import React, {Component} from 'react';
-import Waypoint from 'react-waypoint';
-import classNames from 'classnames';
-import TWEEN from 'tween.js';
+import * as React from 'react';
+import * as Waypoint from 'react-waypoint';
+import * as classNames from 'classnames';
+import * as TWEEN from 'tween.js';
 
 import {dateToDayMonth, getDaysInYear, getDayInYear} from 'shared/utils/date';
-import type {StatTotal} from 'shared/reducers/stats';
+import {StatTotal} from 'shared/reducers/stats';
 
 import './DayInYearScale.scss';
 
-type Props = {|
+type Props = {
   isFetching: boolean,
   statTotal: StatTotal,
-|};
+};
 
-type State = {|
-  isAnimationInProgress: boolean,
-  isInViewport: boolean,
-  deltaDate: ?Date,
-|};
+type State = {
+  isAnimationInProgress?: boolean,
+  isInViewport?: boolean,
+  deltaDate?: Date,
+};
 
-export default class DayInYearScale extends Component<void, Props, State> {
-  props: Props;
-  state: State;
+export default class DayInYearScale extends React.Component<Props, State> {
   state = {
     isAnimationInProgress: false,
     isInViewport: false,
@@ -84,14 +81,14 @@ export default class DayInYearScale extends Component<void, Props, State> {
   getDayInYear(year: number, month: number, day: number): number {
     const end: Date = new Date(year, month, day);
     const start: Date = new Date(end.getFullYear(), 0, 0);
-    const diff: number = end - start;
+    const diff: number = end.getTime() - start.getTime();
     const oneDay: number = 1000 * 60 * 60 * 24;
     const dayInYear: number = Math.floor(diff / oneDay);
 
     return dayInYear;
   }
 
-  renderScale(daysInYear: number, dayInYear: number): React$Element<any> {
+  renderScale(daysInYear: number, dayInYear: number) {
     const content = [];
 
     for (let i: number = 0; i < daysInYear; i++) {
@@ -110,7 +107,7 @@ export default class DayInYearScale extends Component<void, Props, State> {
     );
   }
 
-  render(): React$Element<any> {
+  render() {
     const {deltaDate} = this.state;
     const {statTotal} = this.props;
     const date: Date = deltaDate || statTotal.date;

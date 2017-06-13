@@ -1,6 +1,5 @@
-// @flow
-import React, {Component} from 'react';
-import classNames from 'classnames';
+import * as React from 'react';
+import * as classNames from 'classnames';
 
 import Link from 'shared/components/Link';
 
@@ -8,20 +7,18 @@ import './Header.scss';
 
 type Props = {
   isFetching: boolean,
-  onFetchLinkClick: Function,
+  onFetchLinkClick: () => void,
 };
 
-export default class Header extends Component<void, Props, void> {
-  props: Props;
-
-  onFetchLinkClick = () => {
+export default class Header extends React.Component<Props, void> {
+  public onFetchLinkClick = () => {
     const {isFetching, onFetchLinkClick} = this.props;
     if (!isFetching) {
       onFetchLinkClick();
     }
   }
 
-  renderFetchButton() {
+  public renderFetchButton() {
     const {isFetching} = this.props;
     const className = classNames('Header-fetchButton', `is-fetching_${isFetching ? 'yes' : 'no'}`);
 
@@ -32,7 +29,7 @@ export default class Header extends Component<void, Props, void> {
     );
   }
 
-  render() {
+  public render() {
     return (
       <div className="Header">
         <div className="Header-nav">

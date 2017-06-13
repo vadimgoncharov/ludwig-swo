@@ -1,9 +1,10 @@
 const path    = require('path');
 const webpack = require('webpack');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 module.exports = {
   entry: [
-    './src/client/index.js',
+    './src/client/index.tsx',
   ],
   output: {
     filename: 'build/bundle.js',
@@ -33,9 +34,18 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        loader: [
+          'awesome-typescript-loader'
+        ],
+        exclude: path.resolve(__dirname, 'node_modules'),
+        include: path.resolve(__dirname, 'src'),
+      },
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      {
+        enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: ['babel-loader'],
+        loader: 'source-map-loader'
       },
       {
         test: /\.scss$/,
@@ -61,6 +71,7 @@ module.exports = {
   resolve: {
     alias: {
       shared: path.resolve(__dirname, './src/shared'),
-    }
+    },
+    extensions: ['.ts', '.tsx', '.js']
   },
 };

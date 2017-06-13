@@ -1,5 +1,6 @@
 const path    = require('path');
 const webpack = require('webpack');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 const DEV_SERVER_PORT = 3000;
 const DEV_SERVER_HOST = '0.0.0.0';
@@ -17,7 +18,7 @@ module.exports = {
     // only- means to only hot reload for successful updates
     'webpack/hot/only-dev-server',
 
-    './src/client/index.js',
+    './src/client/index.tsx',
   ],
   output: {
     filename: 'build/bundle.js',
@@ -34,7 +35,7 @@ module.exports = {
     noInfo: false,
     stats: 'minimal',
   },
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
@@ -45,13 +46,24 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     // do not emit compiled assets that include errors
 
+    new CheckerPlugin()
   ],
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        loaders: [
+          'react-hot-loader/webpack',
+          'awesome-typescript-loader'
+        ],
+        exclude: path.resolve(__dirname, 'node_modules'),
+        include: path.resolve(__dirname, 'src'),
+      },
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      {
+        enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: ['babel-loader'],
+        loader: 'source-map-loader'
       },
       {
         test: /\.scss$/,
@@ -72,11 +84,12 @@ module.exports = {
           }},
         ],
       },
-    ]
+    ],
   },
   resolve: {
     alias: {
       shared: path.resolve(__dirname, './src/shared'),
-    }
+    },
+    extensions: ['.ts', '.tsx', '.js']
   },
 };

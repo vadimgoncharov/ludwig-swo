@@ -1,32 +1,29 @@
-// @flow
-import React, {Component} from 'react';
-import Waypoint from 'react-waypoint';
-import pluralize from 'plural-ru';
-import TWEEN from 'tween.js';
+import * as React from 'react';
+import * as Waypoint from 'react-waypoint';
+import * as pluralize from 'plural-ru';
+import * as TWEEN from 'tween.js';
 
 import {dateToDayMonth} from 'shared/utils/date';
-import type {StatMinMax as StatMinMaxType, StatValueDate} from 'shared/reducers/stats';
+import {StatMinMax as StatMinMaxType, StatValueDate} from 'shared/reducers/stats';
 
 
 import './StatMinMax.scss';
 
-type Props = {|
+type Props = {
   isFetching: boolean,
   statMinMax: StatMinMaxType,
-|};
+};
 
-type State = {|
-  isAnimationInProgress: boolean,
-  isInViewport: boolean,
-  deltaItems: StatMinMaxType,
-|};
+type State = {
+  isAnimationInProgress?: boolean,
+  isInViewport?: boolean,
+  deltaItems?: StatMinMaxType,
+};
 
 const initalDate: Date = new Date();
 
-export default class StatMinMax extends Component<void, Props, State> {
-  props: Props;
-  state: State;
-  state = {
+export default class StatMinMax extends React.Component<Props, State> {
+  public state = {
     isAnimationInProgress: false,
     isInViewport: false,
     deltaItems: [
@@ -63,7 +60,7 @@ export default class StatMinMax extends Component<void, Props, State> {
         tween.to({time: newStatItem.date.getTime(), value: newStatItem.value}, this.state.isInViewport ? 3000 : 0);
         tween.onUpdate(() => {
           this.state.deltaItems[index].date = new Date(data.time);
-          this.state.deltaItems[index].value = parseInt(data.value);
+          this.state.deltaItems[index].value = Math.round(data.value);
         });
         tween.easing(TWEEN.Easing.Exponential.Out);
         tween.onComplete(() => {
@@ -97,7 +94,7 @@ export default class StatMinMax extends Component<void, Props, State> {
     });
   };
 
-  renderItem = (item: StatValueDate, index: number): React$Element<any> => {
+  renderItem = (item: StatValueDate, index: number) => {
     const {date, value} = item;
     const valueWithPostfix: string = pluralize(value, '%d раз', '%d раза', '%d раз');
 
@@ -109,7 +106,7 @@ export default class StatMinMax extends Component<void, Props, State> {
     );
   };
 
-  render(): React$Element<any> {
+  render() {
     const {statMinMax} = this.props;
     const {deltaItems} = this.state;
     const items = deltaItems[0].date !== initalDate ? deltaItems : statMinMax;

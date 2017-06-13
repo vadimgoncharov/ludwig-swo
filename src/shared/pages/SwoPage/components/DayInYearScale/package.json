@@ -1,3 +1,4 @@
 {
-  "main": "DayInYearScale.js"
+  "main": "DayInYearScale.tsx",
+  "typings": "DayInYearScale.tsx"
 }

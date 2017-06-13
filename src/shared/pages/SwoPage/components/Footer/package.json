@@ -1,3 +1,4 @@
 {
-  "main": "Footer.js"
+  "main": "Footer.tsx",
+  "typings": "Footer.tsx"
 }

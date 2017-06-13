@@ -1,7 +1,7 @@
 /* global document, module, require */
 
-import React            from 'react';
-import ReactDOM         from 'react-dom';
+import * as React       from 'react';
+import * as ReactDOM    from 'react-dom';
 import {Provider}       from 'react-redux';
 import {AppContainer}   from 'react-hot-loader';
 import {createStore, applyMiddleware} from 'redux';
@@ -18,14 +18,14 @@ const store = createStore(
   ),
 );
 
-const render = Component => {
+const render = (Component) => {
   return ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
         <Component />
       </Provider>
     </AppContainer>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 };
 

@@ -1,3 +1,4 @@
 {
-  "main": "StatPrevDates.js"
+  "main": "StatPrevDates.tsx",
+  "typings": "StatPrevDates.tsx"
 }

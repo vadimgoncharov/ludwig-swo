@@ -1,3 +1,4 @@
 {
-  "main": "StatTotal.js"
+  "main": "StatTotal.tsx",
+  "typings": "StatTotal.tsx"
 }

@@ -1,9 +1,8 @@
-// @flow
-import React, {Component} from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 
 import DayInYearScale from '../components/DayInYearScale';
-import type {StoreState} from 'shared/reducers';
+import {StoreState} from 'shared/reducers';
 
 const mapStateToProps = (state: StoreState) => {
   return {
@@ -13,7 +12,7 @@ const mapStateToProps = (state: StoreState) => {
 };
 
 @connect(mapStateToProps)
-export default class DayInYearScaleContainer extends Component {
+export default class DayInYearScaleContainer extends React.Component<any, void> {
   render() {
     return (
       <DayInYearScale {...this.props} />

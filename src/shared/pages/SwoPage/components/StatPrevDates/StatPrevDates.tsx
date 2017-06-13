@@ -1,30 +1,29 @@
-// @flow
-import React, {Component} from 'react';
-import Waypoint from 'react-waypoint';
-import TWEEN from 'tween.js';
+import * as React from 'react';
+import * as Waypoint from 'react-waypoint';
+import * as TWEEN from 'tween.js';
 
 import {dateToMonthStr} from 'shared/utils/date';
-import type {StatPrevDates as StatPrevDatesType} from 'shared/reducers/stats';
+import {StatPrevDates as StatPrevDatesType} from 'shared/reducers/stats';
 
 import './StatPrevDates.scss';
 
-type PrevMonthStat = {|
+type PrevMonthStat = {
   title: string,
   value: number,
   color?: string,
   backgroundColor: string,
-|};
+};
 
-type Props = {|
+type Props = {
   isFetching: boolean,
   statPrevDates: StatPrevDatesType,
-|};
+};
 
-type State = {|
-  isAnimationInProgress: boolean,
-  isInViewport: boolean,
-  deltaDates: StatPrevDatesType,
-|};
+type State = {
+  isAnimationInProgress?: boolean,
+  isInViewport?: boolean,
+  deltaDates?: StatPrevDatesType,
+};
 
 const backgroundColors = [
   'limegreen',
@@ -37,10 +36,8 @@ const backgroundColors = [
 
 const initalDate: Date = new Date();
 
-export default class StatPrevDates extends Component<void, Props, State> {
-  props: Props;
-  state: State;
-  state = {
+export default class StatPrevDates extends React.Component<Props, State> {
+  public state = {
     isAnimationInProgress: false,
     isInViewport: false,
     deltaDates: [
@@ -79,7 +76,7 @@ export default class StatPrevDates extends Component<void, Props, State> {
         tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
         tween.onUpdate(() => {
           this.state.deltaDates[index] = new Date(data.time);
-          if (index === oldDates.length-1) {
+          if (index === oldDates.length - 1) {
             this.forceUpdate();
           }
         });
@@ -114,7 +111,7 @@ export default class StatPrevDates extends Component<void, Props, State> {
     });
   };
 
-  renderItem = (date: Date, index: number): React$Element<any> => {
+  renderItem = (date: Date, index: number) => {
     const backgroundColor = backgroundColors[date.getMonth() % 6];
     const color = '#000';
     return (
@@ -125,7 +122,7 @@ export default class StatPrevDates extends Component<void, Props, State> {
     );
   };
 
-  render(): React$Element<any> {
+  render() {
     const {statPrevDates} = this.props;
     const {deltaDates} = this.state;
     const stat = deltaDates[0] !== initalDate ? deltaDates : statPrevDates;

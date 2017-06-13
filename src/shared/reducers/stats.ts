@@ -1,5 +1,3 @@
-// @flow
-
 import {getDateByMD} from 'shared/utils/date';
 
 import {
@@ -22,17 +20,17 @@ export type StatTotal = StatValueDate;
 export type StatPrevDates = Date[];
 export type StatMinMax = StatValueDate[];
 export type StatJdan = StatValueDateJdan[];
-export type StatsData = {|
+export type StatsData = {
   statTotal: StatTotal,
   statPrevDates: StatPrevDates,
   statMinMax: StatMinMax,
   statJdan: StatJdan,
-|};
+};
 
-export type Stats = {|
+export type Stats = {
   isFetching: boolean,
   data: StatsData,
-|};
+};
 
 const INITIAL_STATE: Stats = {
   isFetching: false,
@@ -113,7 +111,7 @@ const INITIAL_STATE: Stats = {
         value: 7854,
         chValue: 122,
       },
-    ]
+    ],
   },
 };
 
@@ -124,7 +122,7 @@ function stats(state: Stats = INITIAL_STATE, action: {type: string, data: any}) 
         ...state,
         ...{
           isFetching: true,
-        }
+        },
       };
 
     case RECEIVE_STATS:
@@ -133,7 +131,7 @@ function stats(state: Stats = INITIAL_STATE, action: {type: string, data: any}) 
         ...{
           isFetching: false,
           data: {...action.data},
-        }
+        },
       };
 
     default:

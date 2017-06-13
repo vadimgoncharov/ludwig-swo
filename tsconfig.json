@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./docs/build",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noEmitHelpers": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "shared/*": ["src/shared/*"]
+    }
+  },
+  "include": [
+    "./src/**/*",
+    "typings/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

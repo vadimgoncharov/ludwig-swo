@@ -1,37 +1,34 @@
-// @flow
-import React, {Component} from 'react';
-import Waypoint from 'react-waypoint';
-import TWEEN from 'tween.js';
+import * as React from 'react';
+import * as Waypoint from 'react-waypoint';
+import * as TWEEN from 'tween.js';
 
-import formatThousands from 'format-thousands';
-import pluralize from 'plural-ru';
+import * as formatThousands from 'format-thousands';
+import * as pluralize from 'plural-ru';
 
 import Link from 'shared/components/Link';
-import type {StatTotal as StatTotalType} from 'shared/reducers/stats';
+import {StatTotal as StatTotalType} from 'shared/reducers/stats';
 
 import './StatTotal.scss';
 
-type Props = {|
+type Props = {
   isFetching: boolean,
   statTotal: StatTotalType,
-|};
+};
 
-type State = {|
-  isAnimationInProgress: boolean,
-  isInViewport: boolean,
-  deltaValue: ?number,
-|};
+type State = {
+  isAnimationInProgress?: boolean,
+  isInViewport?: boolean,
+  deltaValue?: number | null,
+};
 
-export default class StatTotal extends Component<void, Props, State> {
-  props: Props;
-  state: State;
-  state = {
+export default class StatTotal extends React.Component<Props, State> {
+  public state = {
     isAnimationInProgress: false,
     isInViewport: false,
-    deltaValue: null
+    deltaValue: null,
   };
 
-  componentWillReceiveProps(nextProps: Props) {
+  public componentWillReceiveProps(nextProps: Props) {
     const oldValue = this.props.statTotal.value;
     const newValue = nextProps.statTotal.value;
 
@@ -42,7 +39,7 @@ export default class StatTotal extends Component<void, Props, State> {
     this.startAnimation(oldValue, newValue);
   }
 
-  startAnimation(oldValue: number, newValue: number) {
+  public startAnimation(oldValue: number, newValue: number) {
     this.setState({
       isAnimationInProgress: true,
     }, () => {
@@ -50,7 +47,7 @@ export default class StatTotal extends Component<void, Props, State> {
       const tween = new TWEEN.Tween(data);
       tween.to({value: newValue}, this.state.isInViewport ? 1000 : 0);
       tween.onUpdate(() => {
-        this.state.deltaValue = parseInt(data.value);
+        this.state.deltaValue = Math.round(data.value);
       });
       tween.easing(TWEEN.Easing.Exponential.Out);
       tween.onComplete(() => {
@@ -71,19 +68,19 @@ export default class StatTotal extends Component<void, Props, State> {
     });
   }
 
-  onWaypointEnter = () => {
+  private onWaypointEnter = () => {
     this.setState({
       isInViewport: true,
     });
   };
 
-  onWaypointLeave = () => {
+  private onWaypointLeave = () => {
     this.setState({
       isInViewport: false,
     });
   };
 
-  renderTotalValueFormatted(value: number): string {
+  public renderTotalValueFormatted(value: number): string {
     const formatted: string = formatThousands(value);
     const postfix: string = pluralize(value, 'раз', 'раза', 'раз');
 
@@ -93,11 +90,11 @@ export default class StatTotal extends Component<void, Props, State> {
     return `${formatted} ${postfix}`;
   }
 
-  renderSumOfNumber(value: number): string {
+  public renderSumOfNumber(value: number): string {
     const numArr: number[] = value
       .toString()
       .split('')
-      .map((value: string) => parseInt(value));
+      .map((val: string) => parseInt(val));
 
     const sum: number = numArr.reduce((sum: number, value: number) => {
       sum += value;
@@ -109,7 +106,7 @@ export default class StatTotal extends Component<void, Props, State> {
     return `${numSumStr} = ${sum}`;
   }
 
-  render(): React$Element<any> {
+  public render() {
     const {deltaValue} = this.state;
     const {statTotal} = this.props;
     const totalValue: number = deltaValue || statTotal.value;

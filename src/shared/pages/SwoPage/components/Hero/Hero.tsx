@@ -1,35 +1,32 @@
-// @flow
-import React, {Component} from 'react';
-import Waypoint from 'react-waypoint';
-import TWEEN from 'tween.js';
+import * as React from 'react';
+import * as Waypoint from 'react-waypoint';
+import * as TWEEN from 'tween.js';
 
 import Link from 'shared/components/Link';
 import {dateToDayMonth} from 'shared/utils/date';
-import type {StatTotal} from 'shared/reducers/stats';
+import {StatTotal} from 'shared/reducers/stats';
 
 import './Hero.scss';
 
-type Props = {|
+type Props = {
   isFetching: boolean,
   statTotal: StatTotal,
-|};
+};
 
-type State = {|
-  isAnimationInProgress: boolean,
-  isInViewport: boolean,
-  deltaDate: ?Date,
-|};
+type State = {
+  isAnimationInProgress?: boolean,
+  isInViewport?: boolean,
+  deltaDate?: Date,
+};
 
-export default class Hero extends Component<void, Props, State> {
-  props: Props;
-  state: State;
-  state = {
+export default class Hero extends React.Component<Props, State> {
+  public state = {
     isAnimationInProgress: false,
     isInViewport: false,
-    deltaDate: null
+    deltaDate: null,
   };
 
-  componentWillReceiveProps(nextProps: Props) {
+  public componentWillReceiveProps(nextProps: Props) {
     const oldDate = this.props.statTotal.date;
     const newDate = nextProps.statTotal.date;
 
@@ -40,12 +37,13 @@ export default class Hero extends Component<void, Props, State> {
     this.startAnimation(oldDate, newDate);
   }
 
-  startAnimation(oldDate: Date, newDate: Date) {
+  public startAnimation(oldDate: Date, newDate: Date) {
     this.setState({
       isAnimationInProgress: true,
     }, () => {
       const data = {time: oldDate.getTime()};
       const tween = new TWEEN.Tween(data);
+
       tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
       tween.onUpdate(() => {
         this.state.deltaDate = new Date(data.time);
@@ -69,19 +67,19 @@ export default class Hero extends Component<void, Props, State> {
     });
   }
 
-  onWaypointEnter = () => {
+  public onWaypointEnter = () => {
     this.setState({
       isInViewport: true,
     });
-  };
+  }
 
-  onWaypointLeave = () => {
+  public onWaypointLeave = () => {
     this.setState({
       isInViewport: false,
     });
-  };
+  }
 
-  render(): React$Element<any> {
+  public render() {
     const {deltaDate} = this.state;
     const {statTotal} = this.props;
     const date: string = dateToDayMonth(deltaDate || statTotal.date);
