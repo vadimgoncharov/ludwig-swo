@@ -4,6 +4,7 @@
     "max-line-length": {
       "options": [120]
     },
+    "semicolon": false,
     "radix": false,
     "import-spacing": false,
     "object-literal-sort-keys": false,

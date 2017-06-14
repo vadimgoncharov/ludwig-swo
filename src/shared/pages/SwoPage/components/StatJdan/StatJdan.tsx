@@ -8,90 +8,38 @@ import './StatJdan.scss';
 import {TStatJdan} from 'shared/types/StatJdan';
 import {TStatJdanValueAtDate} from 'shared/types/StatJdanValueAtDate';
 
-type StatJdanDate = {
-  date: string,
-  halValue: number,
-  chValue: number,
-};
+enum TToggleSelectedKey {
+  hal,
+  ch,
+}
 
-type ToggleSelectedKey = 'hal' | 'ch';
-
-type Props = {
+type TProps = {
   isFetching: boolean,
   statJdan: TStatJdan,
 };
 
-type State = {
-  isAnimationInProgress?: boolean,
-  isInViewport?: boolean,
-  togglerSelectedKey?: string,
+type TState = {
+  togglerSelectedKey: TToggleSelectedKey,
 };
 
-export default class StatJdan extends React.Component<Props, State> {
+export default class StatJdan extends React.Component<TProps, TState> {
   public state = {
-    isAnimationInProgress: false,
-    isInViewport: false,
-    togglerSelectedKey: 'hal',
+    togglerSelectedKey: TToggleSelectedKey.hal,
   };
 
-  onWaypointEnter = () => {
-    this.setState({
-      isInViewport: true,
-    });
-  };
-
-  onWaypointLeave = () => {
-    this.setState({
-      isInViewport: false,
-    });
-  };
-
-  onTogglerHalClick = (): void => {
-    this.setState({
-      togglerSelectedKey: 'hal',
-    });
-  };
-
-  onTogglerChClick = (): void => {
-    this.setState({
-      togglerSelectedKey: 'ch',
-    });
-  };
-
-  renderItem = (item: TStatJdanValueAtDate, index: number) => {
-    const {togglerSelectedKey} = this.state;
-    const {date, value, chValue} = item;
-
-    const imgBodyHeight = togglerSelectedKey === 'hal' ? value : chValue;
-    const imgBodyStyle = {
-      height: imgBodyHeight + 'px',
-    };
-
-    return (
-      <li className="StatJdan-item" key={index}>
-        <div className="StatJdan-itemImgContainer">
-          <div className="StatJdan-itemImg is-head" />
-          <div className="StatJdan-itemImg is-body" style={imgBodyStyle} />
-          <div className="StatJdan-itemImg is-legs" />
-        </div>
-       <div className="StatJdan-itemDate">{dateToDayMonth(date)}</div>
-      </li>
-    );
-  };
-
-  render() {
+  public render() {
     const {statJdan} = this.props;
     const items = statJdan;
     const {togglerSelectedKey} = this.state;
     const togglerHalClassName = classNames('StatJdan-toggler is-hal', {
-      'is-selected': togglerSelectedKey === 'hal',
+      'is-selected': togglerSelectedKey === TToggleSelectedKey.hal,
     });
     const togglerChClassName = classNames('StatJdan-toggler is-ch', {
-      'is-selected': togglerSelectedKey === 'ch',
+      'is-selected': togglerSelectedKey === TToggleSelectedKey.ch,
     });
 
     return (
-      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+      <Waypoint>
         <div className="StatJdan">
           <div className="StatJdan-title">
             Если бы рост
@@ -108,4 +56,37 @@ export default class StatJdan extends React.Component<Props, State> {
       </Waypoint>
     );
   }
+
+  private onTogglerHalClick = (): void => {
+    this.setState({
+      togglerSelectedKey: TToggleSelectedKey.hal,
+    });
+  };
+
+  private onTogglerChClick = (): void => {
+    this.setState({
+      togglerSelectedKey: TToggleSelectedKey.ch,
+    });
+  };
+
+  private renderItem = (item: TStatJdanValueAtDate, index: number) => {
+    const {togglerSelectedKey} = this.state;
+    const {date, value, chValue} = item;
+
+    const imgBodyHeight = togglerSelectedKey === TToggleSelectedKey.hal ? value : chValue;
+    const imgBodyStyle = {
+      height: imgBodyHeight + 'px',
+    };
+
+    return (
+      <li className="StatJdan-item" key={index}>
+        <div className="StatJdan-itemImgContainer">
+          <div className="StatJdan-itemImg is-head" />
+          <div className="StatJdan-itemImg is-body" style={imgBodyStyle} />
+          <div className="StatJdan-itemImg is-legs" />
+        </div>
+       <div className="StatJdan-itemDate">{dateToDayMonth(date)}</div>
+      </li>
+    );
+  };
 }

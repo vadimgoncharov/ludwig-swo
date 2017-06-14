@@ -1,33 +1,44 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
-import * as TWEEN from 'tween.js';
 
-import {dateToDayMonth, getDaysInYear, getDayInYear} from 'shared/utils/date';
+import Animator from 'shared/services/Animator';
+import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+import {dateToDayMonth, getDaysInYear, getDayInYear, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
 import './DayInYearScale.scss';
 
-type Props = {
+type TProps = {
   isFetching: boolean,
   statTotal: TStatTotal,
 };
 
-type State = {
-  isAnimationInProgress?: boolean,
-  isInViewport?: boolean,
-  deltaDate?: Date,
+type TState = {
+  animatorCurrValue: TAnimatorValue,
 };
 
-export default class DayInYearScale extends React.Component<Props, State> {
-  state = {
-    isAnimationInProgress: false,
-    isInViewport: false,
-    deltaDate: null,
-  };
+type TAnimatorValue = {
+  time: number,
+};
 
-  componentWillReceiveProps(nextProps: Props) {
+export default class DayInYearScale extends React.Component<TProps, TState> {
+  public state = {
+    animatorCurrValue: {
+      time: 0,
+    },
+  };
+  private animator: Animator<TAnimatorValue>;
+
+  constructor(props: TProps) {
+    super(props);
+
+    this.state.animatorCurrValue.time = props.statTotal.date.getTime();
+    this.animator = this.createAnimator();
+  }
+
+  public componentWillReceiveProps(nextProps: TProps) {
     const oldDate = this.props.statTotal.date;
     const newDate = nextProps.statTotal.date;
 
@@ -35,61 +46,27 @@ export default class DayInYearScale extends React.Component<Props, State> {
       return;
     }
 
-    this.startAnimation(oldDate, newDate);
+    this.animator.start([{time: newDate.getTime()}]);
   }
 
-  startAnimation(oldDate: Date, newDate: Date) {
-    this.setState({
-      isAnimationInProgress: true,
-    }, () => {
-      const data = {time: oldDate.getTime()};
-      const tween = new TWEEN.Tween(data);
-      tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
-      tween.onUpdate(() => {
-        this.state.deltaDate = new Date(data.time);
-      });
-      tween.easing(TWEEN.Easing.Exponential.Out);
-      tween.onComplete(() => {
-        this.setState({
-          isAnimationInProgress: false,
-        });
-      });
-      tween.start();
-      const animate = () => {
-        if (!this.state.isAnimationInProgress) {
-          return;
-        }
-        requestAnimationFrame(animate);
-        TWEEN.update();
-        this.forceUpdate();
-      };
-      animate();
-    });
+  public render() {
+    const date: Date = new Date(this.state.animatorCurrValue.time);
+    const dateStr: string = dateToDayMonth(date);
+    const currYear = date.getFullYear();
+    const daysInYear = getDaysInYear(currYear);
+    const dayInYear = getDayInYear(currYear, date.getMonth(), date.getDate());
+
+    return (
+      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
+        <div className="DayInYearScale">
+          <div className="DayInYearScale-title">{dateStr} в году:</div>
+          {this.renderScale(daysInYear, dayInYear)}
+        </div>
+      </Waypoint>
+    );
   }
 
-  onWaypointEnter = () => {
-    this.setState({
-      isInViewport: true,
-    });
-  };
-
-  onWaypointLeave = () => {
-    this.setState({
-      isInViewport: false,
-    });
-  };
-
-  getDayInYear(year: number, month: number, day: number): number {
-    const end: Date = new Date(year, month, day);
-    const start: Date = new Date(end.getFullYear(), 0, 0);
-    const diff: number = end.getTime() - start.getTime();
-    const oneDay: number = 1000 * 60 * 60 * 24;
-    const dayInYear: number = Math.floor(diff / oneDay);
-
-    return dayInYear;
-  }
-
-  renderScale(daysInYear: number, dayInYear: number) {
+  private renderScale(daysInYear: number, dayInYear: number) {
     const content = [];
 
     for (let i: number = 0; i < daysInYear; i++) {
@@ -108,22 +85,14 @@ export default class DayInYearScale extends React.Component<Props, State> {
     );
   }
 
-  render() {
-    const {deltaDate} = this.state;
-    const {statTotal} = this.props;
-    const date: Date = deltaDate || statTotal.date;
-    const dateStr: string = dateToDayMonth(date);
-    const currYear = date.getFullYear();
-    const daysInYear = getDaysInYear(currYear);
-    const dayInYear = getDayInYear(currYear, date.getMonth(), date.getDate());
-
-    return (
-      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
-        <div className="DayInYearScale">
-          <div className="DayInYearScale-title">{dateStr} в году:</div>
-          {this.renderScale(daysInYear, dayInYear)}
-        </div>
-      </Waypoint>
-    );
+  private createAnimator(): Animator<TAnimatorValue> {
+    return new Animator<TAnimatorValue>({
+      from: [{time: this.state.animatorCurrValue.time}],
+      duration: ANIMATION_DURATION_DEFAULT,
+      comparator: (oldValues, newValues) => {
+        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+      },
+      onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
+    });
   }
 }

@@ -59,6 +59,13 @@ function dateToDayMonth(date: Date): string {
   return `${day} ${monthStr}`;
 }
 
+function dateToYYYYMMDD(date: Date): string {
+  const day: number = date.getDate();
+  const month: number = date.getMonth();
+  const year: number = date.getFullYear();
+  return `${year}-${month}-${day}`;
+}
+
 function dateToMonthStr(date: Date): string {
   const month: number = date.getMonth();
   return months[month];
@@ -71,4 +78,5 @@ export {
   getDayInYear,
   dateToDayMonth,
   dateToMonthStr,
+  dateToYYYYMMDD,
 };

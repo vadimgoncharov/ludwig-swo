@@ -1,33 +1,44 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
-import * as TWEEN from 'tween.js';
 
+import Animator from 'shared/services/Animator';
+import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import Link from 'shared/components/Link';
-import {dateToDayMonth} from 'shared/utils/date';
+import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
 import './Hero.scss';
 
-type Props = {
+type TProps = {
   isFetching: boolean,
   statTotal: TStatTotal,
 };
 
-type State = {
-  isAnimationInProgress?: boolean,
-  isInViewport?: boolean,
-  deltaDate?: Date,
+type TState = {
+  animatorCurrValue: TAnimatorValue,
 };
 
-export default class Hero extends React.Component<Props, State> {
-  public state = {
-    isAnimationInProgress: false,
-    isInViewport: false,
-    deltaDate: null,
-  };
+type TAnimatorValue = {
+  time: number,
+};
 
-  public componentWillReceiveProps(nextProps: Props) {
+export default class Hero extends React.Component<TProps, TState> {
+  public state = {
+    animatorCurrValue: {
+      time: 0,
+    },
+  };
+  private animator: Animator<TAnimatorValue>;
+
+  constructor(props: TProps) {
+    super(props);
+
+    this.state.animatorCurrValue.time = props.statTotal.date.getTime();
+    this.animator = this.createAnimator();
+  }
+
+  public componentWillReceiveProps(nextProps: TProps) {
     const oldDate = this.props.statTotal.date;
     const newDate = nextProps.statTotal.date;
 
@@ -35,57 +46,14 @@ export default class Hero extends React.Component<Props, State> {
       return;
     }
 
-    this.startAnimation(oldDate, newDate);
-  }
-
-  public startAnimation(oldDate: Date, newDate: Date) {
-    this.setState({
-      isAnimationInProgress: true,
-    }, () => {
-      const data = {time: oldDate.getTime()};
-      const tween = new TWEEN.Tween(data);
-      tween.to({time: newDate.getTime()}, this.state.isInViewport ? 3000 : 0);
-      tween.onUpdate(() => {
-        this.state.deltaDate = new Date(data.time);
-      });
-      tween.easing(TWEEN.Easing.Exponential.Out);
-      tween.onComplete(() => {
-        this.setState({
-          isAnimationInProgress: false,
-        });
-      });
-      tween.start();
-      const animate = () => {
-        if (!this.state.isAnimationInProgress) {
-          return;
-        }
-        requestAnimationFrame(animate);
-        TWEEN.update();
-        this.forceUpdate();
-      };
-      animate();
-    });
-  }
-
-  public onWaypointEnter = () => {
-    this.setState({
-      isInViewport: true,
-    });
-  }
-
-  public onWaypointLeave = () => {
-    this.setState({
-      isInViewport: false,
-    });
+    this.animator.start([{time: newDate.getTime()}]);
   }
 
   public render() {
-    const {deltaDate} = this.state;
-    const {statTotal} = this.props;
-    const date: string = dateToDayMonth(deltaDate || statTotal.date);
+    const date: string = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
 
     return (
-      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="Hero">
           <div className="Hero-swo">
             Сайт откроется <span className="Hero-swoDate">{date}</span>
@@ -100,5 +68,16 @@ export default class Hero extends React.Component<Props, State> {
         </div>
       </Waypoint>
     );
+  }
+
+  private createAnimator(): Animator<TAnimatorValue> {
+    return new Animator<TAnimatorValue>({
+      from: [{time: this.state.animatorCurrValue.time}],
+      duration: ANIMATION_DURATION_DEFAULT,
+      comparator: (oldValues, newValues) => {
+        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+      },
+      onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
+    });
   }
 }

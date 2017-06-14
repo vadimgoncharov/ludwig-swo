@@ -1,45 +1,50 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as pluralize from 'plural-ru';
-import * as TWEEN from 'tween.js';
 
-import {dateToDayMonth} from 'shared/utils/date';
+import Animator from 'shared/services/Animator';
+import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatMinMax} from 'shared/types/StatMinMax';
 import {TStatValueAtDate} from 'shared/types/StatValueAtDate';
 
 import './StatMinMax.scss';
 
-type Props = {
+type TProps = {
   isFetching: boolean,
   statMinMax: TStatMinMax,
 };
 
-type State = {
-  isAnimationInProgress?: boolean,
-  isInViewport?: boolean,
-  deltaItems?: TStatMinMax,
+type TState = {
+  animatorCurrValues: TAnimatorValue[],
 };
 
-const initalDate: Date = new Date();
+type TAnimatorValue = {
+  time: number,
+  value: number,
+};
 
-export default class StatMinMax extends React.Component<Props, State> {
+export default class StatMinMax extends React.Component<TProps, TState> {
   public state = {
-    isAnimationInProgress: false,
-    isInViewport: false,
-    deltaItems: [
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-      {date: initalDate, value: 0},
-    ],
+    animatorCurrValues: [],
   };
+  private animator: Animator<TAnimatorValue>;
 
-  componentWillReceiveProps(nextProps: Props) {
+  constructor(props: TProps) {
+    super(props);
+
+    this.state.animatorCurrValues = props.statMinMax.map((item): TAnimatorValue => {
+      return {
+        time: item.date.getTime(),
+        value: item.value,
+      };
+    });
+
+    this.animator = this.createAnimator();
+  }
+
+  public componentWillReceiveProps(nextProps: TProps) {
     const oldStat = this.props.statMinMax;
     const newStat = nextProps.statMinMax;
 
@@ -47,73 +52,25 @@ export default class StatMinMax extends React.Component<Props, State> {
       return;
     }
 
-    this.startAnimation(oldStat, newStat);
-  }
-
-  startAnimation(oldStat: TStatMinMax, newStat: TStatMinMax) {
-    this.setState({
-      isAnimationInProgress: true,
-    }, () => {
-      oldStat.forEach((oldStatItem: TStatValueAtDate, index: number) => {
-        const newStatItem = newStat[index];
-        const data = {time: oldStatItem.date.getTime(), value: oldStatItem.value};
-        const tween = new TWEEN.Tween(data);
-        tween.to({time: newStatItem.date.getTime(), value: newStatItem.value}, this.state.isInViewport ? 3000 : 0);
-        tween.onUpdate(() => {
-          this.state.deltaItems[index].date = new Date(data.time);
-          this.state.deltaItems[index].value = Math.round(data.value);
-        });
-        tween.easing(TWEEN.Easing.Exponential.Out);
-        tween.onComplete(() => {
-          this.setState({
-            isAnimationInProgress: false,
-          });
-        });
-        tween.start();
-      });
-      const animate = () => {
-        if (!this.state.isAnimationInProgress) {
-          return;
-        }
-        requestAnimationFrame(animate);
-        TWEEN.update();
-        this.forceUpdate();
+    this.animator.start(newStat.map((item): TAnimatorValue => {
+      return {
+        time: item.date.getTime(),
+        value: item.value,
       };
-      animate();
-    });
+    }));
   }
 
-  onWaypointEnter = () => {
-    this.setState({
-      isInViewport: true,
+  public render() {
+    const {animatorCurrValues} = this.state;
+    const items = animatorCurrValues.map((item) => {
+      return {
+        value: Math.round(item.value),
+        date: new Date(item.time),
+      };
     });
-  };
-
-  onWaypointLeave = () => {
-    this.setState({
-      isInViewport: false,
-    });
-  };
-
-  renderItem = (item: TStatValueAtDate, index: number) => {
-    const {date, value} = item;
-    const valueWithPostfix: string = pluralize(value, '%d раз', '%d раза', '%d раз');
 
     return (
-      <li className="StatMinMax-item" key={index}>
-        <div className="StatMinMax-itemDate">{dateToDayMonth(date)}</div>
-        <div className="StatMinMax-itemValue">{valueWithPostfix}</div>
-      </li>
-    );
-  };
-
-  render() {
-    const {statMinMax} = this.props;
-    const {deltaItems} = this.state;
-    const items = deltaItems[0].date !== initalDate ? deltaItems : statMinMax;
-
-    return (
-      <Waypoint onEnter={this.onWaypointEnter} onLeave={this.onWaypointLeave}>
+      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatMinMax">
           <div className="StatMinMax-columns">
             <div className="StatMinMax-column is-max">
@@ -141,5 +98,35 @@ export default class StatMinMax extends React.Component<Props, State> {
         </div>
       </Waypoint>
     );
+  }
+
+  private renderItem = (item: TStatValueAtDate, index: number) => {
+    const {date, value} = item;
+    const valueWithPostfix: string = pluralize(value, '%d раз', '%d раза', '%d раз');
+
+    return (
+      <li className="StatMinMax-item" key={index}>
+        <div className="StatMinMax-itemDate">{dateToDayMonth(date)}</div>
+        <div className="StatMinMax-itemValue">{valueWithPostfix}</div>
+      </li>
+    );
+  };
+
+  private createAnimator(): Animator<TAnimatorValue> {
+    return new Animator<TAnimatorValue>({
+      from: this.state.animatorCurrValues,
+      duration: ANIMATION_DURATION_DEFAULT,
+      comparator: (oldValues, newValues) => {
+        return oldValues.some((oldItem, index) => {
+          const oldDate = dateToYYYYMMDD(new Date(oldItem.time));
+          const newDate = dateToYYYYMMDD(new Date(newValues[index].time));
+          const oldValue = Math.round(oldItem.value);
+          const newValue = Math.round(newValues[index].value);
+
+          return oldDate !== newDate || oldValue !== newValue;
+        });
+      },
+      onValueChange: (newValues) => this.setState({animatorCurrValues: newValues}),
+    });
   }
 }
