@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 
 import Header from '../components/Header';
 import {fetchStats} from 'shared/actions';
-import {StoreState} from 'shared/reducers';
+import {TGlobalState} from 'shared/types/GlobalState';
+import {TDispatch} from 'shared/types/Dispatch';
 
 interface IStateFromProps {
   isFetching: boolean;
@@ -13,14 +14,13 @@ interface IDispatchFromProps {
   onFetchLinkClick: () => void;
 }
 
-
-const mapStateToProps = (state: StoreState): IStateFromProps => {
+const mapStateToProps = (state: TGlobalState): IStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
   };
 };
 
-const mapDispatchToProps = (dispatch): IDispatchFromProps => {
+const mapDispatchToProps = (dispatch: TDispatch): IDispatchFromProps => {
   return {
     onFetchLinkClick: () => {
       dispatch(fetchStats());
@@ -36,7 +36,7 @@ class HeaderContainer extends React.Component<IStateFromProps & IDispatchFromPro
   }
 }
 
-export default connect<IStateFromProps, IDispatchFromProps, void>(
+export default connect<IStateFromProps, IDispatchFromProps, {}>(
   mapStateToProps,
   mapDispatchToProps,
 )(HeaderContainer);

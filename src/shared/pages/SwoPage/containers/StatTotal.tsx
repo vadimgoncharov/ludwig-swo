@@ -1,21 +1,31 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import {connect, DispatchProp} from 'react-redux';
 
 import StatTotal from '../components/StatTotal';
-import {StoreState} from 'shared/reducers';
 
-const mapStateToProps = (state: StoreState) => {
+import {TGlobalState} from 'shared/types/GlobalState';
+import {TDispatch} from 'shared/types/Dispatch';
+import {TStatTotal} from 'shared/types/StatTotal';
+
+type TStateFromProps = {
+  isFetching: boolean;
+  statTotal: TStatTotal;
+};
+
+const mapStateToProps = (state: TGlobalState) => {
   return {
     isFetching: state.stats.isFetching,
     statTotal: state.stats.data.statTotal,
   };
 };
 
-@connect(mapStateToProps)
-export default class StatTotalContainer extends React.Component<any, void> {
+class StatTotalContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
   public render() {
+    const {dispatch, ...props} = this.props;
     return (
-      <StatTotal {...this.props} />
+      <StatTotal {...props} />
     );
   }
 }
+
+export default connect<TStateFromProps, null, null>(mapStateToProps)(StatTotalContainer);

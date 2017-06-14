@@ -1,21 +1,30 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
+import {connect, DispatchProp} from 'react-redux';
 
 import StatMinMax from '../components/StatMinMax';
-import {StoreState} from 'shared/reducers';
+import {TGlobalState} from 'shared/types/GlobalState';
+import {TStatMinMax} from 'shared/types/StatMinMax';
+import {TDispatch} from 'shared/types/Dispatch';
 
-const mapStateToProps = (state: StoreState) => {
+type TStateFromProps = {
+  isFetching: boolean;
+  statMinMax: TStatMinMax;
+};
+
+const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
     statMinMax: state.stats.data.statMinMax,
   };
 };
 
-@connect(mapStateToProps)
-export default class StatMinMaxContainer extends React.Component<any, void> {
-  render() {
+class StatMinMaxContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
+  public render() {
+    const {dispatch, ...props} = this.props;
     return (
-      <StatMinMax {...this.props} />
+      <StatMinMax {...props} />
     );
   }
 }
+
+export default connect<TStateFromProps, null, null>(mapStateToProps)(StatMinMaxContainer);

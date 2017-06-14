@@ -4,13 +4,14 @@ import * as classNames from 'classnames';
 import * as TWEEN from 'tween.js';
 
 import {dateToDayMonth, getDaysInYear, getDayInYear} from 'shared/utils/date';
-import {StatTotal} from 'shared/reducers/stats';
+
+import {TStatTotal} from 'shared/types/StatTotal';
 
 import './DayInYearScale.scss';
 
 type Props = {
   isFetching: boolean,
-  statTotal: StatTotal,
+  statTotal: TStatTotal,
 };
 
 type State = {

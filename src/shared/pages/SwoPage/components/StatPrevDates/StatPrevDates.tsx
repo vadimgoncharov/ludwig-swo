@@ -3,26 +3,20 @@ import * as Waypoint from 'react-waypoint';
 import * as TWEEN from 'tween.js';
 
 import {dateToMonthStr} from 'shared/utils/date';
-import {StatPrevDates as StatPrevDatesType} from 'shared/reducers/stats';
+
+import {TStatPrevDates} from 'shared/types/StatPrevDates';
 
 import './StatPrevDates.scss';
 
-type PrevMonthStat = {
-  title: string,
-  value: number,
-  color?: string,
-  backgroundColor: string,
-};
-
 type Props = {
   isFetching: boolean,
-  statPrevDates: StatPrevDatesType,
+  statPrevDates: TStatPrevDates,
 };
 
 type State = {
   isAnimationInProgress?: boolean,
   isInViewport?: boolean,
-  deltaDates?: StatPrevDatesType,
+  deltaDates?: TStatPrevDates,
 };
 
 const backgroundColors = [
@@ -65,7 +59,7 @@ export default class StatPrevDates extends React.Component<Props, State> {
     this.startAnimation(oldDates, newDates);
   }
 
-  startAnimation(oldDates: StatPrevDatesType, newDates: StatPrevDatesType) {
+  startAnimation(oldDates: TStatPrevDates, newDates: TStatPrevDates) {
     this.setState({
       isAnimationInProgress: true,
     }, () => {

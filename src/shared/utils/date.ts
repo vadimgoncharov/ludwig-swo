@@ -1,7 +1,7 @@
 import {getRandomInt} from './random';
 
 const dateNow: Date = new Date();
-const monthes: string[] = [
+const months: string[] = [
   'января',
   'февраля',
   'марта',
@@ -54,14 +54,14 @@ function getDayInYear(year: number, month: number, day: number): number {
 function dateToDayMonth(date: Date): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
-  const monthStr: string = monthes[month];
+  const monthStr: string = months[month];
 
   return `${day} ${monthStr}`;
 }
 
 function dateToMonthStr(date: Date): string {
   const month: number = date.getMonth();
-  return monthes[month];
+  return months[month];
 }
 
 export {

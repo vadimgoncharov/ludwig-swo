@@ -4,13 +4,14 @@ import * as TWEEN from 'tween.js';
 
 import Link from 'shared/components/Link';
 import {dateToDayMonth} from 'shared/utils/date';
-import {StatTotal} from 'shared/reducers/stats';
+
+import {TStatTotal} from 'shared/types/StatTotal';
 
 import './Hero.scss';
 
 type Props = {
   isFetching: boolean,
-  statTotal: StatTotal,
+  statTotal: TStatTotal,
 };
 
 type State = {

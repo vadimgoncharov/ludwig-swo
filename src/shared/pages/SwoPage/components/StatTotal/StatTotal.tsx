@@ -1,18 +1,18 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as TWEEN from 'tween.js';
-
 import * as formatThousands from 'format-thousands';
 import * as pluralize from 'plural-ru';
 
 import Link from 'shared/components/Link';
-import {StatTotal as StatTotalType} from 'shared/reducers/stats';
+
+import {TStatTotal} from 'shared/types/StatTotal';
 
 import './StatTotal.scss';
 
 type Props = {
   isFetching: boolean,
-  statTotal: StatTotalType,
+  statTotal: TStatTotal,
 };
 
 type State = {

@@ -4,20 +4,21 @@ import * as pluralize from 'plural-ru';
 import * as TWEEN from 'tween.js';
 
 import {dateToDayMonth} from 'shared/utils/date';
-import {StatMinMax as StatMinMaxType, StatValueDate} from 'shared/reducers/stats';
 
+import {TStatMinMax} from 'shared/types/StatMinMax';
+import {TStatValueAtDate} from 'shared/types/StatValueAtDate';
 
 import './StatMinMax.scss';
 
 type Props = {
   isFetching: boolean,
-  statMinMax: StatMinMaxType,
+  statMinMax: TStatMinMax,
 };
 
 type State = {
   isAnimationInProgress?: boolean,
   isInViewport?: boolean,
-  deltaItems?: StatMinMaxType,
+  deltaItems?: TStatMinMax,
 };
 
 const initalDate: Date = new Date();
@@ -49,11 +50,11 @@ export default class StatMinMax extends React.Component<Props, State> {
     this.startAnimation(oldStat, newStat);
   }
 
-  startAnimation(oldStat: StatMinMaxType, newStat: StatMinMaxType) {
+  startAnimation(oldStat: TStatMinMax, newStat: TStatMinMax) {
     this.setState({
       isAnimationInProgress: true,
     }, () => {
-      oldStat.forEach((oldStatItem: StatValueDate, index: number) => {
+      oldStat.forEach((oldStatItem: TStatValueAtDate, index: number) => {
         const newStatItem = newStat[index];
         const data = {time: oldStatItem.date.getTime(), value: oldStatItem.value};
         const tween = new TWEEN.Tween(data);
@@ -94,7 +95,7 @@ export default class StatMinMax extends React.Component<Props, State> {
     });
   };
 
-  renderItem = (item: StatValueDate, index: number) => {
+  renderItem = (item: TStatValueAtDate, index: number) => {
     const {date, value} = item;
     const valueWithPostfix: string = pluralize(value, '%d раз', '%d раза', '%d раз');
 

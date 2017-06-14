@@ -1,38 +1,14 @@
 import {getDateByMD} from 'shared/utils/date';
 
 import {
-  REQUEST_STATS,
-  RECEIVE_STATS,
+  ACTION_REQUEST_STATS,
+  ACTION_RECEIVE_STATS,
 } from '../actions';
 
-export type StatValueDate = {
-  value: number,
-  date: Date,
-};
+import {TStatsState} from '../types/StatsState';
+import {TStatsAction} from '../types/StatsAction';
 
-export type StatValueDateJdan = {
-  value: number,
-  chValue: number,
-  date: Date,
-};
-
-export type StatTotal = StatValueDate;
-export type StatPrevDates = Date[];
-export type StatMinMax = StatValueDate[];
-export type StatJdan = StatValueDateJdan[];
-export type StatsData = {
-  statTotal: StatTotal,
-  statPrevDates: StatPrevDates,
-  statMinMax: StatMinMax,
-  statJdan: StatJdan,
-};
-
-export type Stats = {
-  isFetching: boolean,
-  data: StatsData,
-};
-
-const INITIAL_STATE: Stats = {
+const INITIAL_STATE: TStatsState = {
   isFetching: false,
   data: {
     statTotal: {
@@ -115,9 +91,9 @@ const INITIAL_STATE: Stats = {
   },
 };
 
-function stats(state: Stats = INITIAL_STATE, action: {type: string, data: any}) {
+function stats(state: TStatsState = INITIAL_STATE, action: TStatsAction): TStatsState {
   switch (action.type) {
-    case REQUEST_STATS:
+    case ACTION_REQUEST_STATS:
       return {
         ...state,
         ...{
@@ -125,7 +101,7 @@ function stats(state: Stats = INITIAL_STATE, action: {type: string, data: any}) 
         },
       };
 
-    case RECEIVE_STATS:
+    case ACTION_RECEIVE_STATS:
       return {
         ...state,
         ...{

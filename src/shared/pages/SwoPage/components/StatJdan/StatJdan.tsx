@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
-import * as TWEEN from 'tween.js';
 
 import {dateToDayMonth} from 'shared/utils/date';
-import {StatJdan as StatJdanType, StatValueDateJdan} from 'shared/reducers/stats';
-
 
 import './StatJdan.scss';
+import {TStatJdan} from 'shared/types/StatJdan';
+import {TStatJdanValueAtDate} from 'shared/types/StatJdanValueAtDate';
 
 type StatJdanDate = {
   date: string,
@@ -19,7 +18,7 @@ type ToggleSelectedKey = 'hal' | 'ch';
 
 type Props = {
   isFetching: boolean,
-  statJdan: StatJdanType,
+  statJdan: TStatJdan,
 };
 
 type State = {
@@ -59,7 +58,7 @@ export default class StatJdan extends React.Component<Props, State> {
     });
   };
 
-  renderItem = (item: StatValueDateJdan, index: number) => {
+  renderItem = (item: TStatJdanValueAtDate, index: number) => {
     const {togglerSelectedKey} = this.state;
     const {date, value, chValue} = item;
 

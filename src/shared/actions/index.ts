@@ -1,29 +1,32 @@
 import {getRandomDate} from 'shared/utils/date';
 import {getRandomInt} from 'shared/utils/random';
-import {StatsData} from 'shared/reducers/stats';
+import {TStats} from 'shared/types/Stats';
+import {TThunkAction} from 'shared/types/ThunkAction';
+import {TDispatch} from 'shared/types/Dispatch';
+import {TReceiveStatsAction, TRequestStatsAction} from 'shared/types/StatsAction';
 
-export const REQUEST_STATS = 'REQUEST_STATS';
-function _requestStat() {
+export const ACTION_REQUEST_STATS: 'REQUEST_STATS' = 'REQUEST_STATS';
+function _requestStat(): TRequestStatsAction {
   return {
-    type: REQUEST_STATS,
+    type: ACTION_REQUEST_STATS,
   };
 }
 
-export const RECEIVE_STATS = 'RECEIVE_STATS';
-function _receiveStats(json) {
+export const ACTION_RECEIVE_STATS: 'RECEIVE_STATS' = 'RECEIVE_STATS';
+function _receiveStats(json: TStats): TReceiveStatsAction {
   return {
-    type: RECEIVE_STATS,
+    type: ACTION_RECEIVE_STATS,
     data: json,
   };
 }
 
-function _fetchStats() {
-  return dispatch => {
+function _fetchStats(): TThunkAction {
+  return (dispatch: TDispatch) => {
     dispatch(_requestStat());
     // Emulate real request
     return new Promise((resolve) => {
       setTimeout(() => {
-        const json: StatsData = {
+        const json: TStats = {
           statTotal: {
             date: getRandomDate(),
             value: 2963000 + getRandomInt(1, 1000),
@@ -115,8 +118,8 @@ function _fetchStats() {
   };
 }
 
-export function fetchStats() {
-  return (dispatch, /*getState*/) => {
+export function fetchStats(): TThunkAction {
+  return (dispatch: TDispatch) => {
     // Should return promise
     return dispatch(_fetchStats());
   };
