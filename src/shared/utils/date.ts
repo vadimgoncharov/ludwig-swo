@@ -1,7 +1,7 @@
 import {getRandomInt} from './random';
 
-const dateNow: Date = new Date();
-const months: string[] = [
+const DATE_NOW: Date = new Date();
+const MONTHS: string[] = [
   'января',
   'февраля',
   'марта',
@@ -17,11 +17,11 @@ const months: string[] = [
 ];
 
 function getDateByMD(month: number, day: number): Date {
-  return new Date(dateNow.getFullYear(), month - 1, day);
+  return new Date(DATE_NOW.getFullYear(), month - 1, day);
 }
 
 function getRandomDate(): Date {
-  return new Date(dateNow.getFullYear(), getRandomInt(0, 11), getRandomInt(1, 31));
+  return new Date(DATE_NOW.getFullYear(), getRandomInt(0, 11), getRandomInt(1, 31));
 }
 
 const daysInYearsCache = {};
@@ -54,7 +54,7 @@ function getDayInYear(year: number, month: number, day: number): number {
 function dateToDayMonth(date: Date): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
-  const monthStr: string = months[month];
+  const monthStr: string = MONTHS[month];
 
   return `${day} ${monthStr}`;
 }
@@ -68,7 +68,7 @@ function dateToYYYYMMDD(date: Date): string {
 
 function dateToMonthStr(date: Date): string {
   const month: number = date.getMonth();
-  return months[month];
+  return MONTHS[month];
 }
 
 export {
