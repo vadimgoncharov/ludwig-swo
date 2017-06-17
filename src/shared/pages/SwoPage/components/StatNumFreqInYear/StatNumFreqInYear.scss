@@ -29,6 +29,16 @@
   }
 }
 
+.StatNumFreqInYear-freqColumn.is-selected {
+  .StatNumFreqInYear-freqColumnLine {
+    background-color: orange;
+  }
+
+  .StatNumFreqInYear-freqColumnData {
+    color: orange;
+  }
+}
+
 .StatNumFreqInYear-freqColumnLine {
   background-color: orangered;
   @include not-phone {

@@ -4,7 +4,11 @@ import * as classNames from 'classnames';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonth, dateToDDMM, dateToYYYYMMDD, getDaysInYearAsDates} from 'shared/utils/date';
+import {
+  dateToDDMM,
+  dateToYYYYMMDD,
+  getDaysInYearAsDates,
+} from 'shared/utils/date';
 import {formatValueToTimesWithPluralize} from 'shared/utils/format';
 import {convertRange} from 'shared/utils/math';
 
@@ -69,8 +73,6 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
   }
 
   public render() {
-    const date: string = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
-
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatNumFreqInYear">
@@ -82,6 +84,9 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
   }
 
   private renderFreq(): ReactElement<any> {
+    const animatorCurrDayValueNums = this.getNumbersFromNumberWithLeadingZero(
+      new Date(this.state.animatorCurrValue.time).getDate(),
+    );
     return (
       <div className="StatNumFreqInYear-freq">
         <div className="StatNumFreqInYear-freqMainTitle">
@@ -91,8 +96,14 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
           {NUM_FREQ_IN_YEAR_VALUES.map((valueAtNum: number, num: number) => {
             const valueAtNumFormatted: string = formatValueToTimesWithPluralize(valueAtNum);
             const horizontalLineWidth = NUM_FREQ_IN_YEAR_VALUES_WIDTHES[num];
+            const numsFromNum = this.getNumbersFromNumber(num);
+            const isSelected: boolean = numsFromNum.some((n) => animatorCurrDayValueNums.indexOf(n) !== -1);
+            const className = classNames(
+              'StatNumFreqInYear-freqColumn',
+              {'is-selected': isSelected},
+            );
             return (
-              <div className="StatNumFreqInYear-freqColumn" key={num}>
+              <div className={className} key={num}>
                 <div className="StatNumFreqInYear-freqColumnLine is-vertical" style={{height: `${valueAtNum}px`}} />
                 <div
                   className="StatNumFreqInYear-freqColumnLine is-horizontal"
@@ -130,6 +141,15 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
         </div>
       </div>
     );
+  }
+
+  private getNumbersFromNumber(num: number|string): number[] {
+    return num.toString().split('').map((n) => parseInt(n));
+  }
+
+  private getNumbersFromNumberWithLeadingZero(num: number): number[] {
+    const finalNum: string = `${num < 10 ? '0' : ''}${num}`;
+    return this.getNumbersFromNumber(finalNum);
   }
 
   private createAnimator(): Animator<TAnimatorValue> {
