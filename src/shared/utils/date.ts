@@ -16,6 +16,54 @@ const MONTHS: string[] = [
   'декабря',
 ];
 
+const DAYS_WORDS: string[] = [
+  'первое',
+  'второе',
+  'третье',
+  'четвертое',
+  'пятое',
+  'шестое',
+  'седьмое',
+  'восьмое',
+  'девятое',
+  'десятое',
+  'одиннадцатое',
+  'двенадцатое',
+  'тринадцатое',
+  'четырнадцатое',
+  'пятнадцатое',
+  'шестандцатое',
+  'семнадцатое',
+  'восемнадцатое',
+  'девятнадцатое',
+  'двадцатое',
+  'двадцать первое',
+  'двадцать второе',
+  'двадцать третье',
+  'двадцать четвертое',
+  'двадцать пятое',
+  'двадцать шестое',
+  'двадцать седьмое',
+  'двадцать восьмое',
+  'двадцать девятое',
+  'тридцатое',
+  'тридцать первое',
+];
+
+const DAYS_WORDS_ABBRS: string[] = DAYS_WORDS.map((word) => {
+  return word.split(' ').map((w) => w[0]).join('');
+});
+
+function addLeadingZeroToMonth(value: number|string): string {
+  const numberValue: number = +value;
+
+  if (numberValue < 10) {
+    return `0${numberValue}`;
+  }
+
+  return `${value}`;
+}
+
 function getDateByMD(month: number, day: number): Date {
   return new Date(DATE_NOW.getFullYear(), month - 1, day);
 }
@@ -28,7 +76,7 @@ const daysInYearsCache = {};
 function getDaysInYear(year: number): number {
   if (!daysInYearsCache[year]) {
     let days: number = 0;
-    for(let month = 1; month <= 12; month++) {
+    for (let month = 1; month <= 12; month++) {
       days += (new Date(year, month, 0).getDate());
     }
     daysInYearsCache[year] = days;
@@ -59,11 +107,23 @@ function dateToDayMonth(date: Date): string {
   return `${day} ${monthStr}`;
 }
 
-function dateToYYYYMMDD(date: Date): string {
+function dateToDayMonthAbbr(date: Date): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
+  const monthStr: string = MONTHS[month];
+
+  const monthFirstLetter = monthStr[0];
+  const dayFirstLetter = DAYS_WORDS_ABBRS[day - 1];
+
+  return `${dayFirstLetter}${monthFirstLetter}`.toUpperCase();
+}
+
+
+function dateToYYYYMMDD(date: Date): string {
+  const day: number = date.getDate();
+  const month: number = date.getMonth() + 1;
   const year: number = date.getFullYear();
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${addLeadingZeroToMonth(day)}`;
 }
 
 function dateToMonthStr(date: Date): string {
@@ -78,5 +138,6 @@ export {
   getDayInYear,
   dateToDayMonth,
   dateToMonthStr,
+  dateToDayMonthAbbr,
   dateToYYYYMMDD,
 };

@@ -1,0 +1,17 @@
+.CurrDayAbbr {
+  text-align: center;
+}
+
+.CurrDayAbbr-mainTitle {
+  @include phone {
+    font-size: 14px;
+  }
+}
+
+.CurrDayAbbr-abbr {
+  font-size: 142px;
+  margin-top: 20px;
+  @include phone {
+    font-size: 72px;
+  }
+}
