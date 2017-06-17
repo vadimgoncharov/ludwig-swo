@@ -5,22 +5,25 @@ import Header from '../components/Header';
 import {fetchStats} from 'shared/actions';
 import {TGlobalState} from 'shared/types/GlobalState';
 import {TDispatch} from 'shared/types/Dispatch';
+import {TStatTotal} from 'shared/types/StatTotal';
 
-interface IStateFromProps {
-  isFetching: boolean;
+type TStateFromProps = {
+  isFetching: boolean,
+  statTotal: TStatTotal,
 }
 
-interface IDispatchFromProps {
-  onFetchLinkClick: () => void;
+type TDispatchFromProps = {
+  onFetchLinkClick: () => void,
 }
 
-const mapStateToProps = (state: TGlobalState): IStateFromProps => {
+const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
+    statTotal: state.stats.data.statTotal,
   };
 };
 
-const mapDispatchToProps = (dispatch: TDispatch): IDispatchFromProps => {
+const mapDispatchToProps = (dispatch: TDispatch): TDispatchFromProps => {
   return {
     onFetchLinkClick: () => {
       dispatch(fetchStats());
@@ -28,15 +31,24 @@ const mapDispatchToProps = (dispatch: TDispatch): IDispatchFromProps => {
   };
 };
 
-class HeaderContainer extends React.Component<IStateFromProps & IDispatchFromProps, any> {
+class HeaderContainer extends React.Component<TStateFromProps & TDispatchFromProps, any> {
   public render() {
+    const {
+      isFetching,
+      statTotal,
+      onFetchLinkClick,
+    } = this.props;
     return (
-      <Header {...this.props} />
+      <Header
+        isFetching={isFetching}
+        onFetchLinkClick={onFetchLinkClick}
+        statTotal={statTotal}
+      />
     );
   }
 }
 
-export default connect<IStateFromProps, IDispatchFromProps, {}>(
+export default connect<TStateFromProps, TDispatchFromProps, {}>(
   mapStateToProps,
   mapDispatchToProps,
 )(HeaderContainer);

@@ -4,6 +4,7 @@
   top: 0;
   width: 100%;
   background-color: rgba(#000, 0.4);
+  z-index: 999;
 }
 
 .Header-nav {
@@ -34,36 +35,48 @@
   }
 }
 
-.Header-navItem.is-fetch {
+.Header-navItem.is-swo {
   position: absolute;
-  top: 20px;
+  top: 25px;
   right: 20px;
   width: auto;
   height: auto;
   text-align: right;
+}
 
-  .Header-fetchButton {
-    transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
-    user-select: none;
-    padding: 2px;
+.Header-swoDateValue {
+  @include phone {
+    display: none;
+  }
+}
 
-    &.is-fetching_no {
-      border-bottom: 1px dashed #fff;
-      cursor: pointer;
+.Header-swoDateFetchButton {
+  transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
+  user-select: none;
+  padding: 2px;
+  margin-left: 3px;
+  @include not-phone {
+    text-transform: lowercase;
+  }
+}
 
-      &:hover {
-        opacity: 0.8;
-      }
+.Header-swoDate {
+  &.is-fetching_no .Header-swoDateFetchButton {
+    border-bottom: 1px dashed #fff;
+    cursor: pointer;
 
-      &:active {
-        opacity: 0.5;
-      }
+    &:hover {
+      opacity: 0.8;
     }
 
-    &.is-fetching_yes {
-      opacity: 0.2;
-      border-bottom: 1px dashed transparent;
-      cursor: default;
+    &:active {
+      opacity: 0.5;
     }
+  }
+
+  &.is-fetching_yes .Header-swoDateFetchButton {
+    opacity: 0.2;
+    border-bottom: 1px dashed transparent;
+    cursor: default;
   }
 }

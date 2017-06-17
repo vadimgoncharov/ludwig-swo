@@ -24,6 +24,7 @@ type TAnimatorValue = {
 };
 
 export default class Hero extends React.Component<TProps, TState> {
+  public props: TProps;
   public state: TState = {
     animatorCurrValue: {
       time: 0,
