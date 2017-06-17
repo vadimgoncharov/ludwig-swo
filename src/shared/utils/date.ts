@@ -102,6 +102,10 @@ function getDayNumberInYear(year: number, month: number, day: number): number {
   return DAY_NUMBER_IN_YEAR_CACHE[key];
 }
 
+function getDayNumberInYearByDate(date: Date): number {
+  return getDayNumberInYear(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
 function dateToDayMonth(date: Date): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
@@ -168,6 +172,7 @@ export {
   getRandomDate,
   getDaysCountInYear,
   getDayNumberInYear,
+  getDayNumberInYearByDate,
   getDaysInYearAsDates,
   dateToDayMonth,
   dateToMonthStr,

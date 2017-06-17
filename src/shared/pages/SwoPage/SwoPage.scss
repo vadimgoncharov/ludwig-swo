@@ -35,7 +35,8 @@
   .CurrDayAbbr,
   .StatJdan,
   .StatNumFreqInYear,
-  .StatDayInMonth {
+  .StatDayInMonth,
+  .StatSlash {
     margin-top: 200px;
     @include phone {
       margin-top: 60px;

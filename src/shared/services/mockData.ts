@@ -1,4 +1,4 @@
-import {dateToYYYYMMDD, getRandomDate} from 'shared/utils/date';
+import {dateToYYYYMMDD, getDayNumberInYear, getRandomDate} from 'shared/utils/date';
 import {getRandomInt} from 'shared/utils/random';
 
 import {TStatMinMax} from 'shared/types/StatMinMax';
@@ -6,6 +6,7 @@ import {TStats} from 'shared/types/Stats';
 import {TStatJdan} from 'shared/types/StatJdan';
 import {TStatTotalEvenOdd} from 'shared/types/StatTotalEvenOdd';
 import {TStatDayInMonth} from 'shared/types/StatDayInMonth';
+import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
 
 type TStatAll = {
@@ -146,6 +147,7 @@ const getAllStatsData = (): TStats => {
     statMinMax: getMinMax(),
     statJdan: getJdanData(),
     statDayInMonth: getDayInMonthStats(),
+    statDayInYear: getDayInYearStats(),
   };
 };
 
@@ -168,6 +170,29 @@ const getDayInMonthStats = (): TStatDayInMonth => {
   return Object.keys(dayInMonthStatCount).map((dayNum) => {
     return dayInMonthStatCount[dayNum];
   });
+};
+
+const getDayInYearStats = (): TStatDayInYear => {
+  const data = STATS_TOTAL;
+  const dayInYearStatCount: {
+    [key: string]: TStatValueAtDayNum,
+  } = {};
+  data.forEach((item) => {
+    const d = item.generatedDate;
+    const dayNum = getDayNumberInYear(d.getFullYear(), d.getMonth(), d.getDate());
+    const key = dateToYYYYMMDD(item.generatedDate);
+    if (!dayInYearStatCount[key]) {
+      dayInYearStatCount[key] = {
+        dayNum,
+        value: 0,
+      }
+    }
+    dayInYearStatCount[key].value++;
+  });
+
+  return Object.keys(dayInYearStatCount).map((key) => {
+    return dayInYearStatCount[key];
+  }).sort((a, b) => a.dayNum - b.dayNum);
 };
 
 export {

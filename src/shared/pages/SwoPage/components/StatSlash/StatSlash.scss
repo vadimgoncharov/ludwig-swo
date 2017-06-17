@@ -1,0 +1,44 @@
+.StatSlash {
+  text-align: center;
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.StatSlash-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.StatSlash-item {
+  font-size: 56px;
+  line-height: 56px;
+  margin: 0 5px;
+  @include phone {
+    font-size: 32px;
+    line-height: 32px;
+  }
+
+  &.is-gt {
+    color: greenyellow;
+  }
+
+  &.is-lt {
+    color: white;
+  }
+
+  &.is-eq {
+    color: darkgray;
+    font-size: 44px;
+    transform: translate(0, -2px);
+    @include phone {
+      font-size: 26px;
+    }
+  }
+
+  &.is-selected {
+    color: orange;
+  }
+}

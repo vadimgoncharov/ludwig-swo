@@ -11,6 +11,7 @@ import CurrDayAbbr    from './containers/CurrDayAbbr';
 import StatNumFreqInyear from './containers/StatNumFreqInYear';
 import StatJdan       from './containers/StatJdan';
 import StatDayInMonth from './containers/StatDayInMonth';
+import StatSlash      from './containers/StatSlash';
 import Footer         from './components/Footer';
 
 import './SwoPage.scss';
@@ -30,6 +31,7 @@ export default class SwoPage extends React.Component<any, any> {
         <StatNumFreqInyear />
         <StatJdan />
         <StatDayInMonth />
+        <StatSlash />
         <Footer />
       </div>
     );

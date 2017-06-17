@@ -4,6 +4,7 @@ import {TStatMinMax} from './StatMinMax';
 import {TStatJdan} from './StatJdan';
 import {TStatTotalEvenOdd} from './StatTotalEvenOdd';
 import {TStatDayInMonth} from './StatDayInMonth';
+import {TStatDayInYear} from 'shared/types/StatDayInYear';
 
 export type TStats = {
   statTotal: TStatTotal,
@@ -12,4 +13,5 @@ export type TStats = {
   statMinMax: TStatMinMax,
   statJdan: TStatJdan,
   statDayInMonth: TStatDayInMonth,
+  statDayInYear: TStatDayInYear,
 };
