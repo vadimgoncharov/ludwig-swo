@@ -4,6 +4,7 @@ import {getRandomInt} from 'shared/utils/random';
 import {TStatMinMax} from 'shared/types/StatMinMax';
 import {TStats} from 'shared/types/Stats';
 import {TStatJdan} from 'shared/types/StatJdan';
+import {TStatTotalEvenOdd} from 'shared/types/StatTotalEvenOdd';
 
 type TStatAll = {
   visitDate: Date,
@@ -71,6 +72,25 @@ const getMinMax = (): TStatMinMax => {
   });
 };
 
+const getStatTotalEvenOdd = (): TStatTotalEvenOdd => {
+  let evenValue = 0;
+  let oddValue = 0;
+
+  STATS_TOTAL.forEach((item) => {
+    const day = item.generatedDate.getDate();
+    if (day % 2 === 0) {
+      evenValue++;
+    } else {
+      oddValue++;
+    }
+  });
+
+  return {
+    evenValue,
+    oddValue,
+  };
+};
+
 const getJdanData = (): TStatJdan => {
   const data = STATS_TOTAL;
   const groupedByDateStr = {};
@@ -118,6 +138,7 @@ const getAllStatsData = (): TStats => {
       date: STATS_TOTAL[STATS_TOTAL.length - 1].generatedDate,
       value: STATS_TOTAL.length,
     },
+    statTotalEvenOdd: getStatTotalEvenOdd(),
     statPrevDates: getLastStatsAllByLimit(10).map((item) => item.generatedDate),
     statMinMax: getMinMax(),
     statJdan: getJdanData(),

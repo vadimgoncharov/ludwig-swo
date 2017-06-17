@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
-import * as formatThousands from 'format-thousands';
-import * as pluralize from 'plural-ru';
 
+import * as format from 'shared/utils/format';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import Link from 'shared/components/Link';
@@ -73,13 +72,10 @@ export default class StatTotal extends React.Component<TProps, TState> {
   }
 
   private renderTotalValueFormatted(value: number): string {
-    const formatted: string = formatThousands(value);
-    const postfix: string = pluralize(value, 'раз', 'раза', 'раз');
-
     if (this.animator.isAnimationInProgress()) {
-      return `${formatted} раза`;
+      return format.formatValueToTimesWithoutPluralize(value);
     }
-    return `${formatted} ${postfix}`;
+    return format.formatValueToTimesWithPluralize(value);
   }
 
   private renderSumOfNumber(value: number): string {
