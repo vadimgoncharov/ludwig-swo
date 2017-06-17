@@ -5,6 +5,9 @@
 .CurrDayAbbr-mainTitle {
   @include phone {
     font-size: 14px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

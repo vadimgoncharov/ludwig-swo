@@ -11,8 +11,9 @@ type TStatAll = {
   generatedDate: Date,
 };
 
+const DAY_IN_MS = 3600 * 24 * 1000;
+
 const generateStatsAll = (): TStatAll[] => {
-  const DAY_IN_MS = 3600 * 24 * 1000;
   const TODAY = new Date();
   const YEAR_AGO = new Date(TODAY.getTime() - DAY_IN_MS * 365);
   let cursor = new Date(YEAR_AGO);

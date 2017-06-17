@@ -4,7 +4,7 @@ import * as classNames from 'classnames';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonth, getDaysInYear, getDayInYear, dateToYYYYMMDD} from 'shared/utils/date';
+import {dateToDayMonth, getDaysCountInYear, getDayNumberInYear, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -53,8 +53,8 @@ export default class DayInYearScale extends React.Component<TProps, TState> {
     const date: Date = new Date(this.state.animatorCurrValue.time);
     const dateStr: string = dateToDayMonth(date);
     const currYear = date.getFullYear();
-    const daysInYear = getDaysInYear(currYear);
-    const dayInYear = getDayInYear(currYear, date.getMonth(), date.getDate());
+    const daysInYear = getDaysCountInYear(currYear);
+    const dayInYear = getDayNumberInYear(currYear, date.getMonth(), date.getDate());
 
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>

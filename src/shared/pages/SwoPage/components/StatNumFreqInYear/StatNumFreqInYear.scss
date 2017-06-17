@@ -1,0 +1,94 @@
+.StatNumFreqInYear {
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.StatNumFreqInYear-freqColumns {
+  @include not-phone {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.StatNumFreqInYear-freqColumn {
+  @include not-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+  }
+  @include phone {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+  }
+}
+
+.StatNumFreqInYear-freqColumnLine {
+  background-color: orangered;
+  @include not-phone {
+    width: 2px;
+
+    &.is-horizontal {
+      display: none;
+    }
+  }
+  @include phone {
+    height: 2px;
+    order: 2;
+
+    &.is-vertical {
+      display: none;
+    }
+  }
+}
+
+.StatNumFreqInYear-freqColumnData {
+  font-size: 14px;
+
+  @include not-phone {
+    margin-top: 20px;
+  }
+
+  @include phone {
+    display: flex;
+    text-align: left;
+    margin-right: 10px;
+    min-width: 30%;
+  }
+}
+
+.StatNumFreqInYear-freqColumnDataValueAtNum {
+  margin-top: 5px;
+  @include phone {
+    white-space: nowrap;
+    margin: 0 10px;
+  }
+}
+
+.StatNumFreqInYear-calendar {
+  margin-top: 30px;
+}
+
+.StatNumFreqInYear-calendarItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.StatNumFreqInYear-calendarItem {
+  margin: 1px 2px;
+
+  &.is-oddMonth {
+    color: red;
+  }
+
+  &.is-selected {
+    color: orange;
+  }
+}

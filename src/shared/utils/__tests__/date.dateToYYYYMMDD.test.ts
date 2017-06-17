@@ -12,11 +12,11 @@ describe('date.dateToYYYYMMDD', () => {
     expect(date.dateToYYYYMMDD(d)).toBe(result);
   });
 
-  test('should add leading zero to day', () => {
+  test('should add leading zero to day and month', () => {
     const year = 2017;
-    const month = 12; // Dec
+    const month = 1; // Jan
     const day = 1;
-    const result = `${year}-${month}-0${day}`;
+    const result = `${year}-0${month}-0${day}`;
 
     const d = new Date(year, month - 1, day);
 
