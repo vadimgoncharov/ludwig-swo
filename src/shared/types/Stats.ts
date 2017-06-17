@@ -3,6 +3,7 @@ import {TStatPrevDates} from './StatPrevDates';
 import {TStatMinMax} from './StatMinMax';
 import {TStatJdan} from './StatJdan';
 import {TStatTotalEvenOdd} from './StatTotalEvenOdd';
+import {TStatDayInMonth} from './StatDayInMonth';
 
 export type TStats = {
   statTotal: TStatTotal,
@@ -10,4 +11,5 @@ export type TStats = {
   statPrevDates: TStatPrevDates,
   statMinMax: TStatMinMax,
   statJdan: TStatJdan,
+  statDayInMonth: TStatDayInMonth,
 };

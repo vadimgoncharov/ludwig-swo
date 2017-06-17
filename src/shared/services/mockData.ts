@@ -5,6 +5,8 @@ import {TStatMinMax} from 'shared/types/StatMinMax';
 import {TStats} from 'shared/types/Stats';
 import {TStatJdan} from 'shared/types/StatJdan';
 import {TStatTotalEvenOdd} from 'shared/types/StatTotalEvenOdd';
+import {TStatDayInMonth} from 'shared/types/StatDayInMonth';
+import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
 
 type TStatAll = {
   visitDate: Date,
@@ -143,7 +145,29 @@ const getAllStatsData = (): TStats => {
     statPrevDates: getLastStatsAllByLimit(10).map((item) => item.generatedDate),
     statMinMax: getMinMax(),
     statJdan: getJdanData(),
+    statDayInMonth: getDayInMonthStats(),
   };
+};
+
+const getDayInMonthStats = (): TStatDayInMonth => {
+  const data = STATS_TOTAL;
+  const dayInMonthStatCount: {
+    [key: string]: TStatValueAtDayNum,
+  } = {};
+  data.forEach((item) => {
+    const dayNum = item.generatedDate.getDate();
+    if (!dayInMonthStatCount[dayNum]) {
+      dayInMonthStatCount[dayNum] = {
+        dayNum,
+        value: 0,
+      }
+    }
+    dayInMonthStatCount[dayNum].value++;
+  });
+
+  return Object.keys(dayInMonthStatCount).map((dayNum) => {
+    return dayInMonthStatCount[dayNum];
+  });
 };
 
 export {

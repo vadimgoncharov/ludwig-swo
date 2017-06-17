@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
+import * as classNames from 'classnames';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
@@ -21,15 +22,6 @@ type TState = {
 type TAnimatorValue = {
   time: number,
 };
-
-const backgroundColors = [
-  'limegreen',
-  'goldenrod',
-  'orchid',
-  '#808000',
-  'blanchedalmond',
-  'powderblue',
-];
 
 export default class StatPrevDates extends React.Component<TProps, TState> {
   public state = {
@@ -81,11 +73,11 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
   }
 
   private renderItem = (date: Date, index: number) => {
-    const backgroundColor = backgroundColors[date.getMonth() % 6];
-    const color = '#000';
+    const bgColorNum = date.getMonth() + 1;
+    const itemValueClassName = classNames('StatPrevDates-itemValue', `is-bgColor${bgColorNum}`);
     return (
       <li className="StatPrevDates-item" key={index}>
-        <div className="StatPrevDates-itemValue" style={{backgroundColor, color}}>{date.getDate()}</div>
+        <div className={itemValueClassName}>{date.getDate()}</div>
         <div className="StatPrevDates-itemTitle">{dateToMonthStr(date)}</div>
       </li>
     );

@@ -34,7 +34,8 @@
   .StatTotalEvenOdd,
   .CurrDayAbbr,
   .StatJdan,
-  .StatNumFreqInYear {
+  .StatNumFreqInYear,
+  .StatDayInMonth {
     margin-top: 200px;
     @include phone {
       margin-top: 60px;
