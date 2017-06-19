@@ -9,7 +9,7 @@ type TProps<TValue> = {
 
 export enum AnimationState {
   NOT_STARTED,
-  STARTED,
+  RUNNING,
   PAUSED,
   FINISHED,
 }
@@ -42,16 +42,23 @@ export default class Animator<TValue> {
   };
 
   public start(newValue: TValue[]): void {
+    const {tween} = this;
     if (this.animationState !== AnimationState.NOT_STARTED) {
       this.stop();
     }
     if (Array.isArray(newValue) && newValue.length > 0) {
       const newValueFlatten = this.flattenValue(newValue);
-      this.tween.to(newValueFlatten, this.animationEnabled ? this.props.duration : 0);
+      tween.to(newValueFlatten, this.animationEnabled ? this.props.duration : 1);
     }
-    this.changeState(AnimationState.STARTED);
-    this.tween.start();
-    this.animate();
+    this.changeState(AnimationState.RUNNING);
+    tween.start();
+    const update = (time) => {
+      if (this.animationState === AnimationState.RUNNING) {
+        requestAnimationFrame(update);
+        tween.update(time);
+      }
+    };
+    requestAnimationFrame(update);
   }
 
   public stop(): void {
@@ -60,7 +67,7 @@ export default class Animator<TValue> {
   }
 
   public isAnimationInProgress(): boolean {
-    return this.animationState === AnimationState.STARTED;
+    return this.animationState === AnimationState.RUNNING;
   }
 
   private createTween() {
@@ -124,13 +131,5 @@ export default class Animator<TValue> {
 
   private changeValue(newValues: TValue[]): void {
     this.props.onValueChange(newValues);
-  }
-
-  private animate = (): void => {
-    if (this.animationState !== AnimationState.STARTED) {
-      return;
-    }
-    requestAnimationFrame(this.animate);
-    TWEEN.update();
   }
 }
