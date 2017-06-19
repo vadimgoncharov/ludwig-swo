@@ -9,8 +9,10 @@
 
 .Header-nav {
   display: flex;
-  justify-content: center;
-  margin: 20px 0;
+  margin: 20px;
+  @include not-phone {
+    justify-content: center;
+  }
 }
 
 .Header-navItem {
@@ -42,11 +44,20 @@
   width: auto;
   height: auto;
   text-align: right;
+  @include phone {
+    top: 18px;
+  }
+}
+
+.Header-swoDate {
+  @include phone {
+    font-size: 15px;
+  }
 }
 
 .Header-swoDateValue {
   @include phone {
-    display: none;
+    display: block;
   }
 }
 

@@ -48,7 +48,10 @@ export default class Header extends React.Component<TProps, any> {
 
     return (
       <div className={className}>
-        <span className="Header-swoDateValue">Сайт откроется {date}</span>{' '}
+        <span className="Header-swoDateValue">
+          <span className="Header-swoDateValueText">Сайт откроется</span>{' '}
+          {date}
+        </span>{' '}
         <span className="Header-swoDateFetchButton" onClick={this.onFetchLinkClick}>Другая дата</span>
       </div>
     );
