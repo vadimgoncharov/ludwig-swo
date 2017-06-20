@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import Link from 'shared/components/Link';
-import {dateToDayMonth} from 'shared/utils/date';
+import Animator from 'shared/services/Animator';
+import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
+import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -14,8 +15,41 @@ type TProps = {
   onFetchLinkClick: () => void,
 };
 
-export default class Header extends React.Component<TProps, any> {
+type TState = {
+  animatorCurrValue: TAnimatorValue,
+};
+
+type TAnimatorValue = {
+  time: number,
+};
+
+export default class Header extends React.Component<TProps, TState> {
+  public state = {
+    animatorCurrValue: {
+      time: 0,
+    },
+  };
   public props: TProps;
+  private animator: Animator<TAnimatorValue>;
+
+  constructor(props: TProps) {
+    super(props);
+
+    this.state.animatorCurrValue.time = props.statTotal.date.getTime();
+    this.animator = this.createAnimator();
+    this.animator.enableAnimation();
+  }
+
+  public componentWillReceiveProps(nextProps: TProps) {
+    const oldDate = this.props.statTotal.date;
+    const newDate = nextProps.statTotal.date;
+
+    if (oldDate.getTime() === newDate.getTime()) {
+      return;
+    }
+
+    this.animator.start([{time: newDate.getTime()}]);
+  }
 
   public render() {
     return (
@@ -34,11 +68,11 @@ export default class Header extends React.Component<TProps, any> {
     if (!isFetching) {
       onFetchLinkClick();
     }
-  }
+  };
 
   private renderSwoDate() {
-    const date = dateToDayMonth(this.props.statTotal.date);
     const {isFetching} = this.props;
+    const date: string = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
     const className = classNames('Header-swoDate', `is-fetching_${isFetching ? 'yes' : 'no'}`);
 
     return (
@@ -50,5 +84,16 @@ export default class Header extends React.Component<TProps, any> {
         <span className="Header-swoDateFetchButton" onClick={this.onFetchLinkClick}>Другая дата</span>
       </div>
     );
+  }
+
+  private createAnimator(): Animator<TAnimatorValue> {
+    return new Animator<TAnimatorValue>({
+      from: [{time: this.state.animatorCurrValue.time}],
+      duration: ANIMATION_DURATION_DEFAULT,
+      comparator: (oldValues, newValues) => {
+        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+      },
+      onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
+    });
   }
 }

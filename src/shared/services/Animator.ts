@@ -4,6 +4,8 @@ type TProps<TValue> = {
   from: TValue[],
   duration: number,
   onValueChange: (newValues: TValue[]) => void,
+  onComplete?: () => void,
+  onStateChange?: (animationState: AnimationState) => void,
   comparator: (oldValues: TValue[], newValues: TValue[]) => boolean,
 };
 
@@ -44,6 +46,7 @@ export default class Animator<TValue> {
   public start(newValue: TValue[]): void {
     const {tween} = this;
     if (this.animationState !== AnimationState.NOT_STARTED) {
+      this.changeState(AnimationState.PAUSED);
       this.stop();
     }
     if (Array.isArray(newValue) && newValue.length > 0) {
@@ -92,6 +95,10 @@ export default class Animator<TValue> {
     tween.onComplete(() => {
       this.changeValue(this.fromFlattenToArray(this.currValue));
       this.changeState(AnimationState.FINISHED);
+      const {onComplete} = this.props;
+      if (typeof onComplete === 'function') {
+        onComplete();
+      }
     });
 
     return tween;
@@ -126,7 +133,11 @@ export default class Animator<TValue> {
   }
 
   private changeState(newState: AnimationState): void {
+    const {onStateChange} = this.props;
     this.animationState = newState;
+    if (typeof onStateChange === 'function') {
+      onStateChange(newState);
+    }
   }
 
   private changeValue(newValues: TValue[]): void {

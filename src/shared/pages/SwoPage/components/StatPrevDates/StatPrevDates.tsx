@@ -49,20 +49,26 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
       return;
     }
 
-    this.animator.start(newDates.map((item: Date): TAnimatorValue => {
-      return {
-        time: item.getTime(),
-      };
-    }));
+    this.animator.stop();
+    setTimeout(() => {
+      this.animator.start(newDates.map((item: Date): TAnimatorValue => {
+        return {
+          time: item.getTime(),
+        };
+      }));
+    });
   }
 
   public render() {
     const stat = this.state.animatorCurrValues.map((item: TAnimatorValue) => {
       return new Date(item.time);
     });
+    const isAnimationRunning = this.animator.isAnimationInProgress();
+    const rootClassName = classNames('StatPrevDates', {'is-animationRunning': isAnimationRunning});
+
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatPrevDates">
+        <div className={rootClassName}>
           <div className="StatPrevDates-title">Предыдущие дни открытия сайта:</div>
           <ul className="StatPrevDates-items">
             {stat.map(this.renderItem)}
@@ -96,6 +102,7 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
         });
       },
       onValueChange: (newValue) => this.setState({animatorCurrValues: newValue}),
+      onStateChange: (animationState) => this.forceUpdate(),
     });
   }
 }
