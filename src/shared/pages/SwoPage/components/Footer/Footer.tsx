@@ -4,14 +4,23 @@ import Link from 'shared/components/Link';
 
 import './Footer.scss';
 
-type AuthorItem = {
+type TAuthor = {
   name: string,
   date: number,
 };
 
 export default class Footer extends React.Component<any, void> {
-  renderAuthors() {
-    const authors: AuthorItem[] = [
+  public render() {
+    return (
+      <div className="Footer">
+        {this.renderAuthors()}
+        {this.renderContacts()}
+      </div>
+    );
+  }
+
+  private renderAuthors() {
+    const authors: TAuthor[] = [
       {
         name: 'Сергей Муратов',
         date: 2006,
@@ -24,6 +33,10 @@ export default class Footer extends React.Component<any, void> {
         name: 'Алексей Анисимов',
         date: 2015,
       },
+      {
+        name: 'Вадим Гончаров',
+        date: 2017,
+      },
     ];
     return (
       <div className="Footer-authors">
@@ -31,7 +44,7 @@ export default class Footer extends React.Component<any, void> {
         <div className="Footer-authorsDevs">
           <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали</span>
           <ol className="Footer-authorsDevsItems">
-            {authors.map((item: AuthorItem, index: number) => {
+            {authors.map((item: TAuthor, index: number) => {
               const {name, date} = item;
               return (
                 <li className="Footer-authorsDevsItem" key={index}>
@@ -46,19 +59,10 @@ export default class Footer extends React.Component<any, void> {
     );
   }
 
-  renderContacts() {
+  private renderContacts() {
     return (
       <div className="Footer-contacts">
         Эл. почта: <Link href="mailto:ludwig@ludwigbistronovsky.ru">ludwig@ludwigbistronovsky.ru</Link>
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <div className="Footer">
-        {this.renderAuthors()}
-        {this.renderContacts()}
       </div>
     );
   }
