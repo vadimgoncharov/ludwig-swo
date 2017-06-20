@@ -19,14 +19,33 @@
   }
 }
 
+.Header-swoDateValueInner {
+  display: inline-block;
+  transition:
+    250ms opacity ease-in-out,
+    250ms transform ease-in-out,
+    250ms margin ease-in-out;
+  transform: translate(7px, 0);
+  opacity: 0;
+}
+
+.Header-swoDate.is-valueVisible_yes {
+  .Header-swoDateValueInner {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  .Header-swoDateFetchButton {
+    text-transform: lowercase;
+    margin-left: 3px;
+  }
+}
+
 .Header-swoDateFetchButton {
   transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
   user-select: none;
   padding: 2px;
-  margin-left: 3px;
-  @include not-phone {
-    text-transform: lowercase;
-  }
+  margin-left: 0;
 }
 
 .Header-swoDate {

@@ -11,6 +11,7 @@ import './Header.scss';
 
 type TProps = {
   isFetching: boolean,
+  isSwoDateVisible: boolean,
   statTotal: TStatTotal,
   onFetchLinkClick: () => void,
 };
@@ -22,6 +23,8 @@ type TState = {
 type TAnimatorValue = {
   time: number,
 };
+
+export const HEADER_ID = 'Header';
 
 export default class Header extends React.Component<TProps, TState> {
   public state = {
@@ -71,15 +74,21 @@ export default class Header extends React.Component<TProps, TState> {
   };
 
   private renderSwoDate() {
-    const {isFetching} = this.props;
+    const {isFetching, isSwoDateVisible} = this.props;
     const date: string = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
-    const className = classNames('Header-swoDate', `is-fetching_${isFetching ? 'yes' : 'no'}`);
+    const className = classNames(
+      'Header-swoDate',
+      `is-fetching_${isFetching ? 'yes' : 'no'}`,
+      `is-valueVisible_${isSwoDateVisible ? 'yes' : 'no'}`,
+    );
 
     return (
       <div className={className}>
         <span className="Header-swoDateValue">
-          <span className="Header-swoDateValueText">Сайт откроется</span>{' '}
-          {date}
+          <span className="Header-swoDateValueInner">
+            <span className="Header-swoDateValueText">Сайт откроется</span>{' '}
+            {date}
+          </span>
         </span>{' '}
         <span className="Header-swoDateFetchButton" onClick={this.onFetchLinkClick}>Другая дата</span>
       </div>

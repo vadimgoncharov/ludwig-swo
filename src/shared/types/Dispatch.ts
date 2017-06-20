@@ -3,4 +3,4 @@ import {TThunkAction} from './ThunkAction';
 
 type TPromiseAction = Promise<TAction>;
 
-export type TDispatch = (action: TAction | TThunkAction | TPromiseAction | TAction) => any;
+export type TDispatch = (action: TAction | TThunkAction | TPromiseAction) => any;

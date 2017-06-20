@@ -3,7 +3,7 @@ import * as mockData from 'shared/services/mockData';
 import {
   ACTION_REQUEST_STATS,
   ACTION_RECEIVE_STATS,
-} from '../actions';
+} from '../actions/stats';
 
 import {TStatsState} from '../types/StatsState';
 import {TStatsAction} from '../types/StatsAction';

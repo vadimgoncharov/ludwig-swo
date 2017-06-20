@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {connect, DispatchProp} from 'react-redux';
+import {connect} from 'react-redux';
 
+import {changeHeaderSwoDateVisibility} from 'shared/actions/ui';
 import Hero from '../components/Hero';
 import {TGlobalState} from 'shared/types/GlobalState';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -11,6 +12,10 @@ type TStateFromProps = {
   statTotal: TStatTotal;
 };
 
+type TDispatchFromProps = {
+  onHeaderSwoDateVisibilityChange: (isVisible: boolean) => void,
+}
+
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
@@ -18,13 +23,29 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   };
 };
 
-class HeroContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
+const mapDispatchToProps = (dispatch: TDispatch): TDispatchFromProps => {
+  return {
+    onHeaderSwoDateVisibilityChange: (isVisible: boolean): void => {
+      dispatch(changeHeaderSwoDateVisibility(isVisible));
+    },
+  };
+};
+
+class HeroContainer  extends React.Component<TStateFromProps & TDispatchFromProps, any> {
   public render() {
-    const {dispatch, ...props} = this.props;
+    const {
+      isFetching,
+      statTotal,
+      onHeaderSwoDateVisibilityChange,
+    } = this.props;
     return (
-      <Hero {...props} />
+      <Hero
+        isFetching={isFetching}
+        statTotal={statTotal}
+        onHeaderSwoDateVisibilityChange={onHeaderSwoDateVisibilityChange}
+      />
     );
   }
 }
 
-export default connect<TStateFromProps, null, null>(mapStateToProps)(HeroContainer);
+export default connect<TStateFromProps, TDispatchFromProps, null>(mapStateToProps, mapDispatchToProps)(HeroContainer);
