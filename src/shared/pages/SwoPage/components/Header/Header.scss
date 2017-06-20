@@ -10,54 +10,12 @@
 .Header-nav {
   display: flex;
   margin: 20px;
-  @include not-phone {
-    justify-content: center;
-  }
-}
-
-.Header-navItem {
-  width: 30px;
-  height: 30px;
-}
-
-.Header-navItem.is-main {
-  .Header-navItemContent {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 100%;
-    transition: background-color 250ms ease-in-out;
-  }
-
-  .Header-navItemLink:hover,
-  .Header-navItemLink:active {
-    .Header-navItemContent {
-      background-color: red;
-    }
-  }
-}
-
-.Header-navItem.is-swo {
-  position: absolute;
-  top: 25px;
-  right: 20px;
-  width: auto;
-  height: auto;
-  text-align: right;
-  @include phone {
-    top: 18px;
-  }
+  justify-content: flex-end;
 }
 
 .Header-swoDate {
   @include phone {
     font-size: 15px;
-  }
-}
-
-.Header-swoDateValue {
-  @include phone {
-    display: block;
   }
 }
 

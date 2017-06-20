@@ -21,11 +21,6 @@ export default class Header extends React.Component<TProps, any> {
     return (
       <div className="Header">
         <div className="Header-nav">
-          <div className="Header-navItem is-main">
-            <Link className="Header-navItemLink" href="/">
-              <div className="Header-navItemContent" />
-            </Link>
-          </div>
           <div className="Header-navItem is-swo">
             {this.renderSwoDate()}
           </div>
