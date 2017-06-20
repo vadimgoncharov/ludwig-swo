@@ -6,16 +6,19 @@ import StatTotalEvenOdd from '../components/StatTotalEvenOdd';
 import {TGlobalState} from 'shared/types/GlobalState';
 import {TDispatch} from 'shared/types/Dispatch';
 import {TStatTotalEvenOdd} from 'shared/types/StatTotalEvenOdd';
+import {TStatTotal} from 'shared/types/StatTotal';
 
 type TStateFromProps = {
   isFetching: boolean;
   statTotalEvenOdd: TStatTotalEvenOdd;
+  statTotal: TStatTotal;
 };
 
 const mapStateToProps = (state: TGlobalState) => {
   return {
     isFetching: state.stats.isFetching,
     statTotalEvenOdd: state.stats.data.statTotalEvenOdd,
+    statTotal: state.stats.data.statTotal,
   };
 };
 

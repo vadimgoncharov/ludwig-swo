@@ -21,6 +21,11 @@ function convertRange(
   return newValue;
 }
 
+function isEven(num: number): boolean {
+  return Math.round(num) % 2 === 0;
+}
+
 export {
   convertRange,
+  isEven,
 };
