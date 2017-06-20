@@ -49,6 +49,16 @@
   }
 }
 
+.Footer-authorsDevsItem.is-currMaintainer .Footer-authorsDevsItemDate {
+  &::before {
+    content: '(с ';
+  }
+
+  &::after {
+    content: '-го),';
+  }
+}
+
 .Footer-contacts {
   padding-top: 50px;
   margin-top: 50px;

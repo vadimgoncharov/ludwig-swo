@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 
 import Link from 'shared/components/Link';
 
@@ -7,6 +8,7 @@ import './Footer.scss';
 type TAuthor = {
   name: string,
   date: number,
+  isCurrMaintainer: boolean,
 };
 
 export default class Footer extends React.Component<any, void> {
@@ -24,18 +26,22 @@ export default class Footer extends React.Component<any, void> {
       {
         name: 'Сергей Муратов',
         date: 2006,
+        isCurrMaintainer: false,
       },
       {
         name: 'Андрей Шитов',
         date: 2007,
+        isCurrMaintainer: false,
       },
       {
         name: 'Алексей Анисимов',
         date: 2015,
+        isCurrMaintainer: false,
       },
       {
         name: 'Вадим Гончаров',
         date: 2017,
+        isCurrMaintainer: true,
       },
     ];
     return (
@@ -45,9 +51,12 @@ export default class Footer extends React.Component<any, void> {
           <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали</span>
           <ol className="Footer-authorsDevsItems">
             {authors.map((item: TAuthor, index: number) => {
+              const devsItemClassName = classNames('Footer-authorsDevsItem', {
+                'is-currMaintainer': item.isCurrMaintainer,
+              });
               const {name, date} = item;
               return (
-                <li className="Footer-authorsDevsItem" key={index}>
+                <li className={devsItemClassName} key={index}>
                   <span className="Footer-authorsDevsItemName">{name}</span>
                   <span className="Footer-authorsDevsItemDate">{date}</span>
                 </li>
