@@ -57,14 +57,15 @@ export default class Hero extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="Hero">
-          <Waypoint
-            onEnter={this.onHeroSwoEnter}
-            onLeave={this.onHeroSwoLeave}
-            onPositionChange={this.onHeroSwoPositionChange}>
-            <div className="Hero-swo">
-              Сайт откроется <span className="Hero-swoDate">{date}</span>
-            </div>
-          </Waypoint>
+          <div className="Hero-swo">
+            <Waypoint
+              onEnter={this.onHeroSwoEnter}
+              onLeave={this.onHeroSwoLeave}
+              onPositionChange={this.onHeroSwoPositionChange}>
+              <div className="Hero-swoText">Сайт откроется</div>
+            </Waypoint>
+            <div className="Hero-swoDate">{date}</div>
+          </div>
           <div className="Hero-nav">
             <span className="Hero-navItem is-refresh">
               <Link href="/">Другой вариант</Link>
@@ -86,6 +87,7 @@ export default class Hero extends React.Component<TProps, TState> {
   };
 
   private onHeroSwoPositionChange = (data): void => {
+    console.log(data);
      if (data.currentPosition !== 'inside') {
        this.props.onHeaderSwoDateVisibilityChange(true);
      }
