@@ -24,8 +24,13 @@ export default class Footer extends React.Component<any, void> {
   private renderAuthors() {
     const authors: TAuthor[] = [
       {
-        name: 'Сергей Муратов',
-        date: 2006,
+        name: 'Вадим Гончаров',
+        date: 2017,
+        isCurrMaintainer: true,
+      },
+      {
+        name: 'Алексей Анисимов',
+        date: 2015,
         isCurrMaintainer: false,
       },
       {
@@ -34,14 +39,9 @@ export default class Footer extends React.Component<any, void> {
         isCurrMaintainer: false,
       },
       {
-        name: 'Алексей Анисимов',
-        date: 2015,
+        name: 'Сергей Муратов',
+        date: 2006,
         isCurrMaintainer: false,
-      },
-      {
-        name: 'Вадим Гончаров',
-        date: 2017,
-        isCurrMaintainer: true,
       },
     ];
     return (
