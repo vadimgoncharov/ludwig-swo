@@ -19,7 +19,7 @@ type TDispatchFromProps = {
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
-    statTotal: state.stats.data.statTotal,
+    statTotal: state.stats.dataPre.statTotal,
   };
 };
 

@@ -51,7 +51,7 @@ export default class DayInYearScale extends React.Component<TProps, TState> {
 
   public render() {
     const date: Date = new Date(this.state.animatorCurrValue.time);
-    const dateStr: string = dateToDayMonth(date);
+    const dateStr: string = dateToDayMonth(this.props.statTotal.date);
     const currYear = date.getFullYear();
     const daysInYear = getDaysCountInYear(currYear);
     const dayInYear = getDayNumberInYear(currYear, date.getMonth(), date.getDate());

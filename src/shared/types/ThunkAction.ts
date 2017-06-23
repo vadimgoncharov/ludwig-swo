@@ -1,6 +1,4 @@
 import {TDispatch} from './Dispatch';
-import {TGlobalState} from './GlobalState';
-
-type TGetGlobalState = () => TGlobalState;
+import {TGetGlobalState} from './GetGlobalState';
 
 export type TThunkAction = (dispatch: TDispatch, getState: TGetGlobalState) => any;

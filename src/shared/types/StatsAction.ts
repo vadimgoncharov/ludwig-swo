@@ -9,4 +9,16 @@ export type TReceiveStatsAction = {
   data: TStats,
 };
 
-export type TStatsAction = TRequestStatsAction | TReceiveStatsAction;
+export type TRequestStatsPreAction = {
+  type: 'REQUEST_STATS_PRE',
+};
+
+export type TReceiveStatsPreAction = {
+  type: 'RECEIVE_STATS_PRE',
+  data: TStats,
+};
+
+export type TStatsAction = TRequestStatsAction
+  | TReceiveStatsAction
+  | TRequestStatsPreAction
+  | TReceiveStatsPreAction;

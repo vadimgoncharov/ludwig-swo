@@ -54,7 +54,7 @@ export default class CurrDayAbbr extends React.Component<TProps, TState> {
 
   public render() {
     const animatorCurrDate = new Date(this.state.animatorCurrValue.time);
-    const date: string = dateToDayMonth(animatorCurrDate);
+    const date: string = dateToDayMonth(this.props.statTotal.date);
     const abbr = dateToDayMonthAbbr(animatorCurrDate);
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
