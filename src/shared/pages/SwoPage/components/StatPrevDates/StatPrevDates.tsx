@@ -69,11 +69,72 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
     onresize.off(this.onResize);
   }
 
+  public componentWillReceiveProps(nextProps: TProps) {
+    const oldDates = this.props.statPrevDates;
+    const newDates = nextProps.statPrevDates;
+
+    if (oldDates === newDates) {
+      return;
+    }
+
+    this.animator.stop();
+    setTimeout(() => {
+      this.animator.start(newDates.map((item): TAnimatorValue => {
+        return {
+          time: item.date.getTime(),
+        };
+      }));
+    });
+  }
+
+  public render() {
+    const stat = this.props.statPrevDates;
+    const {itemsLayout, itemsLayoutWidth, itemsLayoutHeight} = this.state;
+    const transitionGroupStyle = {
+      width: `${itemsLayoutWidth}px`,
+      minHeight: `${itemsLayoutHeight}px`,
+    };
+    return (
+      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
+        <div className="StatPrevDates">
+          <div className="StatPrevDates-containerInner" ref={this.onContainerInnerRefSet}>
+            <div className="StatPrevDates-title">Предыдущие дни открытия сайта:</div>
+            <TransitionGroup
+              component="ul"
+              className="StatPrevDates-items"
+              style={transitionGroupStyle}
+            >
+              {stat.map((item, itemIndex) => {
+                const {offsetX, offsetY} = itemsLayout[itemIndex]
+                return (
+                  <StatPrevDatesItem
+                    date={item.date}
+                    key={item.id}
+                    index={itemIndex}
+                    offsetX={offsetX}
+                    offsetY={offsetY}
+                    prevOffsetX={offsetX - ITEM_WIDTH}
+                    nextOffsetX={offsetX + ITEM_WIDTH}
+                    getItemPosition={this.getItemPosition}
+                  />
+                );
+              })}
+            </TransitionGroup>
+          </div>
+        </div>
+      </Waypoint>
+    );
+  }
+
+  private onContainerInnerRefSet = (el) => {
+    this.containerInner = this.containerInner || el;
+  };
+
   private onResize = () => {
     this.recalculateItemsLayout();
   };
 
-  private getItemPosition(index: number) {
+  private getItemPosition = (index: number) => {
     if (index < 0) {
       return {
         x: -ITEM_WIDTH,
@@ -99,6 +160,7 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
       y,
     };
   }
+
   private getRecalculatedItemsLayout() {
     const items = [];
     let maxX = ITEM_WIDTH;
@@ -126,62 +188,6 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
       itemsLayoutWidth: totalWidth,
       itemsLayoutHeight: totalHeight,
     });
-  }
-
-  public componentWillReceiveProps(nextProps: TProps) {
-    const oldDates = this.props.statPrevDates;
-    const newDates = nextProps.statPrevDates;
-
-    if (oldDates === newDates) {
-      return;
-    }
-
-    this.animator.stop();
-    setTimeout(() => {
-      this.animator.start(newDates.map((item): TAnimatorValue => {
-        return {
-          time: item.date.getTime(),
-        };
-      }));
-    });
-  }
-
-  public render() {
-    const stat = this.props.statPrevDates;
-    const {itemsLayout, itemsLayoutWidth, itemsLayoutHeight} = this.state;
-    return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatPrevDates">
-          <div className="StatPrevDates-containerInner" ref={(c) => this.containerInner = this.containerInner || c}>
-            <div className="StatPrevDates-title">Предыдущие дни открытия сайта:</div>
-            <TransitionGroup
-              component="ul"
-              className="StatPrevDates-items"
-              style={{
-                width: `${itemsLayoutWidth}px`,
-                minHeight: `${itemsLayoutHeight}px`,
-              }}
-            >
-              {stat.map((item, itemIndex) => {
-                const {offsetX, offsetY} = itemsLayout[itemIndex]
-                return (
-                  <StatPrevDatesItem
-                    date={item.date}
-                    key={item.id}
-                    index={itemIndex}
-                    offsetX={offsetX}
-                    offsetY={offsetY}
-                    prevOffsetX={offsetX - ITEM_WIDTH}
-                    nextOffsetX={offsetX + ITEM_WIDTH}
-                    getItemPosition={(index) => this.getItemPosition(index)}
-                  />
-                );
-              })}
-            </TransitionGroup>
-          </div>
-        </div>
-      </Waypoint>
-    );
   }
 
   private createAnimator(): Animator<TAnimatorValue> {

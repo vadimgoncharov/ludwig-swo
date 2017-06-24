@@ -84,41 +84,47 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
   }
 
   private renderFreq(): ReactElement<any> {
-    const animatorCurrDayValueNums = this.getNumbersFromNumberWithLeadingZero(
-      new Date(this.state.animatorCurrValue.time).getDate(),
-    );
     return (
       <div className="StatNumFreqInYear-freq">
         <div className="StatNumFreqInYear-freqMainTitle">
           Частота появления цифр от&nbsp;нуля до&nbsp;девяти в&nbsp;датах одного года:
         </div>
         <div className="StatNumFreqInYear-freqColumns">
-          {NUM_FREQ_IN_YEAR_VALUES.map((valueAtNum: number, num: number) => {
-            const valueAtNumFormatted: string = formatValueToTimesWithPluralize(valueAtNum);
-            const horizontalLineWidth = NUM_FREQ_IN_YEAR_VALUES_WIDTHES[num];
-            const numsFromNum = this.getNumbersFromNumber(num);
-            const isSelected: boolean = numsFromNum.some((n) => animatorCurrDayValueNums.indexOf(n) !== -1);
-            const className = classNames(
-              'StatNumFreqInYear-freqColumn',
-              {'is-selected': isSelected},
-            );
-            return (
-              <div className={className} key={num}>
-                <div className="StatNumFreqInYear-freqColumnLine is-vertical" style={{height: `${valueAtNum}px`}} />
-                <div
-                  className="StatNumFreqInYear-freqColumnLine is-horizontal"
-                  style={{width: `${horizontalLineWidth}%`, flexBasis: `${horizontalLineWidth}%`}} />
-                <div className="StatNumFreqInYear-freqColumnData">
-                  <div className="StatNumFreqInYear-freqColumnDataNum">«{num}»</div>
-                  <div className="StatNumFreqInYear-freqColumnDataValueAtNum">{valueAtNumFormatted}</div>
-                </div>
-              </div>
-            );
-          })}
+          {this.renderFreqColumns()}
         </div>
       </div>
     );
   }
+
+  private renderFreqColumns = () => {
+    const animatorCurrDayValueNums = this.getNumbersFromNumberWithLeadingZero(
+      new Date(this.state.animatorCurrValue.time).getDate(),
+    );
+
+    return NUM_FREQ_IN_YEAR_VALUES.map((valueAtNum: number, num: number) => {
+      const valueAtNumFormatted: string = formatValueToTimesWithPluralize(valueAtNum);
+      const horizontalLineWidth = NUM_FREQ_IN_YEAR_VALUES_WIDTHES[num];
+      const numsFromNum = this.getNumbersFromNumber(num);
+      const isSelected: boolean = numsFromNum.some((n) => animatorCurrDayValueNums.indexOf(n) !== -1);
+      const className = classNames(
+        'StatNumFreqInYear-freqColumn',
+        {'is-selected': isSelected},
+      );
+      return (
+        <div className={className} key={num}>
+          <div className="StatNumFreqInYear-freqColumnLine is-vertical" style={{height: `${valueAtNum}px`}} />
+          <div
+            className="StatNumFreqInYear-freqColumnLine is-horizontal"
+            style={{width: `${horizontalLineWidth}%`, flexBasis: `${horizontalLineWidth}%`}}
+          />
+          <div className="StatNumFreqInYear-freqColumnData">
+            <div className="StatNumFreqInYear-freqColumnDataNum">«{num}»</div>
+            <div className="StatNumFreqInYear-freqColumnDataValueAtNum">{valueAtNumFormatted}</div>
+          </div>
+        </div>
+      );
+    });
+  };
 
   private renderCalendar(): ReactElement<any> {
     const dates = getDaysInYearAsDates();

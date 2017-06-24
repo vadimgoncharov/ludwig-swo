@@ -61,7 +61,8 @@ export default class Hero extends React.Component<TProps, TState> {
             <Waypoint
               onEnter={this.onHeroSwoEnter}
               onLeave={this.onHeroSwoLeave}
-              onPositionChange={this.onHeroSwoPositionChange}>
+              onPositionChange={this.onHeroSwoPositionChange}
+            >
               <div className="Hero-swoText">Сайт откроется</div>
             </Waypoint>
             <div className="Hero-swoDate">{date}</div>

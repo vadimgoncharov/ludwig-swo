@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack-dev-server --env=dev",
     "build:prod": "webpack --env=prod --progress --profile --colors",
-    "eslint": "eslint ./src",
+    "tslint": "tslint 'src/**/*{.tx,tsx}'",
     "stylelint": "stylelint ./src/**/*.scss",
     "test": "jest --no-cache",
     "test:watch": "jest --watch --no-cache"
@@ -61,6 +61,8 @@
     "stylelint-config-standard": "16.0.0",
     "tslint": "5.4.3",
     "tslint-eslint-rules": "4.1.1",
+    "tslint-loader": "3.5.3",
+    "tslint-react": "3.0.0",
     "typescript": "2.5.0-dev.20170624",
     "typings": "2.1.1",
     "webpack": "3.0.0",

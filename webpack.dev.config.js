@@ -59,6 +59,13 @@ module.exports = {
         exclude: path.resolve(__dirname, 'node_modules'),
         include: path.resolve(__dirname, 'src'),
       },
+      {
+        test: /\.tsx?$/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        exclude: path.resolve(__dirname, 'node_modules'),
+        include: path.resolve(__dirname, 'src'),
+      },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: 'pre',

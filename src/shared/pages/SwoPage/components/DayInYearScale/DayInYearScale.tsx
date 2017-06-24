@@ -75,15 +75,17 @@ export default class DayInYearScale extends React.Component<TProps, TState> {
 
     return (
       <ol className="DayInYearScale-items">
-        {content.map((item, index) => {
-          const className = classNames('DayInYearScale-item', {'is-selected': index === dayInYear});
-          return (
-            <li className={className} key={index} />
-          );
-        })}
+        {content.map((item, index) => this.renderScaleItem(index, dayInYear))}
       </ol>
     );
   }
+
+  private renderScaleItem = (index: number, dayInYear: number) => {
+    const className = classNames('DayInYearScale-item', {'is-selected': index === dayInYear});
+    return (
+      <li className={className} key={index} />
+    );
+  };
 
   private createAnimator(): Animator<TAnimatorValue> {
     return new Animator<TAnimatorValue>({

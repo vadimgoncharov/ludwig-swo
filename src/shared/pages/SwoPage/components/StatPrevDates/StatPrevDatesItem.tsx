@@ -52,10 +52,15 @@ export default class StatPrevDatesItem extends React.Component<TProps, any> {
       transform: getTransformStyle(offsetX, offsetY, 1),
     };
     return (
-      <li className="StatPrevDates-item" ref={(c) => {this.rootContainer = this.rootContainer || c}} style={style}>
+      <li className="StatPrevDates-item" ref={this.onRootContainerRefSet} style={style}>
         <div className={itemValueClassName}>{date.getDate()}</div>
         <div className="StatPrevDates-itemTitle">{dateToMonthStr(date)}</div>
       </li>
     );
   };
+
+  private onRootContainerRefSet = (el) => {
+    this.rootContainer = this.rootContainer || el;
+  };
+
 }

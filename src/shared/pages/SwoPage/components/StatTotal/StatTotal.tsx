@@ -84,9 +84,9 @@ export default class StatTotal extends React.Component<TProps, TState> {
       .split('')
       .map((val: string) => parseInt(val));
 
-    const sum: number = numArr.reduce((sum: number, value: number) => {
-      sum += value;
-      return sum;
+    const sum: number = numArr.reduce((numSum: number, numValue: number) => {
+      numSum += numValue;
+      return numSum;
     }, 0);
 
     const numSumStr: string = numArr.join(' + ');

@@ -1,9 +1,10 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:recommended", "tslint-react"],
   "rules": {
     "max-line-length": {
       "options": [120]
     },
+    "jsx-no-multiline-js": false,
     "semicolon": false,
     "radix": false,
     "import-spacing": false,
