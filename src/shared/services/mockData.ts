@@ -10,11 +10,13 @@ import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
 
 type TStatAll = {
+  id: number,
   visitDate: Date,
   generatedDate: Date,
 };
 
 const DAY_IN_MS = 3600 * 24 * 1000;
+let STATS_ALL_LAST_ID = 0;
 
 const generateStatsAll = (): TStatAll[] => {
   const TODAY = new Date();
@@ -26,6 +28,7 @@ const generateStatsAll = (): TStatAll[] => {
   while (cursor.getTime() <= TODAY.getTime()) {
     for (let i = 0; i < getRandomInt(50, 300); i++) {
       stats.push({
+        id: ++STATS_ALL_LAST_ID,
         visitDate: new Date(cursor.getTime() + i * 1000),
         generatedDate: getRandomDate(),
       });
@@ -36,10 +39,13 @@ const generateStatsAll = (): TStatAll[] => {
 };
 
 const addDataToStatsAll = (): void => {
-  STATS_TOTAL.push({
-    visitDate: new Date(),
-    generatedDate: getRandomDate(),
-  });
+  for (let i = 0; i < getRandomInt(1, 1); i++) {
+    STATS_TOTAL.push({
+      id: ++STATS_ALL_LAST_ID,
+      visitDate: new Date(),
+      generatedDate: getRandomDate(),
+    });
+  }
 };
 
 const STATS_TOTAL = generateStatsAll();
@@ -130,6 +136,7 @@ const getLastStatsAllByLimit = (limit: number): TStatAll[] => {
     .sort((a, b) => b.index - a.index)
     .map((item) => {
       return {
+        id: item.id,
         generatedDate: item.generatedDate,
         visitDate: item.visitDate,
       };
@@ -143,7 +150,12 @@ const getAllStatsData = (): TStats => {
       value: STATS_TOTAL.length,
     },
     statTotalEvenOdd: getStatTotalEvenOdd(),
-    statPrevDates: getLastStatsAllByLimit(10).map((item) => item.generatedDate),
+    statPrevDates: getLastStatsAllByLimit(10).map((item) => {
+      return {
+        id: item.id,
+        date: item.generatedDate,
+      }
+    }),
     statMinMax: getMinMax(),
     statJdan: getJdanData(),
     statDayInMonth: getDayInMonthStats(),
