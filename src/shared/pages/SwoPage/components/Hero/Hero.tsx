@@ -87,7 +87,6 @@ export default class Hero extends React.Component<TProps, TState> {
   };
 
   private onHeroSwoPositionChange = (data): void => {
-    console.log(data);
      if (data.currentPosition !== 'inside') {
        this.props.onHeaderSwoDateVisibilityChange(true);
      }

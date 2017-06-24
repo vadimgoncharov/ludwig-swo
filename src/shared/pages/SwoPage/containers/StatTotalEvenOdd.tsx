@@ -22,7 +22,7 @@ const mapStateToProps = (state: TGlobalState) => {
   };
 };
 
-class StatTotalEvenOddContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
+class StatTotalEvenOddContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {dispatch, ...props} = this.props;
     return (

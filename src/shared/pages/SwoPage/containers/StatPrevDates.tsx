@@ -18,7 +18,7 @@ const mapStateToProps = (state: TGlobalState) => {
   };
 };
 
-class StatPrevDatesContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
+class StatPrevDatesContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {dispatch, ...props} = this.props;
     return (

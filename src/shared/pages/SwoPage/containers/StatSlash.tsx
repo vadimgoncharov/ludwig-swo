@@ -21,7 +21,7 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   };
 };
 
-class StatSlashContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
+class StatSlashContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {
       isFetching,

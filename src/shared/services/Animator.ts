@@ -1,4 +1,4 @@
-import * as TWEEN from 'tween.js';
+import * as TWEEN from '@tweenjs/tween.js';
 
 type TProps<TValue> = {
   from: TValue[],

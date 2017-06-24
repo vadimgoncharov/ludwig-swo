@@ -11,7 +11,7 @@ type TAuthor = {
   isCurrMaintainer: boolean,
 };
 
-export default class Footer extends React.Component<any, void> {
+export default class Footer extends React.Component<any, any> {
   public render() {
     return (
       <div className="Footer">

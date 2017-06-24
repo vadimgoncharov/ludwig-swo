@@ -19,7 +19,7 @@ const mapStateToProps = (state: TGlobalState) => {
   };
 };
 
-class StatTotalContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
+class StatTotalContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {dispatch, ...props} = this.props;
     return (

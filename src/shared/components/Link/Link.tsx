@@ -10,7 +10,7 @@ interface IProps {
   href: string;
 }
 
-export default class Link extends React.Component<IProps, void> {
+export default class Link extends React.Component<IProps, any> {
   public render() {
     const {children, href, className} = this.props;
     // FIXME Turn back real props.href

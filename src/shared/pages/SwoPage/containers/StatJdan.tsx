@@ -18,7 +18,7 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   };
 };
 
-class StatJdanContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, void> {
+class StatJdanContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {dispatch, ...props} = this.props;
     return (
