@@ -31,6 +31,12 @@
   version "15.0.31"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.31.tgz#21dfc5d41ee1600ff7d7b738ad21a9502aa3ecf2"
 
+"@types/three@^0.84.14":
+  version "0.84.14"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.84.14.tgz#b43d53f2032db8d059d24446eb03e25ff7b3c9d6"
+  dependencies:
+    "@types/webvr-api" "*"
+
 "@types/tween.js@16.6.1":
   version "16.6.1"
   resolved "https://registry.yarnpkg.com/@types/tween.js/-/tween.js-16.6.1.tgz#829bc0007c72fe3fe2aa06f782dcb4c19dc3443f"
@@ -38,6 +44,10 @@
 "@types/webpack-env@1.13.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.0.tgz#3044381647e11ee973c5af2e925323930f691d80"
+
+"@types/webvr-api@*":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/webvr-api/-/webvr-api-0.0.31.tgz#f6061fe88a035d34a8b6a0c55f8758901ec8a08e"
 
 JSONStream@^0.8.4:
   version "0.8.4"
@@ -5891,6 +5901,10 @@ thenify@^3.1.0, thenify@^3.2.0:
   dependencies:
     any-promise "^1.0.0"
 
+three@^0.86.0:
+  version "0.86.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.86.0.tgz#1c33e476a1537e9a8a18f5792d024b1046cd2000"
+
 throat@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-3.2.0.tgz#50cb0670edbc40237b9e347d7e1f88e4620af836"
@@ -5968,7 +5982,7 @@ tslint-eslint-rules@4.1.1:
     tslib "^1.0.0"
     tsutils "^1.4.0"
 
-tslint-loader@^3.5.3:
+tslint-loader@3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/tslint-loader/-/tslint-loader-3.5.3.tgz#343f74122d94f356b689457d3f59f64a69ab606f"
   dependencies:
@@ -5978,7 +5992,7 @@ tslint-loader@^3.5.3:
     rimraf "^2.4.4"
     semver "^5.3.0"
 
-tslint-react@^3.0.0:
+tslint-react@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/tslint-react/-/tslint-react-3.0.0.tgz#00c48ab7f22e91533b62bdef2c162b49447af00a"
 

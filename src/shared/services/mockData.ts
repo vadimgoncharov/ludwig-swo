@@ -39,7 +39,7 @@ const generateStatsAll = (): TStatAll[] => {
 };
 
 const addDataToStatsAll = (): void => {
-  for (let i = 0; i < getRandomInt(1, 1); i++) {
+  for (let i = 0; i < getRandomInt(1, 4); i++) {
     STATS_TOTAL.push({
       id: ++STATS_ALL_LAST_ID,
       visitDate: new Date(),
