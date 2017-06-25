@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
+import {CSSTransitionGroup} from 'react-transition-group';
 
 import Animator from 'shared/services/Animator';
 import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
@@ -49,7 +50,7 @@ export default class Header extends React.Component<TProps, TState> {
       return;
     }
 
-    this.animator.start([{time: newDate.getTime()}]);
+    // this.animator.start([{time: newDate.getTime()}]);
   }
 
   public render() {
@@ -85,7 +86,18 @@ export default class Header extends React.Component<TProps, TState> {
         <span className="Header-swoDateValue">
           <span className="Header-swoDateValueInner">
             <span className="Header-swoDateValueText">Сайт откроется</span>{' '}
-            {date}
+            <CSSTransitionGroup
+              className="Header-swoDateValueContainer"
+              transitionName="slide"
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={300}
+            >
+              <span
+                className="Header-swoDateValueContainerValue"
+                key={this.props.statTotal.id}
+              >{dateToDayMonth(this.props.statTotal.date)}
+              </span>
+            </CSSTransitionGroup>
           </span>
         </span>{' '}
         <span className="Header-swoDateFetchButton" onClick={this.onFetchLinkClick}>Другая дата</span>

@@ -28,6 +28,8 @@
     250ms margin ease-in-out;
   transform: translate(7px, 0);
   opacity: 0;
+  overflow: hidden;
+  vertical-align: bottom;
 }
 
 .Header-swoDate.is-valueVisible_yes {
@@ -67,5 +69,51 @@
     opacity: 0.2;
     border-bottom: 1px dashed transparent;
     cursor: default;
+  }
+}
+
+.Header-swoDateValueContainer {
+  display: inline-block;
+  position: relative;
+  min-height: 14px;
+  min-width: 85px;
+  @include phone {
+    min-height: 13px;
+    min-width: 80px;
+  }
+}
+
+.Header-swoDateValueContainerValue {
+  position: absolute;
+  left: 0;
+  top: 0;
+  $duration: 300ms;
+  $offset_desktop: 20px;
+  $offset_mobile: 15px;
+
+  &.slide-enter.slide-enter-active {
+    transform: translate3d(0, 0, 0);
+    transition: transform $duration ease-in-out, opacity $duration ease-in-out;
+  }
+
+  &.slide-enter {
+    transform: translate3d(0, $offset_desktop, 0);
+    @include phone {
+      transform: translate3d(0, $offset_mobile, 0);
+    }
+  }
+
+  &.slide-leave {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &.slide-leave.slide-leave-active {
+    opacity: 0.3;
+    transition: transform $duration ease-in-out, opacity $duration ease-in-out;
+    transform: translate3d(0, -$offset_desktop, 0);
+    @include phone {
+      transform: translate3d(0, -$offset_mobile, 0);
+    }
   }
 }

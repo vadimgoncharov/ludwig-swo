@@ -19,8 +19,53 @@
   }
 }
 
+.Hero-swoDateContainer {
+  position: relative;
+  min-height: 120px;
+  z-index: 10;
+  overflow: hidden;
+  @include phone {
+    min-height: 48px;
+  }
+}
+
 .Hero-swoDate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 20;
   white-space: nowrap;
+  $duration: 350ms;
+  $offset_desktop: 100px;
+  $offset_mobile: 40px;
+
+  &.slide-enter.slide-enter-active {
+    transform: translate3d(0, 0, 0);
+    transition: transform $duration ease-in-out, opacity $duration ease-in-out;
+  }
+
+  &.slide-enter {
+    transform: translate3d(0, $offset_desktop, 0);
+    @include phone {
+      transform: translate3d(0, $offset_mobile, 0);
+    }
+  }
+
+  &.slide-leave {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &.slide-leave.slide-leave-active {
+    opacity: 0.3;
+    transition: transform $duration ease-in-out, opacity $duration ease-in-out;
+    transform: translate3d(0, -$offset_desktop, 0);
+    @include phone {
+      transform: translate3d(0, -$offset_mobile, 0);
+    }
+  }
 }
 
 .Hero-nav {

@@ -76,6 +76,7 @@ const getMinMax = (): TStatMinMax => {
   const min = sortedByAsc.slice(0, 4);
   return min.concat(max).map((item) => {
     return {
+      id: item.id,
       date: item.generatedDate,
       value: item.count,
     };
@@ -146,6 +147,7 @@ const getLastStatsAllByLimit = (limit: number): TStatAll[] => {
 const getAllStatsData = (): TStats => {
   return {
     statTotal: {
+      id: STATS_TOTAL[STATS_TOTAL.length - 1].id,
       date: STATS_TOTAL[STATS_TOTAL.length - 1].generatedDate,
       value: STATS_TOTAL.length,
     },

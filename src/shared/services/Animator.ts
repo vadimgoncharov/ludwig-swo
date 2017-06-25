@@ -7,6 +7,7 @@ type TProps<TValue> = {
   onComplete?: () => void,
   onStateChange?: (animationState: AnimationState) => void,
   comparator: (oldValues: TValue[], newValues: TValue[]) => boolean,
+  easing?: (k: number) => number,
 };
 
 export enum AnimationState {
@@ -91,7 +92,7 @@ export default class Animator<TValue> {
         }
       }
     });
-    tween.easing(TWEEN.Easing.Exponential.Out);
+    tween.easing(this.props.easing || TWEEN.Easing.Exponential.Out);
     tween.onComplete(() => {
       this.changeValue(this.fromFlattenToArray(this.currValue));
       this.changeState(AnimationState.FINISHED);

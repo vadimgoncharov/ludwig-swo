@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
+import {CSSTransitionGroup} from 'react-transition-group';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
@@ -48,7 +49,7 @@ export default class Hero extends React.Component<TProps, TState> {
       return;
     }
 
-    this.animator.start([{time: newDate.getTime()}]);
+    // this.animator.start([{time: newDate.getTime()}]);
   }
 
   public render() {
@@ -65,7 +66,20 @@ export default class Hero extends React.Component<TProps, TState> {
             >
               <div className="Hero-swoText">Сайт откроется</div>
             </Waypoint>
-            <div className="Hero-swoDate">{date}</div>
+            <CSSTransitionGroup
+              className="Hero-swoDateContainer"
+              component="div"
+              transitionName="slide"
+              transitionEnterTimeout={350}
+              transitionLeaveTimeout={350}
+            >
+              <div
+                className="Hero-swoDate"
+                key={this.props.statTotal.id}
+              >
+                {dateToDayMonth(this.props.statTotal.date)}
+              </div>
+            </CSSTransitionGroup>
           </div>
           <div className="Hero-nav">
             <span className="Hero-navItem is-refresh">
