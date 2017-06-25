@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 
 import Header from '../components/Header';
-import {fetchStats, fetchStatsPre} from 'shared/actions/stats';
+import {fetchStats} from 'shared/actions/stats';
 import {TGlobalState} from 'shared/types/GlobalState';
 import {TDispatch} from 'shared/types/Dispatch';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -15,13 +15,12 @@ type TStateFromProps = {
 
 type TDispatchFromProps = {
   onFetchLinkClick: () => void,
-  onFinishAnimation: () => void,
 }
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
     isFetching: state.stats.isFetching,
-    statTotal: state.stats.dataPre.statTotal,
+    statTotal: state.stats.data.statTotal,
     isSwoDateVisible: state.ui.data.header.isSwoDateVisible,
   };
 };
@@ -29,9 +28,6 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
 const mapDispatchToProps = (dispatch: TDispatch): TDispatchFromProps => {
   return {
     onFetchLinkClick: () => {
-      dispatch(fetchStatsPre());
-    },
-    onFinishAnimation: () => {
       dispatch(fetchStats());
     },
   };
@@ -44,14 +40,12 @@ class HeaderContainer extends React.Component<TStateFromProps & TDispatchFromPro
       isSwoDateVisible,
       statTotal,
       onFetchLinkClick,
-      onFinishAnimation,
     } = this.props;
     return (
       <Header
         isFetching={isFetching}
         isSwoDateVisible={isSwoDateVisible}
         onFetchLinkClick={onFetchLinkClick}
-        onFinishAnimation={onFinishAnimation}
         statTotal={statTotal}
       />
     );

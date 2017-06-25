@@ -14,7 +14,6 @@ type TProps = {
   isSwoDateVisible: boolean,
   statTotal: TStatTotal,
   onFetchLinkClick: () => void,
-  onFinishAnimation: () => void,
 };
 
 type TState = {
@@ -97,14 +96,11 @@ export default class Header extends React.Component<TProps, TState> {
   private createAnimator(): Animator<TAnimatorValue> {
     return new Animator<TAnimatorValue>({
       from: [{time: this.state.animatorCurrValue.time}],
-      duration: 1500,
+      duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
         return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
-      onComplete: () => {
-        this.props.onFinishAnimation();
-      },
     });
   }
 }
