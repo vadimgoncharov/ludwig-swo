@@ -56,7 +56,7 @@ export default class StatTotal extends React.Component<TProps, TState> {
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatTotal">
           <a name="stat" />
-          <div className="StatTotal-title">Минутка статистика</div>
+          <div className="StatTotal-title">Минутка статистики</div>
           <div className="StatTotal-subTitle">Всего сайт откроется</div>
           <div className="StatTotal-totalValue">{this.renderTotalValueFormatted(totalValue)}</div>
           <div className="StatTotal-refreshLinkContainer">
