@@ -2,8 +2,6 @@
   margin: 0 auto;
   text-align: center;
   max-width: 700px;
-
-  @include LinkRed();
 }
 
 .Hero-swo {
@@ -65,15 +63,5 @@
     @include phone {
       transform: translate3d(0, -$offset_mobile, 0);
     }
-  }
-}
-
-.Hero-nav {
-  margin-top: 50px;
-  font-size: 32px;
-  @include phone {
-    margin-top: 25px;
-    font-size: 28px;
-    line-height: 36px;
   }
 }

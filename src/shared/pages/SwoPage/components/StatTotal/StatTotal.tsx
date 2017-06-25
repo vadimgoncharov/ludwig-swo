@@ -4,7 +4,6 @@ import * as Waypoint from 'react-waypoint';
 import * as format from 'shared/utils/format';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import Link from 'shared/components/Link';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -56,12 +55,8 @@ export default class StatTotal extends React.Component<TProps, TState> {
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatTotal">
           <a name="stat" />
-          <div className="StatTotal-title">Минутка статистики</div>
-          <div className="StatTotal-subTitle">Всего сайт откроется</div>
+          <div className="StatTotal-title">Всего сайт откроется</div>
           <div className="StatTotal-totalValue">{this.renderTotalValueFormatted(totalValue)}</div>
-          <div className="StatTotal-refreshLinkContainer">
-            <Link className="StatTotal-refreshLink" href="/#stat">И еще раз</Link>
-          </div>
           <div className="StatTotal-description">
             Каждый раз сайт сообщает новую случайную дату открытия.<br />
             Все обещания бережно записываются, и на их основе строится статистика.</div>

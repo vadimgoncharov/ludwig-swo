@@ -5,17 +5,8 @@
 }
 
 .StatTotal-title {
-  font-size: 42px;
-  color: #808080;
-  @include phone {
-    font-size: 32px;
-    line-height: 40px;
-  }
-}
-
-.StatTotal-subTitle {
   margin-top: 60px;
-  font-size: 24px;
+  font-size: 28px;
   @include phone {
     margin-top: 10px;
   }

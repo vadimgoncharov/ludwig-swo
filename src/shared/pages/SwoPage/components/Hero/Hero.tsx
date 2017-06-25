@@ -81,13 +81,6 @@ export default class Hero extends React.Component<TProps, TState> {
               </div>
             </CSSTransitionGroup>
           </div>
-          <div className="Hero-nav">
-            <span className="Hero-navItem is-refresh">
-              <Link href="/">Другой вариант</Link>
-            </span> или <span className="Hero-navItem is-stat">
-              <Link href="/#stat">минутка статистика</Link>
-            </span>
-          </div>
         </div>
       </Waypoint>
     );
