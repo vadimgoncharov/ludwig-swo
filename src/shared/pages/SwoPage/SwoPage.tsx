@@ -7,11 +7,12 @@ import StatPrevDates  from './containers/StatPrevDates';
 import StatMinMax     from './containers/StatMinMax';
 import DayInYearScale from './containers/DayInYearScale';
 import StatTotalEvenOdd from './containers/StatTotalEvenOdd';
-import StatAround from './containers/StatAround';
+import StatAround     from './containers/StatAround';
 import CurrDayAbbr    from './containers/CurrDayAbbr';
 import StatNumFreqInyear from './containers/StatNumFreqInYear';
 import StatJdan       from './containers/StatJdan';
 import StatDayInMonth from './containers/StatDayInMonth';
+import StatSeasons    from './containers/StatSeasons';
 import StatSlash      from './containers/StatSlash';
 import Footer         from './components/Footer';
 
@@ -31,9 +32,10 @@ export default class SwoPage extends React.Component<any, any> {
         <StatAround />
         <CurrDayAbbr />
         <StatNumFreqInyear />
-        <StatJdan />
         <StatDayInMonth />
+        <StatSeasons />
         <StatSlash />
+        <StatJdan />
         <Footer />
       </div>
     );

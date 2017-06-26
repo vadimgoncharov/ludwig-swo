@@ -1,0 +1,77 @@
+.StatSeasons {
+  margin: 0 auto;
+  max-width: 940px;
+}
+
+.StatSeasons-items {
+  margin: 0 10px;
+}
+
+.StatSeasons-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 10px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.StatSeasons-item.is-winter {
+  color: #87ebff;
+
+  .StatSeasons-itemLineValue {
+    background-color: #87ebff;
+  }
+}
+
+.StatSeasons-item.is-spring {
+  color: #b0ff61;
+
+  .StatSeasons-itemLineValue {
+    background-color: #b0ff61;
+  }
+}
+
+.StatSeasons-item.is-summer {
+  color: #1eb953;
+
+  .StatSeasons-itemLineValue {
+    background-color: #1eb953;
+  }
+}
+
+.StatSeasons-item.is-selected {
+  .StatSeasons-itemLineValue {
+    height: 5px;
+  }
+}
+
+.StatSeasons-item.is-autumn {
+  color: #ff950c;
+
+  .StatSeasons-itemLineValue {
+    background-color: #ff950c;
+  }
+}
+
+.StatSeasons-itemName {
+  text-align: right;
+  flex: 0 0 55px;
+  text-transform: lowercase;
+}
+
+.StatSeasons-itemLine {
+  flex: 1 0 0;
+  margin: 0 20px;
+}
+
+.StatSeasons-itemLineValue {
+  height: 1px;
+  transition: width 300ms ease-in-out, height 300ms ease-in-out;
+}
+
+.StatSeasons-itemValue {
+  white-space: nowrap;
+}

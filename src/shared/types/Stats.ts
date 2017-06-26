@@ -6,6 +6,7 @@ import {TStatTotalEvenOdd} from './StatTotalEvenOdd';
 import {TStatDayInMonth} from './StatDayInMonth';
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatAround} from 'shared/types/StatAround';
+import {TStatSeasons} from 'shared/types/StatSeasons';
 
 export type TStats = {
   statTotal: TStatTotal,
@@ -16,4 +17,5 @@ export type TStats = {
   statDayInMonth: TStatDayInMonth,
   statDayInYear: TStatDayInYear,
   statAround: TStatAround,
+  statSeasons: TStatSeasons,
 };

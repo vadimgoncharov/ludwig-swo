@@ -51,6 +51,15 @@ const DAYS_WORDS: string[] = [
   'тридцать первое',
 ];
 
+const MONTHS_WINTER = [11, 0, 1]; // dec, jan, feb
+const MONTHS_SPRING = [2, 3, 4]; // mar, apr, may
+const MONTHS_SUMMER = [5, 6, 7]; // jun, jul, aug
+const MONTHS_AUTUMN = [8, 9, 10]; // sep, oct, nov
+const SEASON_NAME_WINTER = 'winter';
+const SEASON_NAME_SPRING = 'spring';
+const SEASON_NAME_SUMMER = 'summer';
+const SEASON_NAME_AUTUMN = 'autumn';
+
 const DAYS_WORDS_ABBRS: string[] = DAYS_WORDS.map((word) => {
   return word.split(' ').map((w) => w[0]).join('');
 });
@@ -167,6 +176,22 @@ function getDaysInYearAsDates(): Date[] {
   return DAYS_IN_YEAR_AS_DATES_CACHE;
 }
 
+function getSeasonName(date: Date): string {
+  const month = date.getMonth();
+  if (MONTHS_WINTER.indexOf(month) !== -1) {
+    return SEASON_NAME_WINTER;
+  }
+  if (MONTHS_SPRING.indexOf(month) !== -1) {
+    return SEASON_NAME_SPRING;
+  }
+  if (MONTHS_SUMMER.indexOf(month) !== -1) {
+    return SEASON_NAME_SUMMER;
+  }
+  if (MONTHS_AUTUMN.indexOf(month) !== -1) {
+    return SEASON_NAME_AUTUMN;
+  }
+}
+
 export {
   getDateByMD,
   getRandomDate,
@@ -174,6 +199,11 @@ export {
   getDayNumberInYear,
   getDayNumberInYearByDate,
   getDaysInYearAsDates,
+  getSeasonName,
+  SEASON_NAME_WINTER,
+  SEASON_NAME_SPRING,
+  SEASON_NAME_SUMMER,
+  SEASON_NAME_AUTUMN,
   dateToDayMonth,
   dateToMonthStr,
   dateToDayMonthAbbr,

@@ -1,4 +1,13 @@
-import {dateToYYYYMMDD, getDayNumberInYear, getRandomDate} from 'shared/utils/date';
+import {
+  dateToYYYYMMDD,
+  getDayNumberInYear,
+  getRandomDate,
+  getSeasonName,
+  SEASON_NAME_AUTUMN,
+  SEASON_NAME_SPRING,
+  SEASON_NAME_SUMMER,
+  SEASON_NAME_WINTER,
+} from 'shared/utils/date';
 import {getRandomInt} from 'shared/utils/random';
 
 import {TStatMinMax} from 'shared/types/StatMinMax';
@@ -9,6 +18,7 @@ import {TStatDayInMonth} from 'shared/types/StatDayInMonth';
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
 import {TStatAround} from 'shared/types/StatAround';
+import {TStatSeasons} from 'shared/types/StatSeasons';
 
 type TStatAll = {
   id: number,
@@ -165,6 +175,7 @@ const getAllStatsData = (): TStats => {
     statDayInMonth: getDayInMonthStats(),
     statDayInYear: getDayInYearStats(),
     statAround: getStatAround(),
+    statSeasons: getStatSeasons(),
   };
 };
 
@@ -208,6 +219,34 @@ const getStatAround = (): TStatAround => {
     }
   });
   return statAround;
+};
+
+const getStatSeasons = (): TStatSeasons => {
+  const seasons = {
+    winter: 0,
+    spring: 0,
+    summer: 0,
+    autumn: 0,
+  };
+
+  STATS_TOTAL.forEach((item) => {
+    switch (getSeasonName(item.generatedDate)) {
+      case SEASON_NAME_WINTER:
+        seasons.winter++;
+        break;
+      case SEASON_NAME_SPRING:
+        seasons.spring++;
+        break;
+      case SEASON_NAME_SUMMER:
+        seasons.summer++;
+        break;
+      case SEASON_NAME_AUTUMN:
+        seasons.autumn++;
+        break;
+    }
+  });
+
+  return seasons;
 };
 
 const getDayInMonthStats = (): TStatDayInMonth => {
