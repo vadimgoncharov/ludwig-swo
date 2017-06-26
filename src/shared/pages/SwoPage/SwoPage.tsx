@@ -7,6 +7,7 @@ import StatPrevDates  from './containers/StatPrevDates';
 import StatMinMax     from './containers/StatMinMax';
 import DayInYearScale from './containers/DayInYearScale';
 import StatTotalEvenOdd from './containers/StatTotalEvenOdd';
+import StatAround from './containers/StatAround';
 import CurrDayAbbr    from './containers/CurrDayAbbr';
 import StatNumFreqInyear from './containers/StatNumFreqInYear';
 import StatJdan       from './containers/StatJdan';
@@ -27,6 +28,7 @@ export default class SwoPage extends React.Component<any, any> {
         <StatMinMax />
         <DayInYearScale />
         <StatTotalEvenOdd />
+        <StatAround />
         <CurrDayAbbr />
         <StatNumFreqInyear />
         <StatJdan />

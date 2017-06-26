@@ -1,0 +1,30 @@
+.StatAround {
+  text-align: center;
+}
+
+.StatAround-arrows {
+  display: flex;
+  justify-content: center;
+}
+
+.StatAround-arrow {
+  font-size: 72px;
+  margin: 0 10px;
+
+  &.is-min {
+    color: darkred;
+  }
+
+  &.is-max {
+    color: orange;
+  }
+
+  &.is-normal {
+    color: orangered;
+    margin-top: 1px;
+  }
+}
+
+.StatAround-value {
+  white-space: nowrap;
+}

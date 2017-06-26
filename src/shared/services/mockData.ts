@@ -8,6 +8,7 @@ import {TStatTotalEvenOdd} from 'shared/types/StatTotalEvenOdd';
 import {TStatDayInMonth} from 'shared/types/StatDayInMonth';
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
+import {TStatAround} from 'shared/types/StatAround';
 
 type TStatAll = {
   id: number,
@@ -16,6 +17,7 @@ type TStatAll = {
 };
 
 const DAY_IN_MS = 3600 * 24 * 1000;
+const DATE_NOW = new Date();
 let STATS_ALL_LAST_ID = 0;
 
 const generateStatsAll = (): TStatAll[] => {
@@ -162,7 +164,50 @@ const getAllStatsData = (): TStats => {
     statJdan: getJdanData(),
     statDayInMonth: getDayInMonthStats(),
     statDayInYear: getDayInYearStats(),
+    statAround: getStatAround(),
   };
+};
+
+const getStatAround = (): TStatAround => {
+  const todayDate     = new Date(DATE_NOW);
+  const yesterdayDate = new Date(DATE_NOW.getTime() - DAY_IN_MS);
+  const tomorrowDate  = new Date(DATE_NOW.getTime() + DAY_IN_MS);
+  const todayDateStr      = dateToYYYYMMDD(DATE_NOW);
+  const yesterdayDateStr  = dateToYYYYMMDD(yesterdayDate);
+  const tomorrowDateStr   = dateToYYYYMMDD(tomorrowDate);
+
+  const statAround: TStatAround = {
+    yesterday: {
+      id: 1,
+      value: 0,
+      date: yesterdayDate,
+    },
+    today: {
+      id: 2,
+      value: 0,
+      date: todayDate,
+    },
+    tomorrow: {
+      id: 3,
+      value: 0,
+      date: tomorrowDate,
+    },
+  };
+  STATS_TOTAL.forEach((item) => {
+    const date = dateToYYYYMMDD(item.generatedDate);
+    switch (date) {
+      case yesterdayDateStr:
+        statAround.yesterday.value++;
+        break;
+      case todayDateStr:
+        statAround.today.value++;
+        break;
+      case tomorrowDateStr:
+        statAround.tomorrow.value++;
+        break;
+    }
+  });
+  return statAround;
 };
 
 const getDayInMonthStats = (): TStatDayInMonth => {
