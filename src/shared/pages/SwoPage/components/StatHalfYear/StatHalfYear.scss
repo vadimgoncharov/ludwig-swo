@@ -1,0 +1,51 @@
+.StatHalfYear {
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.StatHalfYear-title {
+  font-size: 16px;
+  line-height: 22px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  @include phone {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+.StatHalfYear-items {
+  margin-top: 20px;
+  @include phone {
+    margin-top: 10px;
+  }
+}
+
+.StatHalfYear-item {
+  font-size: 72px;
+  display: block;
+  @include phone {
+    font-size: 32px;
+  }
+
+  &.is-division {
+    border-top: 1px #fff solid;
+    font-size: 12px;
+    margin-top: 10px;
+
+    .StatHalfYear-itemInner {
+      visibility: hidden;
+    }
+  }
+
+  &.is-equal {
+    line-height: 48px;
+
+    @include phone {
+      line-height: 32px;
+    }
+  }
+}

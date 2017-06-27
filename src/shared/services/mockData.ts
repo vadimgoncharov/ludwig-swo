@@ -19,6 +19,7 @@ import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
 import {TStatAround} from 'shared/types/StatAround';
 import {TStatSeasons} from 'shared/types/StatSeasons';
+import {TStatHalfYear} from 'shared/types/StatHalfYear';
 
 type TStatAll = {
   id: number,
@@ -176,6 +177,7 @@ const getAllStatsData = (): TStats => {
     statDayInYear: getDayInYearStats(),
     statAround: getStatAround(),
     statSeasons: getStatSeasons(),
+    statHalfYear: getStatHalfYear(),
   };
 };
 
@@ -247,6 +249,25 @@ const getStatSeasons = (): TStatSeasons => {
   });
 
   return seasons;
+};
+
+const FIRST_HALF_YEAR_MONTHS = [0, 1, 2, 3, 4, 5];
+const getStatHalfYear = (): TStatHalfYear => {
+  const stats = {
+    first: 0,
+    second: 0,
+  };
+
+  STATS_TOTAL.forEach((item) => {
+    const month = item.generatedDate.getMonth();
+    if (FIRST_HALF_YEAR_MONTHS.indexOf(month) !== -1) {
+      stats.first++;
+    } else {
+      stats.second++;
+    }
+  });
+
+  return stats;
 };
 
 const getDayInMonthStats = (): TStatDayInMonth => {
