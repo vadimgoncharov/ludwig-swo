@@ -1,0 +1,45 @@
+.StatSquare {
+  text-align: center;
+
+  sup {
+    font-size: 10px;
+  }
+}
+
+.StatSquare-square {
+  margin-top: 20px;
+}
+
+.StatSquare-calc {
+  margin-top: 20px;
+}
+
+.StatSquare-square,
+.StatSquare-restSquares {
+  margin-left: auto;
+  margin-right: auto;
+  transition: width 300ms ease-in-out, height 300ms ease-in-out;
+  background: url('data:image/gif;base64,R0lGODdhAwADAPAAAP///wAAACwAAAAAAwADAEACBASCYVEAOw==');
+}
+
+.StatSquare-rest {
+  margin-top: 30px;
+  transition: 200ms transform 300ms ease-in-out, 200ms opacity 300ms ease-in-out;
+  transform: translate3d(0, 10px, 0);
+  opacity: 0;
+
+  &.is-visible {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.StatSquare-restSquares {
+  margin-top: 20px;
+}
+
+.StatSquare-restTitle,
+.StatSquare-value,
+.StatSquare-date {
+  white-space: nowrap;
+}

@@ -20,6 +20,7 @@ import {TStatValueAtDayNum} from 'shared/types/StatValueAtDayNum';
 import {TStatAround} from 'shared/types/StatAround';
 import {TStatSeasons} from 'shared/types/StatSeasons';
 import {TStatHalfYear} from 'shared/types/StatHalfYear';
+import {TStatLastGeneratedDate} from 'shared/types/StatLastGeneratedDate';
 
 type TStatAll = {
   id: number,
@@ -164,6 +165,7 @@ const getAllStatsData = (): TStats => {
       date: STATS_TOTAL[STATS_TOTAL.length - 1].generatedDate,
       value: STATS_TOTAL.length,
     },
+    statLastGeneratedDate: getStatLastGeneratedDate(),
     statTotalEvenOdd: getStatTotalEvenOdd(),
     statPrevDates: getLastStatsAllByLimit(10).map((item) => {
       return {
@@ -268,6 +270,25 @@ const getStatHalfYear = (): TStatHalfYear => {
   });
 
   return stats;
+};
+
+const getStatLastGeneratedDate = (): TStatLastGeneratedDate => {
+  const lastStatTotalItem = STATS_TOTAL[STATS_TOTAL.length - 1];
+  const data = {
+    id: lastStatTotalItem.id,
+    date: lastStatTotalItem.generatedDate,
+    value: 0,
+  };
+  const generatedDateStr = dateToYYYYMMDD(data.date);
+
+  STATS_TOTAL.forEach((item) => {
+    const dateStr = dateToYYYYMMDD(item.generatedDate);
+    if (dateStr === generatedDateStr) {
+      data.value++;
+    }
+  });
+
+  return data;
 };
 
 const getDayInMonthStats = (): TStatDayInMonth => {
