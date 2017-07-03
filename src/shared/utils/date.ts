@@ -78,8 +78,13 @@ function addLeadingZero(value: number|string): string {
   return `${value}`;
 }
 
-function getDateByMD(month: number, day: number): Date {
-  return new Date(DATE_NOW.getFullYear(), month - 1, day);
+
+function getYearFirstDayDate(): Date {
+  return new Date(DATE_NOW.getFullYear(), 0, 1);
+}
+
+function getYearLastDayDate(): Date {
+  return new Date(DATE_NOW.getFullYear(), 11, 31);
 }
 
 function getRandomDate(): Date {
@@ -193,12 +198,13 @@ function getSeasonName(date: Date): string {
 }
 
 export {
-  getDateByMD,
   getRandomDate,
   getDaysCountInYear,
   getDayNumberInYear,
   getDayNumberInYearByDate,
   getDaysInYearAsDates,
+  getYearFirstDayDate,
+  getYearLastDayDate,
   getSeasonName,
   SEASON_NAME_WINTER,
   SEASON_NAME_SPRING,

@@ -158,31 +158,6 @@ const getLastStatsAllByLimit = (limit: number): TStatAll[] => {
     });
 };
 
-const getAllStatsData = (): TStats => {
-  return {
-    statTotal: {
-      id: STATS_TOTAL[STATS_TOTAL.length - 1].id,
-      date: STATS_TOTAL[STATS_TOTAL.length - 1].generatedDate,
-      value: STATS_TOTAL.length,
-    },
-    statLastGeneratedDate: getStatLastGeneratedDate(),
-    statTotalEvenOdd: getStatTotalEvenOdd(),
-    statPrevDates: getLastStatsAllByLimit(10).map((item) => {
-      return {
-        id: item.id,
-        date: item.generatedDate,
-      }
-    }),
-    statMinMax: getMinMax(),
-    statJdan: getJdanData(),
-    statDayInMonth: getDayInMonthStats(),
-    statDayInYear: getDayInYearStats(),
-    statAround: getStatAround(),
-    statSeasons: getStatSeasons(),
-    statHalfYear: getStatHalfYear(),
-  };
-};
-
 const getStatAround = (): TStatAround => {
   const todayDate     = new Date(DATE_NOW);
   const yesterdayDate = new Date(DATE_NOW.getTime() - DAY_IN_MS);
@@ -333,6 +308,31 @@ const getDayInYearStats = (): TStatDayInYear => {
   return Object.keys(dayInYearStatCount).map((key) => {
     return dayInYearStatCount[key];
   }).sort((a, b) => a.dayNum - b.dayNum);
+};
+
+const getAllStatsData = (): TStats => {
+  return {
+    statTotal: {
+      id: STATS_TOTAL[STATS_TOTAL.length - 1].id,
+      date: STATS_TOTAL[STATS_TOTAL.length - 1].generatedDate,
+      value: STATS_TOTAL.length,
+    },
+    statLastGeneratedDate: getStatLastGeneratedDate(),
+    statTotalEvenOdd: getStatTotalEvenOdd(),
+    statPrevDates: getLastStatsAllByLimit(10).map((item) => {
+      return {
+        id: item.id,
+        date: item.generatedDate,
+      }
+    }),
+    statMinMax: getMinMax(),
+    statJdan: getJdanData(),
+    statDayInMonth: getDayInMonthStats(),
+    statDayInYear: getDayInYearStats(),
+    statAround: getStatAround(),
+    statSeasons: getStatSeasons(),
+    statHalfYear: getStatHalfYear(),
+  };
 };
 
 export {
