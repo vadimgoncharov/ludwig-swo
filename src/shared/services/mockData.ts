@@ -21,6 +21,9 @@ import {TStatAround} from 'shared/types/StatAround';
 import {TStatSeasons} from 'shared/types/StatSeasons';
 import {TStatHalfYear} from 'shared/types/StatHalfYear';
 import {TStatLastGeneratedDate} from 'shared/types/StatLastGeneratedDate';
+import {TStatDatesAtValue} from 'shared/types/StatDatesAtValue';
+import {TStatTower} from 'shared/types/StatTower';
+import {isPrimeNumber} from 'shared/utils/math';
 
 type TStatAll = {
   id: number,
@@ -310,6 +313,65 @@ const getDayInYearStats = (): TStatDayInYear => {
   }).sort((a, b) => a.dayNum - b.dayNum);
 };
 
+const getTowerStats = (): TStatTower => {
+  const data = STATS_TOTAL;
+  const dayInYearStatCount: {
+    [key: string]: {
+      date: Date,
+      value: number,
+    },
+  } = {};
+  data.forEach((item) => {
+    const d = item.generatedDate;
+    const dayNum = getDayNumberInYear(d.getFullYear(), d.getMonth(), d.getDate());
+    const key = dayNum.toString();
+    if (!dayInYearStatCount[key]) {
+      dayInYearStatCount[key] = {
+        date: d,
+        value: 0,
+      }
+    }
+    dayInYearStatCount[key].value++;
+  });
+
+  const valuesObj: {
+    [key: string]: TStatDatesAtValue,
+  } = {};
+
+  Object.keys(dayInYearStatCount).forEach((dayNum) => {
+    const item = dayInYearStatCount[dayNum];
+    const newKey = item.value.toString();
+    if (!valuesObj[newKey]) {
+      valuesObj[newKey] = {
+        dates: [],
+        value: item.value,
+        isPrimeValue: isPrimeNumber(item.value),
+      }
+    }
+    valuesObj[newKey].dates.push(item.date);
+    return valuesObj;
+  });
+
+  const statMinMax = getMinMax();
+
+  for (let value = statMinMax[statMinMax.length - 1].value; value < statMinMax[0].value; value++) {
+    const key = value.toString();
+    if (!valuesObj[key]) {
+      valuesObj[key] = {
+        dates: [],
+        value,
+        isPrimeValue: isPrimeNumber(value),
+      };
+    }
+  }
+
+  const valuesObjSorted = Object.keys(valuesObj).map((key) => {
+    return valuesObj[key];
+  }).sort((a, b) => b.value - a.value);
+
+  return valuesObjSorted;
+};
+
 const getAllStatsData = (): TStats => {
   return {
     statTotal: {
@@ -332,6 +394,7 @@ const getAllStatsData = (): TStats => {
     statAround: getStatAround(),
     statSeasons: getStatSeasons(),
     statHalfYear: getStatHalfYear(),
+    statTower: getTowerStats(),
   };
 };
 

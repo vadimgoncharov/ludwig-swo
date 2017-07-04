@@ -4,11 +4,12 @@ import {TStatMinMax} from './StatMinMax';
 import {TStatJdan} from './StatJdan';
 import {TStatTotalEvenOdd} from './StatTotalEvenOdd';
 import {TStatDayInMonth} from './StatDayInMonth';
-import {TStatDayInYear} from 'shared/types/StatDayInYear';
-import {TStatAround} from 'shared/types/StatAround';
-import {TStatSeasons} from 'shared/types/StatSeasons';
-import {TStatHalfYear} from 'shared/types/StatHalfYear';
-import {TStatLastGeneratedDate} from 'shared/types/StatLastGeneratedDate';
+import {TStatDayInYear} from './StatDayInYear';
+import {TStatAround} from './StatAround';
+import {TStatSeasons} from './StatSeasons';
+import {TStatHalfYear} from './StatHalfYear';
+import {TStatLastGeneratedDate} from './StatLastGeneratedDate';
+import {TStatTower} from './StatTower';
 
 export type TStats = {
   statTotal: TStatTotal,
@@ -22,4 +23,5 @@ export type TStats = {
   statSeasons: TStatSeasons,
   statHalfYear: TStatHalfYear,
   statLastGeneratedDate: TStatLastGeneratedDate,
+  statTower: TStatTower,
 };

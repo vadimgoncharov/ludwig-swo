@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {ReactElement} from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
@@ -18,7 +19,6 @@ import {TStatTotal} from 'shared/types/StatTotal';
 import {TStatMinMax} from 'shared/types/StatMinMax';
 
 import './StatYearDaysSorted.scss';
-import {ReactElement} from 'react';
 
 type TProps = {
   isFetching: boolean,

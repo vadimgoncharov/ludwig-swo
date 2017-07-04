@@ -1,0 +1,72 @@
+.StatTower {
+  .is-prime {
+    color: greenyellow;
+  }
+
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+}
+
+.StatTower-title {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 630px;
+}
+
+.StatTower-items {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0;
+}
+
+.StatTower-item {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 0;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.StatTower-itemValue {
+  font-size: 12px;
+  flex: 0 0 30%;
+
+  &.is-hidden {
+    visibility: hidden;
+  }
+}
+
+.StatTower-item:not(.is-prime) .StatTower-itemValue {
+  color: #999;
+}
+
+.StatTower-item.is-hasSelectedDate .StatTower-itemValue,
+.StatTower-itemDate.is-selected {
+  color: orange;
+}
+
+.StatTower-item.is-hasDates_no {
+  color: #999;
+}
+
+.StatTower-itemDates {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.StatTower-itemDate {
+  line-height: 20px;
+
+  &:not(:last-child)::after {
+    content: ',';
+    margin-right: 5px;
+  }
+}

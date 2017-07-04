@@ -25,7 +25,17 @@ function isEven(num: number): boolean {
   return Math.round(num) % 2 === 0;
 }
 
+function isPrimeNumber(num: number): boolean {
+  for (let i = 2, s = Math.sqrt(num); i <= s; i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return num !== 1;
+}
+
 export {
   convertRange,
   isEven,
+  isPrimeNumber,
 };
