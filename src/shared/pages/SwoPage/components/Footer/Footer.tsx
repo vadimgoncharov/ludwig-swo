@@ -49,7 +49,7 @@ export default class Footer extends React.Component<any, any> {
       <div className="Footer-authors">
         <div className="Footer-authorsOwner">Сайт откроется Людвигом Быстроновским.</div>
         <div className="Footer-authorsDevs">
-          <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали</span>
+          <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали:</span>
           <ol className="Footer-authorsDevsItems">
             {AUTHORS.map(this.renderItem)}
           </ol>

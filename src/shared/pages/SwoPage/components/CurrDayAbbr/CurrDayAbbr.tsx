@@ -5,7 +5,7 @@ import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {
   dateToDayMonthAbbr,
-  dateToDayMonth,
+  dateToDayMonthAccusative,
   dateToYYYYMMDD,
 } from 'shared/utils/date';
 
@@ -54,7 +54,7 @@ export default class CurrDayAbbr extends React.Component<TProps, TState> {
 
   public render() {
     const animatorCurrDate = new Date(this.state.animatorCurrValue.time);
-    const date: string = dateToDayMonth(this.props.statTotal.date);
+    const date: string = dateToDayMonthAccusative(this.props.statTotal.date);
     const abbr = dateToDayMonthAbbr(animatorCurrDate);
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>

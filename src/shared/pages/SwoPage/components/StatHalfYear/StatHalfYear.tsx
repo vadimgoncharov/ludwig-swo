@@ -93,7 +93,6 @@ export default class StatHalfYear extends React.Component<TProps, TState> {
         return (oldValues[0].first !== newValues[0].first || oldValues[0].second !== newValues[0].second)
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
-      easing: TWEEN.Easing.Back.InOut,
     });
   }
 }

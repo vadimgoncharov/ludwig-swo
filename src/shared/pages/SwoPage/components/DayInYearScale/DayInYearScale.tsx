@@ -4,7 +4,7 @@ import * as classNames from 'classnames';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonth, getDaysCountInYear, getDayNumberInYear, dateToYYYYMMDD} from 'shared/utils/date';
+import {dateToDayMonthAccusative, getDaysCountInYear, getDayNumberInYear, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -51,7 +51,7 @@ export default class DayInYearScale extends React.Component<TProps, TState> {
 
   public render() {
     const date: Date = new Date(this.state.animatorCurrValue.time);
-    const dateStr: string = dateToDayMonth(this.props.statTotal.date);
+    const dateStr: string = dateToDayMonthAccusative(date);
     const currYear = date.getFullYear();
     const daysInYear = getDaysCountInYear(currYear);
     const dayInYear = getDayNumberInYear(currYear, date.getMonth(), date.getDate());

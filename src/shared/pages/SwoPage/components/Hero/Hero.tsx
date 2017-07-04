@@ -5,7 +5,7 @@ import {CSSTransitionGroup} from 'react-transition-group';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import Link from 'shared/components/Link';
-import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
+import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -53,7 +53,7 @@ export default class Hero extends React.Component<TProps, TState> {
   }
 
   public render() {
-    const date: string = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
+    const date: string = dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
 
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
@@ -77,7 +77,7 @@ export default class Hero extends React.Component<TProps, TState> {
                 className="Hero-swoDate"
                 key={this.props.statTotal.id}
               >
-                {dateToDayMonth(this.props.statTotal.date)}
+                {dateToDayMonthAccusative(this.props.statTotal.date)}
               </div>
             </CSSTransitionGroup>
           </div>

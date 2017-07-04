@@ -1,0 +1,97 @@
+.SumColumns {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  @include phone {
+    max-width: 150px;
+  }
+}
+
+.SumColumns-columns {
+  @include not-phone {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}
+
+.SumColumns-column {
+  @include not-phone {
+    margin: 0 40px;
+    flex: 1 0 0;
+  }
+  @include phone {
+    margin-top: 40px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.SumColumns-columnTitle {
+  font-size: 14px;
+  line-height: 20px;
+
+  &.is-short::after {
+    @include not-phone {
+      content: '\00a0';
+      display: block;
+    }
+  }
+}
+
+.SumColumns-columnTitleDays {
+  white-space: nowrap;
+}
+
+.SumColumns-columnItems {
+  @include not-phone {
+    margin-top: 20px;
+  }
+
+  @include phone {
+    margin-top: 10px;
+  }
+}
+
+.SumColumns-columnItem {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 14px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &.is-total {
+    border-top: 1px #fff solid;
+
+    @include not-phone {
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+
+    @include phone {
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+  }
+
+  &.is-selected {
+    color: orange;
+  }
+}
+
+.SumColumns-columnItemTitle {
+  margin-right: 5px;
+}
+
+.SumColumns-columnItemTitle,
+.SumColumns-columnItemValue {
+  white-space: nowrap;
+}

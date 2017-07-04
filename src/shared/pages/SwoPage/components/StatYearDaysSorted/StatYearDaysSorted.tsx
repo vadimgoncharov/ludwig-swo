@@ -6,7 +6,7 @@ import * as classNames from 'classnames';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {
-  dateToDayMonth,
+  dateToDayMonthAccusative,
   dateToYYYYMMDD,
   getDayNumberInYearByDate,
   getYearFirstDayDate,
@@ -125,8 +125,8 @@ export default class StatYearDaysSorted extends React.Component<TProps, TState> 
         Все дни года, раскрашенные по&nbsp;частооткрываемости сайта и&nbsp;расставленные в&nbsp;этом&nbsp;же порядке:
       </span>,
       statDayInYearSortedByValue,
-      dateToDayMonth(statMinMax[0].date),
-      dateToDayMonth(statMinMax[statMinMax.length - 1].date),
+      dateToDayMonthAccusative(statMinMax[0].date),
+      dateToDayMonthAccusative(statMinMax[statMinMax.length - 1].date),
     );
   }
 
@@ -137,8 +137,8 @@ export default class StatYearDaysSorted extends React.Component<TProps, TState> 
         Все дни года, раскрашенные по&nbsp;частооткрываемости сайта, но расставленные в&nbsp;календарном порядке:
       </span>,
       statDayInYear,
-      dateToDayMonth(getYearFirstDayDate()),
-      dateToDayMonth(getYearLastDayDate()),
+      dateToDayMonthAccusative(getYearFirstDayDate()),
+      dateToDayMonthAccusative(getYearLastDayDate()),
     );
   }
 

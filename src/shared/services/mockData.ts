@@ -1,4 +1,5 @@
 import {
+  dateToDDMM,
   dateToYYYYMMDD,
   getDayNumberInYear,
   getRandomDate,
@@ -24,6 +25,8 @@ import {TStatLastGeneratedDate} from 'shared/types/StatLastGeneratedDate';
 import {TStatDatesAtValue} from 'shared/types/StatDatesAtValue';
 import {TStatTower} from 'shared/types/StatTower';
 import {isPrimeNumber} from 'shared/utils/math';
+import {TStatMonths} from 'shared/types/StatMonths';
+import {TStatMonthsDay} from 'shared/types/StatMonthsDay';
 
 type TStatAll = {
   id: number,
@@ -372,6 +375,65 @@ const getTowerStats = (): TStatTower => {
   return valuesObjSorted;
 };
 
+
+const getMonthStats = (): TStatMonths => {
+  const data = STATS_TOTAL;
+  const monthsStat: {
+    [key: string]: {
+      id: number,
+      date: Date,
+      value: number,
+    },
+  } = {};
+  data.forEach((item) => {
+    const d = item.generatedDate;
+    const key = item.generatedDate.getMonth();
+    if (!monthsStat[key]) {
+      monthsStat[key] = {
+        id: item.id,
+        date: new Date(DATE_NOW.getFullYear(), d.getMonth(), d.getDate()),
+        value: 0,
+      }
+    }
+    monthsStat[key].value++;
+  });
+
+  return Object.keys(monthsStat).map((key) => {
+    return monthsStat[key];
+  }).sort((a, b) => a.date.getTime() - b.date.getTime());
+};
+
+const getMonthsDayStat = (): TStatMonthsDay => {
+  const data = STATS_TOTAL;
+  const lastStatTotalItem = STATS_TOTAL[STATS_TOTAL.length - 1];
+  const lastGeneratedDate = lastStatTotalItem.generatedDate;
+  const lastGeneratedDay = lastGeneratedDate.getDate();
+  const obj: {
+    [key: string]: {
+      id: number,
+      date: Date,
+      value: number,
+    },
+  } = {};
+  data.forEach((item) => {
+    if (item.generatedDate.getDate() === lastGeneratedDay) {
+      const key = dateToDDMM(item.generatedDate);
+      if (!obj[key]) {
+        obj[key] = {
+          id: item.id,
+          date: new Date(DATE_NOW.getFullYear(), item.generatedDate.getMonth(), lastGeneratedDay),
+          value: 0,
+        };
+      }
+      obj[key].value++;
+    }
+  });
+
+  return Object.keys(obj).map((key) => {
+    return obj[key];
+  }).sort((a, b) => a.date.getTime() - b.date.getTime());
+};
+
 const getAllStatsData = (): TStats => {
   return {
     statTotal: {
@@ -395,6 +457,8 @@ const getAllStatsData = (): TStats => {
     statSeasons: getStatSeasons(),
     statHalfYear: getStatHalfYear(),
     statTower: getTowerStats(),
+    statMonths: getMonthStats(),
+    statMonthsDay: getMonthsDayStat(),
   };
 };
 

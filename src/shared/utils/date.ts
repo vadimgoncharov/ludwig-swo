@@ -2,7 +2,7 @@ import {getRandomInt} from './random';
 
 const DATE_NOW: Date = new Date();
 const DAY_IN_MS = 3600 * 24 * 1000;
-const MONTHS: string[] = [
+const MONTHS_ACCUSATIVE: string[] = [
   'января',
   'февраля',
   'марта',
@@ -15,6 +15,21 @@ const MONTHS: string[] = [
   'октября',
   'ноября',
   'декабря',
+];
+
+const MONTHS_PREPOSITIONAL: string[] = [
+  'январе',
+  'феврале',
+  'марте',
+  'апреле',
+  'мае',
+  'июне',
+  'июле',
+  'августе',
+  'сентябре',
+  'октябре',
+  'ноябре',
+  'декабре',
 ];
 
 const DAYS_WORDS: string[] = [
@@ -120,18 +135,30 @@ function getDayNumberInYearByDate(date: Date): number {
   return getDayNumberInYear(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-function dateToDayMonth(date: Date): string {
+function dateToDayMonth(date: Date, months: string[]): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
-  const monthStr: string = MONTHS[month];
+  const monthStr: string = months[month];
 
   return `${day} ${monthStr}`;
+}
+
+function dateToDayMonthAccusative(date: Date): string {
+  return dateToDayMonth(date, MONTHS_ACCUSATIVE);
+}
+
+function dateToDayMonthPrepositional(date: Date): string {
+  return dateToDayMonth(date, MONTHS_PREPOSITIONAL);
+}
+
+function dateToMonthPrepositional(date: Date): string {
+  return MONTHS_PREPOSITIONAL[date.getMonth()];
 }
 
 function dateToDayMonthAbbr(date: Date): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
-  const monthStr: string = MONTHS[month];
+  const monthStr: string = MONTHS_ACCUSATIVE[month];
 
   const monthFirstLetter = monthStr[0];
   const dayFirstLetter = DAYS_WORDS_ABBRS[day - 1];
@@ -161,7 +188,7 @@ function dateToDDMM(date: Date, delimiter: string = '.'): string {
 
 function dateToMonthStr(date: Date): string {
   const month: number = date.getMonth();
-  return MONTHS[month];
+  return MONTHS_ACCUSATIVE[month];
 }
 
 function getDaysInYearAsDates(): Date[] {
@@ -216,7 +243,9 @@ export {
   SEASON_NAME_SPRING,
   SEASON_NAME_SUMMER,
   SEASON_NAME_AUTUMN,
-  dateToDayMonth,
+  dateToDayMonthAccusative,
+  dateToDayMonthPrepositional,
+  dateToMonthPrepositional,
   dateToMonthStr,
   dateToDayMonthAbbr,
   dateToYYYYMMDD,

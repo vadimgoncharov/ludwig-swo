@@ -3,7 +3,7 @@ import * as classNames from 'classnames';
 import {CSSTransitionGroup} from 'react-transition-group';
 
 import Animator from 'shared/services/Animator';
-import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
+import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -74,7 +74,7 @@ export default class Header extends React.Component<TProps, TState> {
 
   private renderSwoDate() {
     const {isFetching, isSwoDateVisible} = this.props;
-    const date: string = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
+    const date: string = dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
     const className = classNames(
       'Header-swoDate',
       `is-fetching_${isFetching ? 'yes' : 'no'}`,
@@ -95,7 +95,7 @@ export default class Header extends React.Component<TProps, TState> {
               <span
                 className="Header-swoDateValueContainerValue"
                 key={this.props.statTotal.id}
-              >{dateToDayMonth(this.props.statTotal.date)}
+              >{dateToDayMonthAccusative(this.props.statTotal.date)}
               </span>
             </CSSTransitionGroup>
           </span>

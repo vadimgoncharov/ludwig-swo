@@ -5,7 +5,7 @@ import * as classNames from 'classnames';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {
-  dateToDayMonth,
+  dateToDayMonthAccusative,
   dateToYYYYMMDD,
   getDayNumberInYearByDate,
 } from 'shared/utils/date';
@@ -92,7 +92,7 @@ export default class StatTower extends React.Component<TProps, TState> {
             'is-selected': getDayNumberInYearByDate(date) === currDayNumber,
           });
           return (
-            <div className={itemClassName} key={di}>{dateToDayMonth(date)}</div>
+            <div className={itemClassName} key={di}>{dateToDayMonthAccusative(date)}</div>
           );
         })}</div>
         <div className="StatTower-itemValue is-hidden" />

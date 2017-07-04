@@ -4,7 +4,7 @@ import * as pluralize from 'plural-ru';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonth, dateToYYYYMMDD} from 'shared/utils/date';
+import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatMinMax} from 'shared/types/StatMinMax';
 import {TStatValueAtDate} from 'shared/types/StatValueAtDate';
@@ -106,7 +106,7 @@ export default class StatMinMax extends React.Component<TProps, TState> {
 
     return (
       <li className="StatMinMax-item" key={index}>
-        <div className="StatMinMax-itemDate">{dateToDayMonth(date)}</div>
+        <div className="StatMinMax-itemDate">{dateToDayMonthAccusative(date)}</div>
         <div className="StatMinMax-itemValue">{valueWithPostfix}</div>
       </li>
     );

@@ -10,6 +10,8 @@ import {TStatSeasons} from './StatSeasons';
 import {TStatHalfYear} from './StatHalfYear';
 import {TStatLastGeneratedDate} from './StatLastGeneratedDate';
 import {TStatTower} from './StatTower';
+import {TStatMonths} from './StatMonths';
+import {TStatMonthsDay} from './StatMonthsDay';
 
 export type TStats = {
   statTotal: TStatTotal,
@@ -24,4 +26,6 @@ export type TStats = {
   statHalfYear: TStatHalfYear,
   statLastGeneratedDate: TStatLastGeneratedDate,
   statTower: TStatTower,
+  statMonths: TStatMonths,
+  statMonthsDay: TStatMonthsDay,
 };

@@ -16,6 +16,7 @@ import StatSeasons    from './containers/StatSeasons';
 import StatHalfYear   from './containers/StatHalfYear';
 import StatSquare     from './containers/StatSquare';
 import StatSlash      from './containers/StatSlash';
+import SumColumns     from './containers/SumColumns';
 import StatYearDaysSorted from './containers/StatYearDaysSorted';
 import StatTower      from './containers/StatTower';
 import News           from './components/News';
@@ -42,9 +43,10 @@ export default class SwoPage extends React.Component<any, any> {
         <StatHalfYear />
         <StatSquare />
         <StatSlash />
+        <SumColumns />
         <StatYearDaysSorted />
         <StatTower />
-        {/*<StatJdan />*/}
+        <StatJdan />
         <News />
         <Footer />
       </div>

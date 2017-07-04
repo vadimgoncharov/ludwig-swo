@@ -5,7 +5,7 @@ import * as pluralize from 'plural-ru';
 
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonth} from 'shared/utils/date';
+import {dateToDayMonthAccusative} from 'shared/utils/date';
 import {formatThousands} from 'shared/utils/format';
 
 import {TStatLastGeneratedDate} from 'shared/types/StatLastGeneratedDate';
@@ -61,7 +61,7 @@ export default class StatSquare extends React.Component<TProps, TState> {
     const value: number = Math.round(this.state.animatorCurrValue.value);
     const valueSquareRootRounded = this.getSquareRootRounded(value);
     const valueSquareRounded = this.getSquareRounded(value);
-    const date = dateToDayMonth(new Date(this.state.animatorCurrValue.time));
+    const date = dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
     const squareStyle = {
       width: `${valueSquareRootRounded * GIF_PIXEL_MULTIPLIER}px`,
       height: `${valueSquareRootRounded * GIF_PIXEL_MULTIPLIER}px`,

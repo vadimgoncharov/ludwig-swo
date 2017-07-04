@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
-import {dateToDayMonth} from 'shared/utils/date';
+import {dateToDayMonthAccusative} from 'shared/utils/date';
 
 import './StatJdan.scss';
 import {TStatJdan} from 'shared/types/StatJdan';
@@ -24,7 +24,7 @@ type TState = {
 
 export default class StatJdan extends React.Component<TProps, TState> {
   public state = {
-    togglerSelectedKey: TToggleSelectedKey.hal,
+    togglerSelectedKey: TToggleSelectedKey.ch,
   };
 
   public render() {
@@ -44,8 +44,8 @@ export default class StatJdan extends React.Component<TProps, TState> {
           <div className="StatJdan-title">
             Если бы рост
             Ждана Филиппова{' '}
-            <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span>{' '}
-            либо <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span>{' '}
+            <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span>{' '}
+            либо <span className={togglerHalClassName} onClick={this.onTogglerHalClick}>галлюцинировал</span>{' '}
             в&nbsp;зависимости от&nbsp;количества открытий сайта,{' '}
             то&nbsp;в&nbsp;разные дни Ждан выглядел бы вот так:
           </div>
@@ -85,7 +85,7 @@ export default class StatJdan extends React.Component<TProps, TState> {
           <div className="StatJdan-itemImg is-body" style={imgBodyStyle} />
           <div className="StatJdan-itemImg is-legs" />
         </div>
-       <div className="StatJdan-itemDate">{dateToDayMonth(date)}</div>
+       <div className="StatJdan-itemDate">{dateToDayMonthAccusative(date)}</div>
       </li>
     );
   };
