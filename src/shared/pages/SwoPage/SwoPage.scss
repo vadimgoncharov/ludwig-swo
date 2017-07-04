@@ -41,7 +41,9 @@
   .StatHalfYear,
   .StatSquare,
   .StatSlash,
-  .StatYearDaysSorted {
+  .StatYearDaysSorted,
+  .News,
+  .Footer {
     margin-top: 200px;
     @include phone {
       margin-top: 60px;

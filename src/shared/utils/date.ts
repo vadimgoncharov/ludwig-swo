@@ -139,12 +139,18 @@ function dateToDayMonthAbbr(date: Date): string {
   return `${dayFirstLetter}${monthFirstLetter}`.toUpperCase();
 }
 
-
 function dateToYYYYMMDD(date: Date): string {
   const day: string = addLeadingZero(date.getDate());
   const month: string = addLeadingZero(date.getMonth() + 1);
   const year: number = date.getFullYear();
   return `${year}-${month}-${day}`;
+}
+
+function dateToDMMYYYY(date: Date): string {
+  const day: number = date.getDate();
+  const month: string = addLeadingZero(date.getMonth() + 1);
+  const year: number = date.getFullYear();
+  return `${day}.${month}.${year}`;
 }
 
 function dateToDDMM(date: Date, delimiter: string = '.'): string {
@@ -214,5 +220,6 @@ export {
   dateToMonthStr,
   dateToDayMonthAbbr,
   dateToYYYYMMDD,
+  dateToDMMYYYY,
   dateToDDMM,
 };

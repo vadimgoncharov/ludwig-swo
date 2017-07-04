@@ -1,0 +1,23 @@
+.News {
+  max-width: 945px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.News-items {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.News-item {
+  display: inline;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.News-itemDate {
+  white-space: nowrap;
+  color: #666;
+  font-size: 12px;
+}

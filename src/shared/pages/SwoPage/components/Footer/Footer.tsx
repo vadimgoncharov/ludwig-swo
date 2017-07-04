@@ -11,6 +11,29 @@ type TAuthor = {
   isCurrMaintainer: boolean,
 };
 
+const AUTHORS: TAuthor[] = [
+  {
+    name: 'Вадим Гончаров',
+    date: 2017,
+    isCurrMaintainer: true,
+  },
+  {
+    name: 'Алексей Анисимов',
+    date: 2015,
+    isCurrMaintainer: false,
+  },
+  {
+    name: 'Андрей Шитов',
+    date: 2007,
+    isCurrMaintainer: false,
+  },
+  {
+    name: 'Сергей Муратов',
+    date: 2006,
+    isCurrMaintainer: false,
+  },
+];
+
 export default class Footer extends React.Component<any, any> {
   public render() {
     return (
@@ -22,35 +45,13 @@ export default class Footer extends React.Component<any, any> {
   }
 
   private renderAuthors() {
-    const authors: TAuthor[] = [
-      {
-        name: 'Вадим Гончаров',
-        date: 2017,
-        isCurrMaintainer: true,
-      },
-      {
-        name: 'Алексей Анисимов',
-        date: 2015,
-        isCurrMaintainer: false,
-      },
-      {
-        name: 'Андрей Шитов',
-        date: 2007,
-        isCurrMaintainer: false,
-      },
-      {
-        name: 'Сергей Муратов',
-        date: 2006,
-        isCurrMaintainer: false,
-      },
-    ];
     return (
       <div className="Footer-authors">
         <div className="Footer-authorsOwner">Сайт откроется Людвигом Быстроновским.</div>
         <div className="Footer-authorsDevs">
           <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали</span>
           <ol className="Footer-authorsDevsItems">
-            {authors.map(this.renderItem)}
+            {AUTHORS.map(this.renderItem)}
           </ol>
         </div>
       </div>
