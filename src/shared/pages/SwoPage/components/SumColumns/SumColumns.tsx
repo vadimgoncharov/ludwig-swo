@@ -128,6 +128,8 @@ export default class StatTower extends React.Component<TProps, TState> {
       return sum + item.value;
     }, 0));
     const currMonth = new Date(this.state.animatorCurrValue.time).getMonth();
+    // FIXME
+    // VM17232 SumColumns.tsx:108 Uncaught TypeError: Cannot read property 'time' of undefined
 
     return (
       <div className="SumColumns-column">

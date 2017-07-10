@@ -15,6 +15,7 @@ import {TStatTotal} from 'shared/types/StatTotal';
 
 import './Typogr.scss';
 import {getRandomInt} from 'shared/utils/random';
+import {convertRange} from 'shared/utils/math';
 
 type TProps = {
   isFetching: boolean,
@@ -45,11 +46,13 @@ export default class Typogr extends React.Component<TProps, TState> {
   private animator: Animator<TAnimatorValue>;
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
+  private oldDate: Date;
 
   constructor(props: TProps) {
     super(props);
 
     this.state.animatorCurrValue.time = props.statTotal.date.getTime();
+    this.oldDate = props.statTotal.date;
     this.animator = this.createAnimator();
   }
 
@@ -61,6 +64,7 @@ export default class Typogr extends React.Component<TProps, TState> {
       return;
     }
 
+    // this.oldDate = new Date(oldDate);
     this.animator.start([{time: newDate.getTime()}]);
   }
 
@@ -148,25 +152,35 @@ export default class Typogr extends React.Component<TProps, TState> {
       return;
     }
     const date: string = dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
+    const deltaTime = Math.abs(this.props.statTotal.date.getTime() - this.state.animatorCurrValue.time);
+    const deltaDays = deltaTime / (3600 * 24 * 1000);
 
+    const deltaDaysBound = 5;
+    const alpha = convertRange(deltaDays, 0, deltaDaysBound, 0.15, 0.1, true);
     ctx.save();
     if (fillStyle) {
+      ctx.globalAlpha = 0.2;
       ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = fillStyle;
       ctx.fillText(date, 0, 0);
     } else {
-      const randomDeltaX = 5;
-      const randomDeltaY = 1;
-      ctx.globalCompositeOperation = getRandomInt(0, 3) === 0 ? 'xor' : 'source-over';
-      ctx.fillStyle = getRandomInt(0, 3) === 0 ? '#000000' : '#ffffff';
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = CANVAS_COLOR_WHITE;
+      const randomDeltaX = 10;
+      const randomDeltaY = 5;
+      if (deltaDays > deltaDaysBound) {
+        ctx.globalCompositeOperation = 'source-over';
+      } else {
+        ctx.globalCompositeOperation = 'xor';
+      }
+      // ctx.fillStyle = getRandomInt(0, 4) === 0 ? '#000000' : '#ffffff';
+
       ctx.fillText(
         date,
         randomDeltaX + getRandomInt(-randomDeltaX, randomDeltaX),
         randomDeltaY + getRandomInt(-randomDeltaY, randomDeltaY),
       );
     }
-    // ctx.fillText(date, 15 + getRandomInt(-15, 15), 0);
-    // ctx.fillText(date, 0, 0);
     ctx.restore();
   }
 
@@ -184,8 +198,7 @@ export default class Typogr extends React.Component<TProps, TState> {
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
       onComplete: () => {
-        this.renderCanvas(CANVAS_COLOR_BLACK);
-        this.renderCanvas(CANVAS_COLOR_WHITE);
+        // this.renderCanvas(CANVAS_COLOR_BLACK);
       },
     });
   }
