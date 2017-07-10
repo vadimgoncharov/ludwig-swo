@@ -166,6 +166,16 @@ function dateToDayMonthAbbr(date: Date): string {
   return `${dayFirstLetter}${monthFirstLetter}`.toUpperCase();
 }
 
+function dateToDayMonthWords(date: Date): string {
+  const day: number = date.getDate();
+  const month: number = date.getMonth();
+  const monthStr: string = MONTHS_ACCUSATIVE[month];
+
+  const dayFirstLetter = DAYS_WORDS[day - 1];
+
+  return `${dayFirstLetter} ${monthStr}`;
+}
+
 function dateToYYYYMMDD(date: Date): string {
   const day: string = addLeadingZero(date.getDate());
   const month: string = addLeadingZero(date.getMonth() + 1);
@@ -248,6 +258,7 @@ export {
   dateToMonthPrepositional,
   dateToMonthStr,
   dateToDayMonthAbbr,
+  dateToDayMonthWords,
   dateToYYYYMMDD,
   dateToDMMYYYY,
   dateToDDMM,
