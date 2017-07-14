@@ -21,6 +21,14 @@ function convertRange(
   return newValue;
 }
 
+function convertRangeLog(position, minp, maxp, minv, maxv) {
+  minv = Math.log(minv);
+  maxv = Math.log(maxv);
+  const scale = (maxv - minv) / (maxp - minp);
+
+  return Math.exp(minv + scale * (position - minp));
+}
+
 function isEven(num: number): boolean {
   return Math.round(num) % 2 === 0;
 }
@@ -34,8 +42,14 @@ function isPrimeNumber(num: number): boolean {
   return num !== 1;
 }
 
+function angleToRad(angle: number): number {
+  return angle * Math.PI / 180;
+}
+
 export {
   convertRange,
+  convertRangeLog,
   isEven,
   isPrimeNumber,
+  angleToRad,
 };

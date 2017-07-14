@@ -81,6 +81,7 @@ const DAYS_WORDS_ABBRS: string[] = DAYS_WORDS.map((word) => {
 
 const DAYS_COUNT_IN_YEAR_CACHE = {};
 const DAY_NUMBER_IN_YEAR_CACHE = {};
+const DAY_NUMBER_IN_YEAR_CACHE_REVERSE: {[key: number]: Date} = {};
 const DAYS_IN_YEAR_AS_DATES_CACHE: Date[] = [];
 
 function addLeadingZero(value: number|string): string {
@@ -118,7 +119,7 @@ function getDaysCountInYear(year: number): number {
 }
 
 function getDayNumberInYear(year: number, month: number, day: number): number {
-  const key = `${year}-${month}-${day}`;
+  const key = `${month}-${day}`;
   if (!DAY_NUMBER_IN_YEAR_CACHE[key]) {
     const end: Date = new Date(year, month, day);
     const start: Date = new Date(end.getFullYear(), 0, 0);
@@ -127,12 +128,17 @@ function getDayNumberInYear(year: number, month: number, day: number): number {
     const dayInYear: number = Math.floor(diff / oneDay);
 
     DAY_NUMBER_IN_YEAR_CACHE[key] = dayInYear;
+    DAY_NUMBER_IN_YEAR_CACHE_REVERSE[dayInYear] = new Date(DATE_NOW.getFullYear(), month, day);
   }
   return DAY_NUMBER_IN_YEAR_CACHE[key];
 }
 
 function getDayNumberInYearByDate(date: Date): number {
   return getDayNumberInYear(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function getDateByDayNumberInYear(dayNumber: number): Date {
+  return DAY_NUMBER_IN_YEAR_CACHE_REVERSE[dayNumber];
 }
 
 function dateToDayMonth(date: Date, months: string[]): string {
@@ -245,6 +251,7 @@ export {
   getDaysCountInYear,
   getDayNumberInYear,
   getDayNumberInYearByDate,
+  getDateByDayNumberInYear,
   getDaysInYearAsDates,
   getYearFirstDayDate,
   getYearLastDayDate,
