@@ -33,9 +33,14 @@ function formatDays(value: number, useSuffix: boolean = true): string {
   return value.toString();
 }
 
+function caplitalizeFirstLetter(value: string): string {
+  return value[0].toUpperCase() + value.slice(1);
+}
+
 export {
   formatValueToTimesWithPluralize,
   formatValueToTimesWithoutPluralize,
   formatThousands,
   formatDays,
+  caplitalizeFirstLetter,
 }

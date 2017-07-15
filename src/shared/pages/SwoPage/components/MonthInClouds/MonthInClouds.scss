@@ -1,0 +1,40 @@
+.MonthInClouds-title {
+  text-align: center;
+}
+
+.MonthInClouds-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  min-height: 55px;
+  margin-top: 10px;
+}
+
+.MonthInClouds-item {
+  margin: 5px;
+  font-size: 14px;
+  line-height: 32px;
+  overflow: hidden;
+  max-width: 50px;
+
+  &.is-selected {
+    color: orange;
+  }
+
+  &.is-visible_no {
+    opacity: 0;
+    transform: translate(15px, 0);
+    max-width: 0;
+  }
+}
+
+.MonthInClouds.is-animationEnabled .MonthInClouds-item {
+  transition:
+    font-size 1000ms ease-in-out,
+    color 1000ms ease-in-out,
+    opacity 500ms ease-in-out,
+    transform 500ms ease-in-out,
+    max-width 500ms ease-in-out;
+}

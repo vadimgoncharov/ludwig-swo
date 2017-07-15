@@ -2,6 +2,21 @@ import {getRandomInt} from './random';
 
 const DATE_NOW: Date = new Date();
 const DAY_IN_MS = 3600 * 24 * 1000;
+const MONTHS_NOMINATIVE: string[] = [
+  'январь',
+  'февраль',
+  'март',
+  'апрель',
+  'май',
+  'июнь',
+  'июль',
+  'август',
+  'сентябрь',
+  'октябрь',
+  'ноябрь',
+  'декабрь',
+];
+
 const MONTHS_ACCUSATIVE: string[] = [
   'января',
   'февраля',
@@ -161,6 +176,10 @@ function dateToMonthPrepositional(date: Date): string {
   return MONTHS_PREPOSITIONAL[date.getMonth()];
 }
 
+function dateToMonthNominative(date: Date): string {
+  return MONTHS_NOMINATIVE[date.getMonth()];
+}
+
 function dateToDayMonthAbbr(date: Date): string {
   const day: number = date.getDate();
   const month: number = date.getMonth();
@@ -263,6 +282,7 @@ export {
   dateToDayMonthAccusative,
   dateToDayMonthPrepositional,
   dateToMonthPrepositional,
+  dateToMonthNominative,
   dateToMonthStr,
   dateToDayMonthAbbr,
   dateToDayMonthWords,
