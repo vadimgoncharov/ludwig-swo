@@ -80,8 +80,8 @@ export default class Hero extends React.Component<TProps, TState> {
               className="Hero-swoDateContainer"
               component="div"
               transitionName="slide"
-              transitionEnterTimeout={350}
-              transitionLeaveTimeout={350}
+              transitionEnterTimeout={700}
+              transitionLeaveTimeout={700}
             >
               <div
                 className="Hero-swoDate"

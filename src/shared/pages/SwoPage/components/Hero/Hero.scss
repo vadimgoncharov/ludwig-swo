@@ -36,8 +36,8 @@
   z-index: 20;
   white-space: nowrap;
   $duration: 350ms;
-  $offset_desktop: 100px;
-  $offset_mobile: 40px;
+  $offset_desktop: 150px;
+  $offset_mobile: 60px;
 
   &.slide-enter.slide-enter-active {
     transform: translate3d(0, 0, 0);

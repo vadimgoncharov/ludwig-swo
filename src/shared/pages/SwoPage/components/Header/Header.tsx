@@ -89,8 +89,8 @@ export default class Header extends React.Component<TProps, TState> {
             <CSSTransitionGroup
               className="Header-swoDateValueContainer"
               transitionName="slide"
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={300}
+              transitionEnterTimeout={600}
+              transitionLeaveTimeout={600}
             >
               <span
                 className="Header-swoDateValueContainerValue"

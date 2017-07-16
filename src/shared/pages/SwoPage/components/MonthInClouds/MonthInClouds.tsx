@@ -129,8 +129,8 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
           className="MonthInClouds-titleMonth"
           component="span"
           transitionName="slide"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
+          transitionEnterTimeout={1400}
+          transitionLeaveTimeout={1400}
         >
           <span
             className="MonthInClouds-titleMonthValue"

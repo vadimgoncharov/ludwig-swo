@@ -10,12 +10,15 @@
 .MonthInClouds-title {
   text-align: center;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
 }
 
 .MonthInClouds-titleText {
   position: relative;
-  top: -6px;
+  //top: -6px;
   padding-right: 40px;
+  margin-left: 5px;
 }
 
 .MonthInClouds-titleMonth {
@@ -28,14 +31,13 @@
 }
 
 .MonthInClouds.is-animationEnabled .MonthInClouds-titleMonth {
-  transition: 2000ms width ease-in-out;
+  transition: 500ms width 800ms ease-in-out;
 }
 
 .MonthInClouds-titleMonthValue {
   position: absolute;
   right: 0;
   top: 0;
-  //width: 100%;
   text-align: right;
   z-index: 20;
   white-space: nowrap;
@@ -69,7 +71,6 @@
     }
   }
 }
-
 
 .MonthInClouds-items {
   display: flex;

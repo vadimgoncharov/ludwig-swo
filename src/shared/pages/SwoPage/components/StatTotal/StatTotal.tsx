@@ -67,9 +67,6 @@ export default class StatTotal extends React.Component<TProps, TState> {
   }
 
   private renderTotalValueFormatted(value: number): string {
-    if (this.animator.isAnimationInProgress()) {
-      return format.formatValueToTimesWithoutPluralize(value);
-    }
     return format.formatValueToTimesWithPluralize(value);
   }
 

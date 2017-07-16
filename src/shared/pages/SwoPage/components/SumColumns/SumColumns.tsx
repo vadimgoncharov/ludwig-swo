@@ -50,11 +50,24 @@ export default class StatTower extends React.Component<TProps, TState> {
     super(props);
 
     this.state.animatorCurrValue.time = props.statTotal.date.getTime();
-    this.state.animatorCurrValues = props.statMonthsDay.map((item) => {
+
+    // We can not iterate throuth props.statMonthsDay directly,
+    // because it could have less then 12 month
+    // example: curr day of date is 31, so we will not have 31 february
+    this.state.animatorCurrValues = Array.apply(null, Array(12)).map((_, monthIndex) => {
+      const statMonthsDayItem = props.statMonthsDay[monthIndex];
+      if (typeof statMonthsDayItem !== 'undefined') {
+        return {
+          time: statMonthsDayItem.date.getTime(),
+          value: statMonthsDayItem.value,
+        };
+      }
+      const date = new Date();
+      date.setMonth(monthIndex);
       return {
-        time: item.date.getTime(),
-        value: item.value,
-      };
+        time: date.getTime(),
+        value: 0,
+      }
     });
 
     this.animator = this.createAnimator();
@@ -124,12 +137,10 @@ export default class StatTower extends React.Component<TProps, TState> {
     const {statMonthsDay} = this.props;
     const {animatorCurrValues} = this.state;
     const day = (new Date(animatorCurrValues[0].time)).getDate();
-    const total = Math.round(animatorCurrValues.reduce((sum, item) => {
-      return sum + item.value;
+    const total = Math.round(statMonthsDay.reduce((sum, item, index) => {
+      return sum + animatorCurrValues[index].value;
     }, 0));
     const currMonth = new Date(this.state.animatorCurrValue.time).getMonth();
-    // FIXME
-    // VM17232 SumColumns.tsx:108 Uncaught TypeError: Cannot read property 'time' of undefined
 
     return (
       <div className="SumColumns-column">
