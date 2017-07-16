@@ -1,5 +1,7 @@
 /* global document, module, require */
 
+import 'es6-shim';
+
 import * as React       from 'react';
 import * as ReactDOM    from 'react-dom';
 import {Provider}       from 'react-redux';
