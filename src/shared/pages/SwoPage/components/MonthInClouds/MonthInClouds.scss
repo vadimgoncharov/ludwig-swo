@@ -1,6 +1,75 @@
+.MonthInClouds {
+  @include not-phone {
+    min-height: 136px;
+  }
+  @include phone {
+    min-height: 406px;
+  }
+}
+
 .MonthInClouds-title {
   text-align: center;
+  white-space: nowrap;
 }
+
+.MonthInClouds-titleText {
+  position: relative;
+  top: -6px;
+  padding-right: 40px;
+}
+
+.MonthInClouds-titleMonth {
+  position: relative;
+  display: inline-block;
+  min-height: 20px;
+  width: 65px;
+  overflow: hidden;
+  padding-left: 40px;
+}
+
+.MonthInClouds.is-animationEnabled .MonthInClouds-titleMonth {
+  transition: 2000ms width ease-in-out;
+}
+
+.MonthInClouds-titleMonthValue {
+  position: absolute;
+  right: 0;
+  top: 0;
+  //width: 100%;
+  text-align: right;
+  z-index: 20;
+  white-space: nowrap;
+  $duration: 350ms;
+  $offset_desktop: 30px;
+  $offset_mobile: 40px;
+
+  &.slide-enter.slide-enter-active {
+    transform: translate3d(0, 0, 0);
+    transition: transform $duration ease-in-out, opacity $duration ease-in-out;
+  }
+
+  &.slide-enter {
+    transform: translate3d(0, $offset_desktop, 0);
+    @include phone {
+      transform: translate3d(0, $offset_mobile, 0);
+    }
+  }
+
+  &.slide-leave {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &.slide-leave.slide-leave-active {
+    opacity: 0.3;
+    transition: transform $duration ease-in-out, opacity $duration ease-in-out;
+    transform: translate3d(0, -$offset_desktop, 0);
+    @include phone {
+      transform: translate3d(0, -$offset_mobile, 0);
+    }
+  }
+}
+
 
 .MonthInClouds-items {
   display: flex;
@@ -8,16 +77,22 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
-  min-height: 55px;
-  margin-top: 10px;
+  max-width: 900px;
+  margin: 10px auto 0;
 }
 
 .MonthInClouds-item {
-  margin: 5px;
-  font-size: 14px;
-  line-height: 32px;
+  $width: 54px;
+  $height: 54px;
+
+  width: $width;
+  height: $height;
+  line-height: $height;
+  font-size: 42px;
   overflow: hidden;
-  max-width: 50px;
+  text-align: center;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 
   &.is-selected {
     color: orange;
@@ -25,16 +100,18 @@
 
   &.is-visible_no {
     opacity: 0;
-    transform: translate(15px, 0);
-    max-width: 0;
+    width: 0;
+    transform: translate3d(15px, 0, 0) scale(0.01);
   }
 }
 
 .MonthInClouds.is-animationEnabled .MonthInClouds-item {
+  $duration: 800ms;
+
   transition:
-    font-size 1000ms ease-in-out,
-    color 1000ms ease-in-out,
-    opacity 500ms ease-in-out,
-    transform 500ms ease-in-out,
-    max-width 500ms ease-in-out;
+    font-size $duration ease-in-out,
+    opacity $duration ease-in-out,
+    transform $duration ease-in-out,
+    width $duration ease-in-out,
+    max-width $duration ease-in-out;
 }

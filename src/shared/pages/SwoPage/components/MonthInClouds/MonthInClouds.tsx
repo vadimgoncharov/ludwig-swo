@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
+import {CSSTransitionGroup} from 'react-transition-group';
 
+import Animator from 'shared/services/Animator';
 import * as utils from 'shared/utils';
-
 
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -19,20 +20,57 @@ type TProps = {
 };
 
 type TState = {
+  animatorCurrValue: TAnimatorValue,
   isAnimationEnabled: boolean,
+};
+
+type TAnimatorValue = {
+  time: number,
 };
 
 export default class MonthInClouds extends React.Component<TProps, TState> {
   public props: TProps;
   public state: TState = {
+    animatorCurrValue: {
+      time: 0,
+    },
     isAnimationEnabled: false,
   };
+  private animator: Animator<TAnimatorValue>;
+  private titleElement: HTMLElement;
+  private titleMonthValueElement: HTMLElement;
+
+  constructor(props: TProps) {
+    super(props);
+
+    this.state.animatorCurrValue.time = props.statTotal.date.getTime();
+    this.state.isAnimationEnabled = false;
+    this.animator = this.createAnimator();
+  }
+
+  public componentDidMount() {
+    this.recalculateTitleWidth();
+  }
+
+  public componentWillReceiveProps(nextProps: TProps) {
+    const oldDate = this.props.statTotal.date;
+    const newDate = nextProps.statTotal.date;
+
+    if (oldDate.getTime() === newDate.getTime()) {
+      return;
+    }
+
+    this.animator.start([{time: newDate.getTime()}]);
+    setTimeout(() => {
+      this.recalculateTitleWidth();
+    });
+  }
 
   public render() {
     const {statTotal, statDayInYear} = this.props;
     const {isAnimationEnabled} = this.state;
     const currDate = statTotal.date;
-    const currMonthStr = utils.format.caplitalizeFirstLetter(utils.date.dateToMonthNominative(currDate));
+    const currDayNum = new Date(this.state.animatorCurrValue.time).getDate();
 
     const days = statDayInYear.filter((item) => {
       const date = utils.date.getDateByDayNumberInYear(item.dayNum);
@@ -47,10 +85,7 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.enableAnimation} onLeave={this.disableAnimation}>
        <div className={rootClassName}>
-         <div className="MonthInClouds-title">
-           <span className="MonthInClouds-titleMonth">{currMonthStr}</span>{' '}
-           в облаках:
-         </div>
+         {this.renderTitle()}
          <div className="MonthInClouds-items">
            {Array.apply(null, Array(31)).map((_, index) => {
              const item = days[index];
@@ -60,13 +95,17 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
              if (typeof item !== 'undefined') {
                isVisible = true;
                const {value} = days[index];
-               const fontSize = Math.round(utils.math.convertRange(value, min, max, 14, 42));
+               // Initial font-size in CSS == 42px
+               // So we downscale it to 42px / 3 = 14px (min font-size)
+               // Or do nothing, so it will have font-size = 42px (max font-size)
+               // We need it, because Safari renders upscaled font-size very badly
+               const fontSize = utils.math.convertRange(value, min, max, 1 / 3, 1).toFixed(2);
                sizeStyle = {
-                 fontSize: `${fontSize}px`,
+                 transform: `scale(${fontSize})`,
                };
              }
              const itemClassName = classNames('MonthInClouds-item', `is-visible_${isVisible ? 'yes' : 'no'}`, {
-               'is-selected': currDate.getDate() === dayNum,
+               'is-selected': currDayNum === dayNum,
              });
              return (
                <div className={itemClassName} key={index} style={sizeStyle}>
@@ -80,17 +119,65 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
     );
   }
 
+  private renderTitle() {
+    const currDate = this.props.statTotal.date;
+    const currMonthStr = utils.format.caplitalizeFirstLetter(utils.date.dateToMonthNominative(currDate));
+
+    return (
+      <div className="MonthInClouds-title" ref={this.onTitleRefSet}>
+        <CSSTransitionGroup
+          className="MonthInClouds-titleMonth"
+          component="span"
+          transitionName="slide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
+        >
+          <span
+            className="MonthInClouds-titleMonthValue"
+            ref={this.onTitleMonthValueRefSet}
+            key={currDate.getMonth()}
+          >
+            {currMonthStr}
+          </span>
+        </CSSTransitionGroup>{' '}
+        <span className="MonthInClouds-titleText">
+          в облаках:
+        </span>
+      </div>
+    );
+  }
+
+  private onTitleRefSet = (ref) => {
+    this.titleElement = ref;
+  };
+
+  private onTitleMonthValueRefSet = (ref) => {
+    this.titleMonthValueElement = ref;
+  };
+
+  private recalculateTitleWidth() {
+    const {titleElement, titleMonthValueElement} = this;
+    if (titleElement && titleMonthValueElement) {
+      const titleMonthElement = titleElement.children.item(0);
+      if (titleMonthElement instanceof HTMLElement) {
+        titleMonthElement.style.width =  `${titleMonthValueElement.offsetWidth}px`;
+      }
+    }
+  }
+
   private enableAnimation = () => {
     this.setState({
       isAnimationEnabled: true,
     });
+    this.animator.enableAnimation();
   };
 
   private disableAnimation = () => {
     this.setState({
       isAnimationEnabled: false,
     });
-  }
+    this.animator.disableAnimation();
+  };
 
   private getCurrMonthMinMax(): {min: number, max: number} {
     const {statTotal, statDayInYear} = this.props;
@@ -106,5 +193,19 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
       max = Math.max(max, item.value);
     });
     return {min, max};
+  }
+
+  private createAnimator(): Animator<TAnimatorValue> {
+    return new Animator<TAnimatorValue>({
+      from: [{time: this.state.animatorCurrValue.time}],
+      duration: 1000,
+      comparator: (oldValues, newValues) => {
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+        );
+      },
+      onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
+    });
   }
 }
