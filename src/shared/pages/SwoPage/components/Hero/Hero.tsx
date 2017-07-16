@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import {CSSTransitionGroup} from 'react-transition-group';
 
+import FaviconRenderer from 'shared/services/FaviconRenderer';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import Link from 'shared/components/Link';
 import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
 
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -33,12 +33,22 @@ export default class Hero extends React.Component<TProps, TState> {
     },
   };
   private animator: Animator<TAnimatorValue>;
+  private faviconRenderer: FaviconRenderer;
 
   constructor(props: TProps) {
     super(props);
 
     this.state.animatorCurrValue.time = props.statTotal.date.getTime();
     this.animator = this.createAnimator();
+    this.faviconRenderer = new FaviconRenderer();
+  }
+
+  public componentDidMount() {
+    this.renderFavicon(false);
+  }
+
+  public componentDidUpdate() {
+    this.renderFavicon();
   }
 
   public componentWillReceiveProps(nextProps: TProps) {
@@ -86,6 +96,12 @@ export default class Hero extends React.Component<TProps, TState> {
     );
   }
 
+  private renderFavicon(useAnimation: boolean = true): void {
+    // TODO Move faviconRenderer to separate component
+    // this.faviconRenderer.render(new Date(this.state.animatorCurrValue.time).getDate());
+    this.faviconRenderer.render(this.props.statTotal.date, useAnimation);
+  }
+
   private onHeroSwoEnter = (): void => {
     this.props.onHeaderSwoDateVisibilityChange(false);
   };
@@ -98,7 +114,7 @@ export default class Hero extends React.Component<TProps, TState> {
      if (data.currentPosition !== 'inside') {
        this.props.onHeaderSwoDateVisibilityChange(true);
      }
-  }
+  };
 
   private createAnimator(): Animator<TAnimatorValue> {
     return new Animator<TAnimatorValue>({

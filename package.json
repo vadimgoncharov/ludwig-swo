@@ -41,6 +41,7 @@
     "classnames": "2.2.5",
     "css-loader": "0.28.4",
     "format-thousands": "1.1.1",
+    "lodash.throttle": "^4.1.1",
     "node-sass": "4.5.3",
     "onresize": "1.0.1",
     "plural-ru": "1.1.1",
