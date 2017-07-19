@@ -65,7 +65,8 @@ export default class StatTower extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
        <div className="StatTower">
-         <div className="StatTower-title">
+         <div className="StatTower-title">Телебашня</div>
+         <div className="StatTower-subTitle">
            Распределение дней в&nbsp;году по&nbsp;порядку убывания числа открытий сайта в&nbsp;этот день{' '}
            (<span className="is-prime">отмечены</span> дни, в&nbsp;которые сайт откроется простое число раз):
          </div>

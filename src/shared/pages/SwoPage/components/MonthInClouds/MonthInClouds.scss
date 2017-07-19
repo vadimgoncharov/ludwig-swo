@@ -12,13 +12,26 @@
   white-space: nowrap;
   display: flex;
   justify-content: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
 }
 
 .MonthInClouds-titleText {
   position: relative;
-  //top: -6px;
-  padding-right: 40px;
+  padding-right: 70px;
   margin-left: 5px;
+  @include not-phone {
+    padding-right: 70px;
+  }
+  @include phone {
+    padding-right: 50px;
+  }
 }
 
 .MonthInClouds-titleMonth {
@@ -27,7 +40,12 @@
   min-height: 20px;
   width: 65px;
   overflow: hidden;
-  padding-left: 40px;
+  @include not-phone {
+    padding-left: 70px;
+  }
+  @include phone {
+    padding-left: 50px;
+  }
 }
 
 .MonthInClouds.is-animationEnabled .MonthInClouds-titleMonth {
@@ -79,7 +97,7 @@
   align-items: baseline;
   justify-content: center;
   max-width: 900px;
-  margin: 10px auto 0;
+  margin: 15px auto 0;
 }
 
 .MonthInClouds-item {
@@ -93,7 +111,6 @@
   overflow: hidden;
   text-align: center;
   transform: translate3d(0, 0, 0);
-  will-change: transform;
 
   &.is-selected {
     color: orange;

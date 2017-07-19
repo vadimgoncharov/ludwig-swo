@@ -93,6 +93,7 @@ export default class StatTower extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="SumColumns">
+          <div className="SumColumns-title">Месячный абонемент</div>
           <div className="SumColumns-columns">
             {this.renderChanceColumn()}
             {this.renderMonthDayColumn()}

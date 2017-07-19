@@ -18,6 +18,7 @@ export default class StatAround extends React.Component<TProps, any> {
     return (
       <Waypoint>
         <div className="StatAround">
+          <div className="StatAround-title">Вчера, сегодня, завтра</div>
           {this.renderArrows()}
           {this.renderValues()}
         </div>

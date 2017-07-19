@@ -6,15 +6,34 @@
   }
 }
 
+.StatMinMax-title {
+  text-align: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
 .StatMinMax-columns {
   display: flex;
+  @include not-phone {
+    margin-top: 30px;
+    display: flex;
+  }
   @include phone {
+    margin-top: 15px;
     display: block;
   }
 }
 
 .StatMinMax-column {
-  flex: 0 0 45%;
+  @include not-phone {
+    flex: 0 0 45%;
+  }
   @include phone {
     padding-right: 10px;
     overflow: hidden;

@@ -76,10 +76,11 @@ export default class StatTotalEvenOdd extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className={rootClassName}>
-          <div className="StatTotalEvenOdd-mainTitle">
-            <span className="StatTotalEvenOdd-mainTitleOdd">По нечетным</span> числам месяца сайт откроется{' '}
-            <span className="StatTotalEvenOdd-mainTitleOdd">{oddValueFormatted}</span>,{' '}
-            а <span className="StatTotalEvenOdd-mainTitleEven">по&nbsp;четным — {evenValueFormatted}</span>
+          <div className="StatTotalEvenOdd-title">Орел и решка</div>
+          <div className="StatTotalEvenOdd-description">
+            <span className="StatTotalEvenOdd-descriptionOdd">По нечетным</span> числам месяца сайт откроется{' '}
+            <span className="StatTotalEvenOdd-descriptionOdd">{oddValueFormatted}</span>,{' '}
+            а <span className="StatTotalEvenOdd-descriptionEven">по&nbsp;четным — {evenValueFormatted}</span>
           </div>
           <div className="StatTotalEvenOdd-sides">
             <div className="StatTotalEvenOdd-side is-reshka">

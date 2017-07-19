@@ -60,7 +60,8 @@ export default class StatSlash extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
        <div className="StatSlash">
-         <div className="StatSlash-mainTitle">
+         <div className="StatSlash-title">Фольксваген</div>
+         <div className="StatSlash-subTitle">
            Изменение числа открытий сайта в&nbsp;каждый из&nbsp;дней{' '}
            по&nbsp;отношению к&nbsp;предыдущему, выраженное псевдографикой:
          </div>

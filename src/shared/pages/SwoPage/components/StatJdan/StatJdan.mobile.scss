@@ -1,8 +1,15 @@
 @include phone {
   .StatJdan-title {
-    font-size: 14px;
-    line-height: 22px;
     text-align: center;
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+
+  .StatJdan-subTitle {
+    text-align: center;
+    font-size: $section_subtitle_font_size_mobile;
+    line-height: $section_subtitle_font_line_height_mobile;
+    margin-top: 5px;
   }
 
   .StatJdan-items {

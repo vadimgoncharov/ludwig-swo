@@ -5,6 +5,30 @@
   margin-right: auto;
 }
 
+.StatNumFreqInYear-freqTitle {
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
+.StatNumFreqInYear-freqSubTitle {
+  @include not-phone {
+    font-size: $section_subtitle_font_size_desktop;
+    line-height: $section_subtitle_font_line_height_desktop;
+    margin-top: $section_subtitle_margin_top_desktop;
+  }
+  @include phone {
+    font-size: $section_subtitle_font_size_mobile;
+    line-height: $section_subtitle_font_line_height_mobile;
+    margin-top: $section_subtitle_margin_top_mobile;
+  }
+}
+
 .StatNumFreqInYear-freqColumns {
   @include not-phone {
     margin-top: 10px;

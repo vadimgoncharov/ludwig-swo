@@ -3,8 +3,20 @@
   max-width: 940px;
 }
 
+.StatSeasons-title {
+  text-align: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
 .StatSeasons-items {
-  margin: 0 10px;
+  margin: 15px 10px 0;
 }
 
 .StatSeasons-item {

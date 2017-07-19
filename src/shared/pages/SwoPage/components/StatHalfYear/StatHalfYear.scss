@@ -6,15 +6,31 @@
 }
 
 .StatHalfYear-title {
-  font-size: 16px;
-  line-height: 22px;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
+.StatHalfYear-subTitle {
+  @include not-phone {
+    font-size: $section_subtitle_font_size_desktop;
+    line-height: $section_subtitle_font_line_height_desktop;
+    margin-top: $section_subtitle_margin_top_desktop;
+  }
+  @include phone {
+    font-size: $section_subtitle_font_size_mobile;
+    line-height: $section_subtitle_font_line_height_mobile;
+    margin-top: $section_subtitle_margin_top_mobile;
+  }
+
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
-  @include phone {
-    font-size: 14px;
-    line-height: 18px;
-  }
 }
 
 .StatHalfYear-items {

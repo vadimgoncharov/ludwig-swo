@@ -16,7 +16,7 @@ export default class News extends React.Component<any, any> {
   public render() {
     return (
       <div className="News">
-        <div className="News-title">Новости:</div>
+        <div className="News-title">Новости</div>
         <ol className="News-items">
           {newsData.map(this.renderItem)}
         </ol>

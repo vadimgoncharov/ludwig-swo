@@ -7,12 +7,28 @@
   }
 }
 
+.SumColumns-title {
+  text-align: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
 .SumColumns-columns {
   @include not-phone {
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+  }
+  @include phone {
+    margin-top: 10px;
   }
 }
 

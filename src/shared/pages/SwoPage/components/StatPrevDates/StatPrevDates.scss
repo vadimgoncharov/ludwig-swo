@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.StatPrevDates-title {
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
 .StatPrevDates-items {
   list-style: none;
   padding: 0;

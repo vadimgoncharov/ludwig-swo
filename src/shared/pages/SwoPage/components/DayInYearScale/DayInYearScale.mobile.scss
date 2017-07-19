@@ -1,13 +1,13 @@
 @include phone {
   .DayInYearScale-title {
-    font-size: 14px;
     text-align: center;
+    font-size: $section_title_font_size_mobile;
   }
 
   .DayInYearScale-items {
     list-style: none;
     padding: 0;
-    margin: 15px auto 0;
+    margin: 30px auto 0;
   }
 
   .DayInYearScale-item {

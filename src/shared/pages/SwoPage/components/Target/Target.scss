@@ -7,12 +7,27 @@
 }
 
 .Target-title {
-  font-size: 15px;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
 }
 
 .Target-subTitle {
-  font-size: 14px;
-  margin-top: 4px;
+  @include not-phone {
+    font-size: $section_subtitle_font_size_desktop;
+    line-height: $section_subtitle_font_line_height_desktop;
+    margin-top: $section_subtitle_margin_top_desktop;
+  }
+  @include phone {
+    font-size: $section_subtitle_font_size_mobile;
+    line-height: $section_subtitle_font_line_height_mobile;
+    margin-top: $section_subtitle_margin_top_mobile;
+  }
 }
 
 .Target-container {

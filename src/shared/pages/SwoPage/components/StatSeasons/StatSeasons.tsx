@@ -42,6 +42,7 @@ export default class StatSeasons extends React.Component<TProps, any> {
     return (
       <Waypoint>
         <div className="StatSeasons">
+          <div className="StatSeasons-title">Четыре сезона</div>
           <div className="StatSeasons-items">
             {this.renderItem(winter, winterLineValue, 'Зимой', SEASON_NAME_WINTER, currSeasonKey)}
             {this.renderItem(spring, springLineValue, 'Весной', SEASON_NAME_SPRING, currSeasonKey)}

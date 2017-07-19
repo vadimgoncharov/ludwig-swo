@@ -86,7 +86,8 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
   private renderFreq(): ReactElement<any> {
     return (
       <div className="StatNumFreqInYear-freq">
-        <div className="StatNumFreqInYear-freqMainTitle">
+        <div className="StatNumFreqInYear-freqTitle">Частокол</div>
+        <div className="StatNumFreqInYear-freqSubTitle">
           Частота появления цифр от&nbsp;нуля до&nbsp;девяти в&nbsp;датах одного года:
         </div>
         <div className="StatNumFreqInYear-freqColumns">

@@ -63,7 +63,10 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatDayInMonth">
-          <div className="StatDayInMonth-mainTitle">
+          <div className="StatDayInMonth-title">
+            Гистограмма
+          </div>
+          <div className="StatDayInMonth-subTitle">
             Распределение открытия сайта по порядковым номерам дней в месяце:
           </div>
           <div className="StatDayInMonth-items">

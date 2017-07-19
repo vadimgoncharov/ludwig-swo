@@ -68,7 +68,8 @@ export default class StatHalfYear extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatHalfYear">
-          <div className="StatHalfYear-title">
+          <div className="StatHalfYear-title">50 на 50</div>
+          <div className="StatHalfYear-subTitle">
             Отношение числа открытий сайта в&nbsp;первом полугодии к&nbsp;числу открытий во&nbsp;втором полугодии:
           </div>
           <div className="StatHalfYear-items">

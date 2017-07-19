@@ -41,7 +41,8 @@ export default class StatJdan extends React.Component<TProps, TState> {
     return (
       <Waypoint>
         <div className="StatJdan">
-          <div className="StatJdan-title">
+          <div className="StatJdan-title">Пятеро смелых</div>
+          <div className="StatJdan-subTitle">
             Если бы рост
             Ждана Филиппова{' '}
             <span className={togglerChClassName} onClick={this.onTogglerChClick}>менялся</span>{' '}

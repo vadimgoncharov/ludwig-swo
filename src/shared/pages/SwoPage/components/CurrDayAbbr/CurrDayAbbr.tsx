@@ -59,7 +59,10 @@ export default class CurrDayAbbr extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="CurrDayAbbr">
-          <div className="CurrDayAbbr-mainTitle">
+          <div className="CurrDayAbbr-title">
+            Коротко
+          </div>
+          <div className="CurrDayAbbr-description">
             Дата открытия сайта {date} в&nbsp;сокращенном виде:
           </div>
           <abbr className="CurrDayAbbr-abbr">«{abbr}»</abbr>

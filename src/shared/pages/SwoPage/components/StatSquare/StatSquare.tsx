@@ -76,7 +76,8 @@ export default class StatSquare extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatSquare">
-          <div className="StatSquare-title">
+          <div className="StatSquare-title">Абсолютный квадрат</div>
+          <div className="StatSquare-subTitle">
             Квадрат, площадь которого примерно равна{' '}
             <span className="StatSquare-value">{valueFormatted} пкс<sup>2</sup></span>{' '}
             (числу открытий сайта <span className="StatSquare-date">{date}</span>):

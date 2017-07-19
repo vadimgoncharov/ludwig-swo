@@ -1,3 +1,24 @@
+.StatYearDaysSorted-title {
+  text-align: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
+.StatYearDaysSorted-sections {
+  @include not-phone {
+    margin-top: 20px;
+  }
+  @include phone {
+    margin-top: 15px;
+  }
+}
+
 .StatYearDaysSorted-section {
   margin: 50px auto 0;
   text-align: center;

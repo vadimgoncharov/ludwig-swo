@@ -72,6 +72,7 @@ export default class StatMinMax extends React.Component<TProps, TState> {
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="StatMinMax">
+          <div className="StatMinMax-title"><abbr className="abbr">ТОП</abbr>-5 и&nbsp;позор микрорайона</div>
           <div className="StatMinMax-columns">
             <div className="StatMinMax-column is-max">
               <div className="StatMinMax-columnTitle">Сайт откроется чаще всего:</div>

@@ -67,8 +67,11 @@ export default class StatYearDaysSorted extends React.Component<TProps, TState> 
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
        <div className="StatYearDaysSorted">
-         {this.renderSectionValueSorted()}
-         {this.renderSectionDateSorted()}
+         <div className="StatYearDaysSorted-title">Некоторые любят погорячее</div>
+         <div className="StatYearDaysSorted-sections">
+           {this.renderSectionValueSorted()}
+           {this.renderSectionDateSorted()}
+         </div>
        </div>
       </Waypoint>
     );
