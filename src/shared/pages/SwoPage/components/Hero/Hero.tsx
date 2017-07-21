@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import {CSSTransitionGroup} from 'react-transition-group';
+import * as classNames from 'classnames';
 
 import FaviconRenderer from 'shared/services/FaviconRenderer';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
+import * as utils from 'shared/utils';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -63,37 +64,72 @@ export default class Hero extends React.Component<TProps, TState> {
   }
 
   public render() {
-    const date: string = dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
+    const date: string = utils.date.dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
 
     return (
       <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
         <div className="Hero">
-          <div className="Hero-swo">
-            <Waypoint
-              onEnter={this.onHeroSwoEnter}
-              onLeave={this.onHeroSwoLeave}
-              onPositionChange={this.onHeroSwoPositionChange}
-            >
-              <div className="Hero-swoText">Сайт откроется</div>
-            </Waypoint>
-            <CSSTransitionGroup
-              className="Hero-swoDateContainer"
-              component="div"
-              transitionName="slide"
-              transitionEnterTimeout={700}
-              transitionLeaveTimeout={700}
-            >
-              <div
-                className="Hero-swoDate"
-                key={this.props.statTotal.id}
-              >
-                {dateToDayMonthAccusative(this.props.statTotal.date)}
-              </div>
-            </CSSTransitionGroup>
-          </div>
+          {this.renderDayNum()}
+          {this.renderDate()}
+          {this.renderGuy()}
+          {this.renderTotal()}
         </div>
       </Waypoint>
     );
+  }
+
+  private renderDayNum() {
+    const currDate = this.props.statTotal.date;
+    const bgColorNum = currDate.getMonth() + 1;
+    const className = classNames('Hero-day', `is-bgColor${bgColorNum}`);
+    return (
+      <div className={className}>
+        {currDate.getDate()}
+      </div>
+    );
+  }
+
+  private renderDate() {
+    return (
+      <div className="Hero-swo">
+        <Waypoint
+          onEnter={this.onHeroSwoEnter}
+          onLeave={this.onHeroSwoLeave}
+          onPositionChange={this.onHeroSwoPositionChange}
+        >
+          <div className="Hero-swoText">Сайт откроется</div>
+        </Waypoint>
+        <CSSTransitionGroup
+          className="Hero-swoDateContainer"
+          component="div"
+          transitionName="slide"
+          transitionEnterTimeout={700}
+          transitionLeaveTimeout={700}
+        >
+          <div
+            className="Hero-swoDate"
+            key={this.props.statTotal.id}
+          >
+            {utils.date.dateToDayMonthAccusative(this.props.statTotal.date)}
+          </div>
+        </CSSTransitionGroup>
+      </div>
+    );
+  }
+
+  private renderGuy() {
+    return (
+      <div className="Hero-guy" />
+    );
+  }
+
+  private renderTotal() {
+    const value = utils.format.formatValueToTimesWithPluralize(this.props.statTotal.value);
+    return (
+      <div className="Hero-total">
+        Всего сайт откроется {value}
+      </div>
+    )
   }
 
   private renderFavicon(useAnimation: boolean = true): void {
@@ -121,7 +157,10 @@ export default class Hero extends React.Component<TProps, TState> {
       from: [{time: this.state.animatorCurrValue.time}],
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
-        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+        );
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
     });
