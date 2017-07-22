@@ -37,10 +37,10 @@ const AUTHORS: TAuthor[] = [
 export default class Footer extends React.Component<any, any> {
   public render() {
     return (
-      <div className="Footer">
+      <section className="Footer">
         {this.renderAuthors()}
         {this.renderContacts()}
-      </div>
+      </section>
     );
   }
 

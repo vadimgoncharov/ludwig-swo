@@ -16,13 +16,16 @@
 .StatPrevDates-items {
   list-style: none;
   padding: 0;
-  margin: 60px auto 0;
+  margin: 30px auto 0;
   position: relative;
   min-height: 200px;
-  transition: 300ms min-height ease-in-out, 300ms width ease-in-out;
   @include phone {
-    margin-top: 30px;
+    margin-top: 15px;
   }
+}
+
+.StatPrevDates .SectionContent.is-inViewport .StatPrevDates-items {
+  transition: 300ms min-height ease-in-out, 300ms width ease-in-out;
 }
 
 .StatPrevDates-item {
@@ -33,6 +36,9 @@
   opacity: 1;
   z-index: 10;
   width: 100px;
+}
+
+.StatPrevDates .SectionContent.is-inViewport .StatPrevDates-item {
   transition: 300ms transform ease-in-out, opacity 300ms ease-in-out;
 }
 
@@ -46,18 +52,11 @@
   justify-content: center;
   align-items: center;
   font-size: 32px;
+}
+
+.StatPrevDates .SectionContent.is-inViewport .StatPrevDates-itemValue {
   transition: background-color 200ms ease-out, transform 200ms ease-out;
   transform: scale(1, 1);
-}
-
-.StatPrevDates.is-animationRunning .StatPrevDates-itemValue {
-  animation: StatPrevDatesCircleAnimation 2500ms;
-}
-
-@keyframes StatPrevDatesCircleAnimation {
-  0% { transform: scale(1, 1); }
-  20% { transform: scale(0.3, 0.3); }
-  100% { transform: scale(1, 1); }
 }
 
 .StatPrevDates-itemTitle {

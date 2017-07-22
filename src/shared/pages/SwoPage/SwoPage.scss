@@ -2,6 +2,7 @@
   margin: 0 0 100px;
   position: relative;
   padding: 0 20px;
+  overflow: hidden;
   @include phone {
     padding-left: 10px;
     padding-right: 10px;
@@ -14,19 +15,16 @@
 
   .Hero {
     @include not-phone {
-      margin-top: 200px;
+      padding-top: 200px;
     }
     @include phone {
-      margin-top: 100px;
+      padding-top: 130px;
     }
-  }
-
-  .StatPrevDates {
-    margin-top: 60px;
   }
 
   .StatTotal,
   .StatMinMax,
+  .StatPrevDates,
   .DayInYearScale,
   .StatTotalEvenOdd,
   .StatAround,

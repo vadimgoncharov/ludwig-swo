@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {ReactElement} from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {
@@ -13,6 +13,8 @@ import {
   getYearLastDayDate,
 } from 'shared/utils/date';
 import {convertRange} from 'shared/utils/math';
+
+import navSectionData from './navSectionData';
 
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -65,15 +67,15 @@ export default class StatYearDaysSorted extends React.Component<TProps, TState> 
 
   public render() {
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-       <div className="StatYearDaysSorted">
-         <div className="StatYearDaysSorted-title">Некоторые любят погорячее</div>
+     <section className="StatYearDaysSorted">
+       <SectionContent animator={this.animator} navSection={navSectionData}>
+         <div className="StatYearDaysSorted-title">{navSectionData.title}</div>
          <div className="StatYearDaysSorted-sections">
            {this.renderSectionValueSorted()}
            {this.renderSectionDateSorted()}
          </div>
-       </div>
-      </Waypoint>
+       </SectionContent>
+     </section>
     );
   }
 

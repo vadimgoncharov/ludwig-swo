@@ -1,14 +1,14 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
-import * as classNames from 'classnames';
 import * as TransitionGroup from 'react-transition-group/TransitionGroup';
 import * as onresize from 'onresize';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
+import StatPrevDatesItem from './StatPrevDatesItem';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToMonthStr, dateToYYYYMMDD} from 'shared/utils/date';
+import * as utils from 'shared/utils';
 
-import StatPrevDatesItem from './StatPrevDatesItem';
+import navSectionData from './navSectionData';
 
 import {TStatPrevDates} from 'shared/types/StatPrevDates';
 
@@ -95,10 +95,10 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
       minHeight: `${itemsLayoutHeight}px`,
     };
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatPrevDates">
+      <section className="StatPrevDates">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
           <div className="StatPrevDates-containerInner" ref={this.onContainerInnerRefSet}>
-            <div className="StatPrevDates-title">Предыдущие дни открытия сайта:</div>
+            <div className="StatPrevDates-title">{navSectionData.title}</div>
             <TransitionGroup
               component="ul"
               className="StatPrevDates-items"
@@ -121,8 +121,8 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
               })}
             </TransitionGroup>
           </div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -159,7 +159,7 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
       x,
       y,
     };
-  }
+  };
 
   private getRecalculatedItemsLayout() {
     const items = [];
@@ -196,8 +196,8 @@ export default class StatPrevDates extends React.Component<TProps, TState> {
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
         return oldValues.some((oldItem, index) => {
-          const oldDate = dateToYYYYMMDD(new Date(oldItem.time));
-          const newDate = dateToYYYYMMDD(new Date(newValues[index].time));
+          const oldDate = utils.date.dateToYYYYMMDD(new Date(oldItem.time));
+          const newDate = utils.date.dateToYYYYMMDD(new Date(newValues[index].time));
 
           return oldDate !== newDate;
         });

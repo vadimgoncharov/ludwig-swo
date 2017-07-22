@@ -50,7 +50,6 @@
   background: no-repeat center center url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAQAAAAnZu5uAAAAHklEQVQIW2NgYGBIA8L/DGDwHwrBIiCYhsKEcIAMAJYVDyUUpVT8AAAAAElFTkSuQmCC');
   background-size: contain;
   transform: translate(-50%, -50%);
-  transition: border 50ms ease-in-out;
 
   &.is-min,
   &.is-max,
@@ -65,6 +64,10 @@
     border: 1px #000 solid;
     z-index: 30;
   }
+}
+
+.Target .SectionContent.is-inViewport .Target-item {
+  transition: border 50ms ease-in-out;
 }
 
 .Target-itemContent {

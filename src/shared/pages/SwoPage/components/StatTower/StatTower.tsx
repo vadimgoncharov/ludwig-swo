@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {
@@ -9,6 +9,8 @@ import {
   dateToYYYYMMDD,
   getDayNumberInYearByDate,
 } from 'shared/utils/date';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 import {TStatMinMax} from 'shared/types/StatMinMax';
@@ -63,8 +65,8 @@ export default class StatTower extends React.Component<TProps, TState> {
   public render() {
     const {statTower} = this.props;
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-       <div className="StatTower">
+     <section className="StatTower">
+       <SectionContent animator={this.animator} navSection={navSectionData}>
          <div className="StatTower-title">Телебашня</div>
          <div className="StatTower-subTitle">
            Распределение дней в&nbsp;году по&nbsp;порядку убывания числа открытий сайта в&nbsp;этот день{' '}
@@ -73,8 +75,8 @@ export default class StatTower extends React.Component<TProps, TState> {
          <ul className="StatTower-items">
            {statTower.map(this.renderItem)}
          </ul>
-       </div>
-      </Waypoint>
+       </SectionContent>
+     </section>
     );
   }
 

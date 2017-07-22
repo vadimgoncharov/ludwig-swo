@@ -1,11 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
-import * as format from 'shared/utils/format';
-import {isEven} from 'shared/utils/math';
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotalEvenOdd} from 'shared/types/StatTotalEvenOdd';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -67,16 +68,16 @@ export default class StatTotalEvenOdd extends React.Component<TProps, TState> {
     const oddValueFormatted = this.getFormattedValue(oddValue);
     const evenValueFormatted = this.getFormattedValue(evenValue);
 
-    const isTimeEven = isEven(new Date(time).getDate());
+    const isTimeEven = utils.math.isEven(new Date(time).getDate());
     const rootClassName = classNames('StatTotalEvenOdd', {
       'is-even': isTimeEven,
       'is-odd': !isTimeEven,
     });
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className={rootClassName}>
-          <div className="StatTotalEvenOdd-title">Орел и решка</div>
+      <section className={rootClassName}>
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="StatTotalEvenOdd-title">{navSectionData.title}</div>
           <div className="StatTotalEvenOdd-description">
             <span className="StatTotalEvenOdd-descriptionOdd">По нечетным</span> числам месяца сайт откроется{' '}
             <span className="StatTotalEvenOdd-descriptionOdd">{oddValueFormatted}</span>,{' '}
@@ -96,8 +97,8 @@ export default class StatTotalEvenOdd extends React.Component<TProps, TState> {
               {this.renderSideValue(evenValue)}
             </div>
           </div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -119,7 +120,7 @@ export default class StatTotalEvenOdd extends React.Component<TProps, TState> {
   }
 
   private renderSideValue(value: number) {
-    const formatted = format.formatThousands(Math.round(value));
+    const formatted = utils.format.formatThousands(Math.round(value));
     const px = this.getPx(value);
 
     return (
@@ -133,7 +134,7 @@ export default class StatTotalEvenOdd extends React.Component<TProps, TState> {
 
   private getFormattedValue(value: number): string {
     const roundedValue = Math.round(value);
-    return format.formatValueToTimesWithPluralize(roundedValue);
+    return utils.format.formatValueToTimesWithPluralize(roundedValue);
   }
 
   private createAnimator(): Animator<TAnimatorValue> {

@@ -1,0 +1,50 @@
+.NavIndicator {
+
+}
+
+.NavIndicator-items {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.NavIndicator-item {
+  $size_hover: 20px;
+  $size_bg: 6px;
+
+  width: $size_hover;
+  height: $size_hover;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  background-color: #000;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 10;
+    width: $size_bg;
+    height: $size_bg;
+    transform: translate(-50%, -50%);
+    background-color: darkred;
+    -webkit-tap-highlight-color: $color_item_selected;
+    border-radius: 100%;
+    transition: background-color 100ms ease-out;
+  }
+
+  &.is-selectedFirst::before {
+    background-color: orange;
+  }
+
+  &.is-selected:not(.is-selectedFirst)::before {
+    //background-color: rgba(orange, 0.3);
+  }
+
+  &:hover::before {
+    background-color: rgba(orange, 0.9);
+  }
+}

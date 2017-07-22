@@ -1,12 +1,14 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 import * as pluralize from 'plural-ru';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {dateToDayMonthAccusative} from 'shared/utils/date';
 import {formatThousands} from 'shared/utils/format';
+
+import navSectionData from './navSectionData';
 
 import {TStatLastGeneratedDate} from 'shared/types/StatLastGeneratedDate';
 
@@ -74,9 +76,9 @@ export default class StatSquare extends React.Component<TProps, TState> {
     const valueSquareRoundedFormatted = formatThousands(valueSquareRounded);
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatSquare">
-          <div className="StatSquare-title">Абсолютный квадрат</div>
+      <section className="StatSquare">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="StatSquare-title">{navSectionData.title}</div>
           <div className="StatSquare-subTitle">
             Квадрат, площадь которого примерно равна{' '}
             <span className="StatSquare-value">{valueFormatted} пкс<sup>2</sup></span>{' '}
@@ -91,8 +93,8 @@ export default class StatSquare extends React.Component<TProps, TState> {
             <span className="StatSquare-value">{valueSquareRoundedFormatted} пкс<sup>2</sup></span>
           </div>
           {this.renderRest(valueRest)}
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 

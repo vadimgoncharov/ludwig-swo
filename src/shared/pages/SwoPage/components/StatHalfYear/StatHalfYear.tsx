@@ -1,13 +1,13 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
-import * as TWEEN from '@tweenjs/tween.js';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
+import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+import navSectionData from './navSectionData';
+
+import {TStatHalfYear} from 'shared/types/StatHalfYear';
 
 import './StatHalfYear.scss';
-
-import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {TStatHalfYear} from 'shared/types/StatHalfYear';
 
 type TProps = {
   isFetching: boolean,
@@ -66,8 +66,8 @@ export default class StatHalfYear extends React.Component<TProps, TState> {
     const result: string = (parseFloat(firstInPercent) / parseFloat(secondInPercent)).toFixed(FRACTION_NUMBER_COUNT);
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatHalfYear">
+      <section className="StatHalfYear">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
           <div className="StatHalfYear-title">50 на 50</div>
           <div className="StatHalfYear-subTitle">
             Отношение числа открытий сайта в&nbsp;первом полугодии к&nbsp;числу открытий во&nbsp;втором полугодии:
@@ -75,14 +75,14 @@ export default class StatHalfYear extends React.Component<TProps, TState> {
           <div className="StatHalfYear-items">
             <span className="StatHalfYear-item is-first">{firstInPercent}%</span>{' '}
             <span className="StatHalfYear-item is-division">
-              <span className="StatHalfYear-itemInner">÷</span>
-            </span>{' '}
+            <span className="StatHalfYear-itemInner">÷</span>
+          </span>{' '}
             <span className="StatHalfYear-item is-second">{secondInPercent}%</span>{' '}
             <span className="StatHalfYear-item is-equal">=</span>{' '}
             <span className="StatHalfYear-item is-result">{result}</span>
           </div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     )
   }
 

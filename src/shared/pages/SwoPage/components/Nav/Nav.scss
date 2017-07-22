@@ -1,0 +1,48 @@
+.Nav-title {
+  @include not-phone {
+    font-size: 22px;
+    line-height: 22px;
+  }
+  @include phone {
+    font-size: 18px;
+  }
+}
+
+.Nav-items {
+  @include not-phone {
+    margin-top: 20px;
+  }
+  @include phone {
+    margin-top: 5px;
+  }
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.Nav-item {
+  width: 20%;
+  min-height: 100px;
+  margin: 5px;
+  padding: 10px;
+  border: 1px #3d3d3d solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 250ms ease-in-out;
+  cursor: pointer;
+  @include not-phone {
+    margin: 5px;
+  }
+  @include phone {
+    width: 35%;
+    margin: 10px;
+    min-height: 50px;
+  }
+
+  &:hover {
+    background-color: orange;
+  }
+}

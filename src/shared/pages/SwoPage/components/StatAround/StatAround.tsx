@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
+
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
+import * as utils from 'shared/utils';
+import navSectionData from './navSectionData';
 
 import {TStatAround} from 'shared/types/StatAround';
 
 import './StatAround.scss';
-import {formatValueToTimesWithPluralize} from 'shared/utils/format';
 
 type TProps = {
   isFetching: boolean,
@@ -16,13 +18,13 @@ export default class StatAround extends React.Component<TProps, any> {
 
   public render() {
     return (
-      <Waypoint>
-        <div className="StatAround">
-          <div className="StatAround-title">Вчера, сегодня, завтра</div>
+      <section className="StatAround">
+        <SectionContent navSection={navSectionData}>
+          <div className="StatAround-title">{navSectionData.title}</div>
           {this.renderArrows()}
           {this.renderValues()}
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -46,9 +48,9 @@ export default class StatAround extends React.Component<TProps, any> {
 
   private renderValues() {
     const {yesterday, today, tomorrow} = this.props.statAround;
-    const yesterdayValueFormatted = formatValueToTimesWithPluralize(yesterday.value);
-    const todayValueFormatted     = formatValueToTimesWithPluralize(today.value);
-    const tomorrowValueFormatted  = formatValueToTimesWithPluralize(tomorrow.value);
+    const yesterdayValueFormatted = utils.format.formatValueToTimesWithPluralize(yesterday.value);
+    const todayValueFormatted     = utils.format.formatValueToTimesWithPluralize(today.value);
+    const tomorrowValueFormatted  = utils.format.formatValueToTimesWithPluralize(tomorrow.value);
 
     return (
       <div className="StatAround-values">

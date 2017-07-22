@@ -23,15 +23,15 @@
   margin: 0 10px;
 
   &.is-min {
-    color: darkred;
+    color: $color_item_min;
   }
 
   &.is-max {
-    color: orange;
+    color: $color_item_max;
   }
 
   &.is-normal {
-    color: orangered;
+    color: $color_item_normal;
     margin-top: 1px;
   }
 }

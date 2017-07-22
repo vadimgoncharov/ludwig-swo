@@ -5,7 +5,7 @@ import Hero           from './containers/Hero';
 import Typogr         from './containers/Typogr';
 import Target         from './containers/Target';
 import MonthInClouds  from './containers/MonthInClouds';
-import StatTotal      from './containers/StatTotal';
+// import StatTotal      from './containers/StatTotal';
 import StatPrevDates  from './containers/StatPrevDates';
 import StatMinMax     from './containers/StatMinMax';
 import DayInYearScale from './containers/DayInYearScale';
@@ -36,7 +36,7 @@ export default class SwoPage extends React.Component<any, any> {
         <MonthInClouds />
         <Typogr />
         <Target />
-        <StatTotal />
+        {/*<StatTotal />*/}
         <StatPrevDates />
         <StatMinMax />
         <DayInYearScale />

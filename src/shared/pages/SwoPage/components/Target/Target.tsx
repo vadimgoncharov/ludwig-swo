@@ -1,20 +1,19 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 import * as onresize from 'onresize';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import * as date from 'shared/utils/date';
+import * as utils from 'shared/utils';
 
-import {angleToRad, convertRange} from 'shared/utils/math';
+import navSectionData from './navSectionData';
 
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatTotal} from 'shared/types/StatTotal';
 import {TStatMinMax} from 'shared/types/StatMinMax';
 
 import './Target.scss';
-import {formatValueToTimesWithPluralize} from 'shared/utils/format';
 
 type TProps = {
   isFetching: boolean,
@@ -87,32 +86,32 @@ export default class Target extends React.Component<TProps, TState> {
       'is-lessThenMaxSize': sizes.targetSize < TARGET_SIZE_MAX,
     });
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-       <div className={className}>
-         <div className="Target-titleContainer">
-           <div className="Target-title">Целевая аудитория</div>
-           <div className="Target-subTitle">Распределение дней года по круговой мишени</div>
-         </div>
-         <div className="Target-container" style={sizes.container}>
-           {this.renderItems(sizes)}
-         </div>
-       </div>
-      </Waypoint>
+      <section className={className}>
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="Target-titleContainer">
+            <div className="Target-title">{navSectionData.title}</div>
+            <div className="Target-subTitle">Распределение дней года по круговой мишени</div>
+          </div>
+          <div className="Target-container" style={sizes.container}>
+            {this.renderItems(sizes)}
+          </div>
+        </SectionContent>
+      </section>
     );
   }
 
   private renderItems(sizes: TElementSizes) {
     const {statDayInYear} = this.props;
     const {min, max} = this.getMinMax();
-    const currDayNumber = date.getDayNumberInYearByDate(new Date(this.state.animatorCurrValue.time));
+    const currDayNumber = utils.date.getDayNumberInYearByDate(new Date(this.state.animatorCurrValue.time));
 
     return (
       <div className="Target-items" style={sizes.items}>
         {statDayInYear.map((item, index) => {
           const {value, dayNum} = item;
 
-          const radius = convertRange(value, min, max, sizes.targetSizeHalfWithSafeSpacing, 0);
-          const angleInRad = angleToRad(dayNum);
+          const radius = utils.math.convertRange(value, min, max, sizes.targetSizeHalfWithSafeSpacing, 0);
+          const angleInRad = utils.math.angleToRad(dayNum);
           const x = radius * Math.sin(angleInRad);
           const y = radius * Math.cos(angleInRad);
 
@@ -126,10 +125,10 @@ export default class Target extends React.Component<TProps, TState> {
             content = (
               <div className="Target-itemContent">
                  <span className="Target-itemContentDate">
-                   {date.dateToDayMonthAccusative(date.getDateByDayNumberInYear(dayNum))}:
+                   {utils.date.dateToDayMonthAccusative(utils.date.getDateByDayNumberInYear(dayNum))}:
                  </span>{' '}
                 <span className="Target-itemContentValue">
-                  {formatValueToTimesWithPluralize(value)}
+                  {utils.format.formatValueToTimesWithPluralize(value)}
                  </span>
               </div>
             );
@@ -201,7 +200,10 @@ export default class Target extends React.Component<TProps, TState> {
       from: [{time: this.state.animatorCurrValue.time}],
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
-        return (date.dateToYYYYMMDD(new Date(oldValues[0].time)) !== date.dateToYYYYMMDD(new Date(newValues[0].time)));
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+        );
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
     });

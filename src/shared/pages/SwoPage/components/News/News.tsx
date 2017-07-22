@@ -1,7 +1,8 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
 
-import Link from 'shared/components/Link';
+
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
+import navSectionData from './navSectionData';
 import newsData from './newsData';
 
 import './News.scss';
@@ -15,12 +16,14 @@ export type TNewsItem = {
 export default class News extends React.Component<any, any> {
   public render() {
     return (
-      <div className="News">
-        <div className="News-title">Новости</div>
-        <ol className="News-items">
-          {newsData.map(this.renderItem)}
-        </ol>
-      </div>
+      <section className="News">
+        <SectionContent navSection={navSectionData}>
+          <div className="News-title">{navSectionData.title}</div>
+          <ol className="News-items">
+            {newsData.map(this.renderItem)}
+          </ol>
+        </SectionContent>
+      </section>
     );
   }
 

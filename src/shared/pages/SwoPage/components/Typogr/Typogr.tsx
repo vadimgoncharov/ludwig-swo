@@ -1,21 +1,18 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import {CSSTransitionGroup} from 'react-transition-group';
 import * as TWEEN from '@tweenjs/tween.js';
 import * as onresize from 'onresize';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {
-  dateToDayMonthAccusative,
-  dateToYYYYMMDD,
-} from 'shared/utils/date';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
 import './Typogr.scss';
-import {getRandomInt} from 'shared/utils/random';
-import {convertRange} from 'shared/utils/math';
 
 type TProps = {
   isFetching: boolean,
@@ -64,7 +61,6 @@ export default class Typogr extends React.Component<TProps, TState> {
       return;
     }
 
-    // this.oldDate = new Date(oldDate);
     this.animator.start([{time: newDate.getTime()}]);
   }
 
@@ -83,9 +79,9 @@ export default class Typogr extends React.Component<TProps, TState> {
 
   public render() {
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="Typogr">
-          <div className="Typogr-title">Типогррр</div>
+      <section className="Typogr">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="Typogr-title">{navSectionData.title}</div>
           <div className="Typogr-description">
             Весь год одним словом&nbsp;— как квинтэссенция капель и&nbsp;диакретических элементов:
           </div>
@@ -95,8 +91,8 @@ export default class Typogr extends React.Component<TProps, TState> {
             height={CANVAS_HEIGHT * CANVAS_SCALE_FACTOR}
             ref={this.onCanvasRefSet}
           />
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -139,7 +135,7 @@ export default class Typogr extends React.Component<TProps, TState> {
     lastDayDate.setMonth(11, 31);
     const cursor = new Date(firstDayDate);
     while (cursor.getFullYear() === firstDayDate.getFullYear()) {
-      const words = dateToDayMonthAccusative(cursor);
+      const words = utils.date.dateToDayMonthAccusative(cursor);
       // ctx.fillText(words, 15 + getRandomInt(-15, 15), getRandomInt(-5, 5));
       ctx.fillText(words, 0, 0);
       cursor.setDate(cursor.getDate() + 1);
@@ -151,12 +147,12 @@ export default class Typogr extends React.Component<TProps, TState> {
     if (!canvas) {
       return;
     }
-    const date: string = dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
+    const date: string = utils.date.dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
     const deltaTime = Math.abs(this.props.statTotal.date.getTime() - this.state.animatorCurrValue.time);
     const deltaDays = deltaTime / (3600 * 24 * 1000);
 
     const deltaDaysBound = 5;
-    const alpha = convertRange(deltaDays, 0, deltaDaysBound, 0.15, 0.1, true);
+    const alpha = utils.math.convertRange(deltaDays, 0, deltaDaysBound, 0.15, 0.1, true);
     ctx.save();
     if (fillStyle) {
       ctx.globalAlpha = 0.2;
@@ -177,8 +173,8 @@ export default class Typogr extends React.Component<TProps, TState> {
 
       ctx.fillText(
         date,
-        randomDeltaX + getRandomInt(-randomDeltaX, randomDeltaX),
-        randomDeltaY + getRandomInt(-randomDeltaY, randomDeltaY),
+        randomDeltaX + utils.random.getRandomInt(-randomDeltaX, randomDeltaX),
+        randomDeltaY + utils.random.getRandomInt(-randomDeltaY, randomDeltaY),
       );
     }
     ctx.restore();
@@ -194,7 +190,9 @@ export default class Typogr extends React.Component<TProps, TState> {
       duration: ANIMATION_DURATION_DEFAULT / 2,
       easing: TWEEN.Easing.Cubic.Out,
       comparator: (oldValues, newValues) => {
-        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time)));
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
       onComplete: () => {

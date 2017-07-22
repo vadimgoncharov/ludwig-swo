@@ -1,9 +1,11 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 
-import * as format from 'shared/utils/format';
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -52,22 +54,21 @@ export default class StatTotal extends React.Component<TProps, TState> {
     const totalValue: number = Math.round(this.state.animatorCurrValue.value);
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatTotal">
-          <a name="stat" />
-          <div className="StatTotal-title">Всего сайт откроется</div>
+      <section className="StatTotal">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="StatTotal-title">{navSectionData.title}</div>
           <div className="StatTotal-totalValue">{this.renderTotalValueFormatted(totalValue)}</div>
           <div className="StatTotal-description">
             Каждый раз сайт сообщает новую случайную дату открытия.<br />
             Все обещания бережно записываются, и на их основе строится статистика.</div>
           <div className="StatTotal-sumOfNum">Кстати, {this.renderSumOfNumber(totalValue)}.</div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
   private renderTotalValueFormatted(value: number): string {
-    return format.formatValueToTimesWithPluralize(value);
+    return utils.format.formatValueToTimesWithPluralize(value);
   }
 
   private renderSumOfNumber(value: number): string {

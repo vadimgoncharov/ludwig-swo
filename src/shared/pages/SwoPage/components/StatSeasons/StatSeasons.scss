@@ -81,6 +81,9 @@
 
 .StatSeasons-itemLineValue {
   height: 1px;
+}
+
+.StatSeasons .SectionContent.is-inViewport .StatSeasons-itemLineValue {
   transition: width 300ms ease-in-out, height 300ms ease-in-out;
 }
 

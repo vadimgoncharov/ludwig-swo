@@ -3,10 +3,14 @@ import * as Waypoint from 'react-waypoint';
 import {CSSTransitionGroup} from 'react-transition-group';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
+import Nav from '../Nav';
 import FaviconRenderer from 'shared/services/FaviconRenderer';
 import Animator from 'shared/services/Animator';
-import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+import {ANIMATION_DURATION_DEFAULT, navSections} from 'shared/constants';
 import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -24,6 +28,7 @@ type TState = {
 
 type TAnimatorValue = {
   time: number,
+  value: number,
 };
 
 export default class Hero extends React.Component<TProps, TState> {
@@ -31,6 +36,7 @@ export default class Hero extends React.Component<TProps, TState> {
   public state: TState = {
     animatorCurrValue: {
       time: 0,
+      value: 0,
     },
   };
   private animator: Animator<TAnimatorValue>;
@@ -40,6 +46,7 @@ export default class Hero extends React.Component<TProps, TState> {
     super(props);
 
     this.state.animatorCurrValue.time = props.statTotal.date.getTime();
+    this.state.animatorCurrValue.value = props.statTotal.value;
     this.animator = this.createAnimator();
     this.faviconRenderer = new FaviconRenderer();
   }
@@ -60,21 +67,22 @@ export default class Hero extends React.Component<TProps, TState> {
       return;
     }
 
-    // this.animator.start([{time: newDate.getTime()}]);
+    this.animator.start([{time: newDate.getTime(), value: nextProps.statTotal.value}]);
   }
 
   public render() {
-    const date: string = utils.date.dateToDayMonthAccusative(new Date(this.state.animatorCurrValue.time));
-
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="Hero">
+      <section className="Hero">
+        <SectionContent navSection={navSectionData}>
           {this.renderDayNum()}
           {this.renderDate()}
           {this.renderGuy()}
           {this.renderTotal()}
-        </div>
-      </Waypoint>
+          {this.renderTotalDescription()}
+          {this.renderSumOfNumbers()}
+          {this.renderNav()}
+        </SectionContent>
+      </section>
     );
   }
 
@@ -124,7 +132,7 @@ export default class Hero extends React.Component<TProps, TState> {
   }
 
   private renderTotal() {
-    const value = utils.format.formatValueToTimesWithPluralize(this.props.statTotal.value);
+    const value = utils.format.formatValueToTimesWithPluralize(this.state.animatorCurrValue.value);
     return (
       <div className="Hero-total">
         Всего сайт откроется {value}
@@ -132,9 +140,47 @@ export default class Hero extends React.Component<TProps, TState> {
     )
   }
 
+  private renderTotalDescription() {
+    return (
+      <div className="Hero-totalDescription">
+        Каждый раз сайт сообщает новую случайную дату открытия.<br />
+        Все обещания бережно записываются, и на их основе строится статистика.</div>
+    );
+  }
+
+  private renderSumOfNumbers() {
+    const totalValue: number = Math.round(this.state.animatorCurrValue.value);
+    return (
+      <div className="Hero-sumOfNum">Кстати, {this.getSumOfNumber(totalValue)}.</div>
+    );
+  }
+
+  private getSumOfNumber(value: number): string {
+    const numArr: number[] = value
+      .toString()
+      .split('')
+      .map((val: string) => parseInt(val));
+
+    const sum: number = numArr.reduce((numSum: number, numValue: number) => {
+      numSum += numValue;
+      return numSum;
+    }, 0);
+
+    const numSumStr: string = numArr.join(' + ');
+
+    return `${numSumStr} = ${sum}`;
+  }
+
+  private renderNav() {
+    return (
+      <div className="Hero-nav">
+        <Nav navSections={navSections} />
+      </div>
+    );
+  }
+
   private renderFavicon(useAnimation: boolean = true): void {
     // TODO Move faviconRenderer to separate component
-    // this.faviconRenderer.render(new Date(this.state.animatorCurrValue.time).getDate());
     this.faviconRenderer.render(this.props.statTotal.date, useAnimation);
   }
 
@@ -154,7 +200,10 @@ export default class Hero extends React.Component<TProps, TState> {
 
   private createAnimator(): Animator<TAnimatorValue> {
     return new Animator<TAnimatorValue>({
-      from: [{time: this.state.animatorCurrValue.time}],
+      from: [{
+        time: this.state.animatorCurrValue.time,
+        value: this.state.animatorCurrValue.value,
+      }],
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
         return (

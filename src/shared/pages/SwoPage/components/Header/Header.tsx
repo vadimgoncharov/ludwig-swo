@@ -2,9 +2,12 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import {CSSTransitionGroup} from 'react-transition-group';
 
+import NavIndicator from 'shared/pages/SwoPage/components/NavIndicator';
 import Animator from 'shared/services/Animator';
 import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
+
+import {navSections} from 'shared/constants';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -13,6 +16,7 @@ import './Header.scss';
 type TProps = {
   isFetching: boolean,
   isSwoDateVisible: boolean,
+  selectedNavHashes: {[key: string]: boolean},
   statTotal: TStatTotal,
   onFetchLinkClick: () => void,
 };
@@ -24,6 +28,8 @@ type TState = {
 type TAnimatorValue = {
   time: number,
 };
+
+export const HEADER_ELEMENT_ID = 'header';
 
 export default class Header extends React.Component<TProps, TState> {
   public state = {
@@ -55,13 +61,16 @@ export default class Header extends React.Component<TProps, TState> {
 
   public render() {
     return (
-      <div className="Header">
+      <section className="Header" id={HEADER_ELEMENT_ID}>
         <div className="Header-nav">
           <div className="Header-navItem is-swo">
             {this.renderSwoDate()}
           </div>
         </div>
-      </div>
+        <div className="Header-navIndicator">
+          <NavIndicator navSections={navSections} selectedNavHashes={this.props.selectedNavHashes} />
+        </div>
+      </section>
     );
   }
 

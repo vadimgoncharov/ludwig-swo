@@ -11,6 +11,7 @@ type TStateFromProps = {
   isFetching: boolean,
   isSwoDateVisible: boolean,
   statTotal: TStatTotal,
+  selectedNavHashes: {[key: string]: boolean},
 }
 
 type TDispatchFromProps = {
@@ -22,6 +23,7 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
     isFetching: state.stats.isFetching,
     statTotal: state.stats.data.statTotal,
     isSwoDateVisible: state.ui.data.header.isSwoDateVisible,
+    selectedNavHashes: state.ui.data.nav.selectedHashes,
   };
 };
 
@@ -38,6 +40,7 @@ class HeaderContainer extends React.Component<TStateFromProps & TDispatchFromPro
     const {
       isFetching,
       isSwoDateVisible,
+      selectedNavHashes,
       statTotal,
       onFetchLinkClick,
     } = this.props;
@@ -46,6 +49,7 @@ class HeaderContainer extends React.Component<TStateFromProps & TDispatchFromPro
         isFetching={isFetching}
         isSwoDateVisible={isSwoDateVisible}
         onFetchLinkClick={onFetchLinkClick}
+        selectedNavHashes={selectedNavHashes}
         statTotal={statTotal}
       />
     );

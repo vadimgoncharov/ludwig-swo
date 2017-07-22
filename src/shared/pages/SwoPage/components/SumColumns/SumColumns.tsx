@@ -1,23 +1,18 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {
-  dateToDayMonthAccusative, dateToDayMonthPrepositional, dateToMonthPrepositional, dateToMonthStr,
-  dateToYYYYMMDD,
-  getDayNumberInYearByDate,
-} from 'shared/utils/date';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
-import {TStatDatesAtValue} from 'shared/types/StatDatesAtValue';
 import {TStatMonthsDay} from 'shared/types/StatMonthsDay';
 import {TStatMonths} from 'shared/types/StatMonths';
 
 import './SumColumns.scss';
-import {convertRange} from 'shared/utils/math';
-import {formatDays, formatValueToTimesWithPluralize} from 'shared/utils/format';
 
 type TProps = {
   isFetching: boolean,
@@ -91,16 +86,16 @@ export default class StatTower extends React.Component<TProps, TState> {
 
   public render() {
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="SumColumns">
-          <div className="SumColumns-title">Месячный абонемент</div>
+      <section className="SumColumns">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="SumColumns-title">{navSectionData.title}</div>
           <div className="SumColumns-columns">
             {this.renderChanceColumn()}
             {this.renderMonthDayColumn()}
             {this.renderLeapYearColumn()}
           </div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -120,7 +115,7 @@ export default class StatTower extends React.Component<TProps, TState> {
             });
             return (
               <div className={itemClassName} key={index}>
-                <div className="SumColumns-columnItemTitle">в {dateToMonthPrepositional(item.date)}</div>
+                <div className="SumColumns-columnItemTitle">в {utils.date.dateToMonthPrepositional(item.date)}</div>
                 <div className="SumColumns-columnItemValue">{chance} %</div>
               </div>
             );
@@ -157,17 +152,17 @@ export default class StatTower extends React.Component<TProps, TState> {
             return (
               <div className={itemClassName} key={index}>
                 <div className="SumColumns-columnItemTitle">
-                  {dateToDayMonthAccusative(new Date(animatorCurrValues[index].time))}
+                  {utils.date.dateToDayMonthAccusative(new Date(animatorCurrValues[index].time))}
                 </div>
                 <div className="SumColumns-columnItemValue">
-                  {formatValueToTimesWithPluralize(Math.round(animatorCurrValues[index].value))}
+                  {utils.format.formatValueToTimesWithPluralize(Math.round(animatorCurrValues[index].value))}
                 </div>
               </div>
             );
           })}
           <div className="SumColumns-columnItem is-total">
             <div className="SumColumns-columnItemTitle">Всего:</div>
-            <div className="SumColumns-columnItemValue">{formatValueToTimesWithPluralize(total)}</div>
+            <div className="SumColumns-columnItemValue">{utils.format.formatValueToTimesWithPluralize(total)}</div>
           </div>
         </div>
       </div>
@@ -193,15 +188,15 @@ export default class StatTower extends React.Component<TProps, TState> {
             month.setMonth(index);
             return (
               <div className={itemClassName} key={index}>
-                <div className="SumColumns-columnItemTitle">в {dateToMonthPrepositional(month)}</div>
-                <div className="SumColumns-columnItemValue">{formatDays(days)}</div>
+                <div className="SumColumns-columnItemTitle">в {utils.date.dateToMonthPrepositional(month)}</div>
+                <div className="SumColumns-columnItemValue">{utils.format.formatDays(days)}</div>
               </div>
             );
           })}
         </div>
         <div className="SumColumns-columnItem is-total">
           <div className="SumColumns-columnItemTitle">Всего:</div>
-          <div className="SumColumns-columnItemValue">{formatDays(total)}</div>
+          <div className="SumColumns-columnItemValue">{utils.format.formatDays(total)}</div>
         </div>
       </div>
     );
@@ -213,10 +208,13 @@ export default class StatTower extends React.Component<TProps, TState> {
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
         return (
-          dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)) ||
+          (
+            utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+            utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+          ) ||
           oldValues.some((oldItem, index) => {
-            const oldDate = dateToYYYYMMDD(new Date(oldItem.time));
-            const newDate = dateToYYYYMMDD(new Date(newValues[index].time));
+            const oldDate = utils.date.dateToYYYYMMDD(new Date(oldItem.time));
+            const newDate = utils.date.dateToYYYYMMDD(new Date(newValues[index].time));
 
             return oldDate !== newDate;
           })

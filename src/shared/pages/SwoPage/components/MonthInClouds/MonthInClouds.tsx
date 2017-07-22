@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 import {CSSTransitionGroup} from 'react-transition-group';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -21,7 +23,6 @@ type TProps = {
 
 type TState = {
   animatorCurrValue: TAnimatorValue,
-  isAnimationEnabled: boolean,
 };
 
 type TAnimatorValue = {
@@ -34,7 +35,6 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
     animatorCurrValue: {
       time: 0,
     },
-    isAnimationEnabled: false,
   };
   private animator: Animator<TAnimatorValue>;
   private titleElement: HTMLElement;
@@ -44,7 +44,6 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
     super(props);
 
     this.state.animatorCurrValue.time = props.statTotal.date.getTime();
-    this.state.isAnimationEnabled = false;
     this.animator = this.createAnimator();
   }
 
@@ -68,7 +67,6 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
 
   public render() {
     const {statTotal, statDayInYear} = this.props;
-    const {isAnimationEnabled} = this.state;
     const currDate = statTotal.date;
     const currDayNum = new Date(this.state.animatorCurrValue.time).getDate();
 
@@ -79,12 +77,9 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
 
     const {min, max} = this.getCurrMonthMinMax();
 
-    const rootClassName = classNames('MonthInClouds', {
-      'is-animationEnabled': isAnimationEnabled,
-    });
     return (
-      <Waypoint onEnter={this.enableAnimation} onLeave={this.disableAnimation}>
-       <div className={rootClassName}>
+     <section className="MonthInClouds">
+       <SectionContent animator={this.animator} navSection={navSectionData}>
          {this.renderTitle()}
          <div className="MonthInClouds-items">
            {Array.apply(null, Array(31)).map((_, index) => {
@@ -114,8 +109,8 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
              );
            })}
          </div>
-       </div>
-      </Waypoint>
+       </SectionContent>
+     </section>
     );
   }
 
@@ -164,20 +159,6 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
       }
     }
   }
-
-  private enableAnimation = () => {
-    this.setState({
-      isAnimationEnabled: true,
-    });
-    this.animator.enableAnimation();
-  };
-
-  private disableAnimation = () => {
-    this.setState({
-      isAnimationEnabled: false,
-    });
-    this.animator.disableAnimation();
-  };
 
   private getCurrMonthMinMax(): {min: number, max: number} {
     const {statTotal, statDayInYear} = this.props;

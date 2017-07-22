@@ -1,10 +1,13 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
+
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
+import navSectionData from './navSectionData';
 
 import {dateToDayMonthAccusative} from 'shared/utils/date';
 
 import './StatJdan.scss';
+
 import {TStatJdan} from 'shared/types/StatJdan';
 import {TStatJdanValueAtDate} from 'shared/types/StatJdanValueAtDate';
 
@@ -39,9 +42,9 @@ export default class StatJdan extends React.Component<TProps, TState> {
     });
 
     return (
-      <Waypoint>
-        <div className="StatJdan">
-          <div className="StatJdan-title">Пятеро смелых</div>
+      <section className="StatJdan">
+        <SectionContent navSection={navSectionData}>
+          <div className="StatJdan-title">{navSectionData.title}</div>
           <div className="StatJdan-subTitle">
             Если бы рост
             Ждана Филиппова{' '}
@@ -53,8 +56,8 @@ export default class StatJdan extends React.Component<TProps, TState> {
           <ol className="StatJdan-items">
             {items.map(this.renderItem)}
           </ol>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 

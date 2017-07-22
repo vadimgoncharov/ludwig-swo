@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {dateToYYYYMMDD, getDayNumberInYearByDate} from 'shared/utils/date';
+
+import navSectionData from './navSectionData';
 
 import {TStatDayInYear} from 'shared/types/StatDayInYear';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -58,9 +60,9 @@ export default class StatSlash extends React.Component<TProps, TState> {
     const animatorCurrDayNum = getDayNumberInYearByDate(new Date(this.state.animatorCurrValue.time));
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-       <div className="StatSlash">
-         <div className="StatSlash-title">Фольксваген</div>
+     <section className="StatSlash">
+       <SectionContent animator={this.animator} navSection={navSectionData}>
+         <div className="StatSlash-title">{navSectionData.title}</div>
          <div className="StatSlash-subTitle">
            Изменение числа открытий сайта в&nbsp;каждый из&nbsp;дней{' '}
            по&nbsp;отношению к&nbsp;предыдущему, выраженное псевдографикой:
@@ -69,8 +71,8 @@ export default class StatSlash extends React.Component<TProps, TState> {
            {statDayInYear.map((item, index) => {
              const currValue = item.value;
              const prevValue: number = typeof statDayInYear[index - 1] !== 'undefined'
-              ? statDayInYear[index - 1].value
-              : 0;
+               ? statDayInYear[index - 1].value
+               : 0;
              let content;
              const isSelected = item.dayNum === animatorCurrDayNum;
              let className = classNames('StatSlash-item', {'is-selected': isSelected});
@@ -91,8 +93,8 @@ export default class StatSlash extends React.Component<TProps, TState> {
              );
            })}
          </div>
-       </div>
-      </Waypoint>
+       </SectionContent>
+     </section>
     );
   }
 

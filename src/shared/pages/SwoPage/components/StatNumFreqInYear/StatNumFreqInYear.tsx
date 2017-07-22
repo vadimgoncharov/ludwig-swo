@@ -1,16 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {
-  dateToDDMM,
-  dateToYYYYMMDD,
-  getDaysInYearAsDates,
-} from 'shared/utils/date';
-import {formatValueToTimesWithPluralize} from 'shared/utils/format';
-import {convertRange} from 'shared/utils/math';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -37,7 +33,7 @@ const NUM_FREQ_IN_YEAR_MAX_VALUE = Math.max.apply(Math, NUM_FREQ_IN_YEAR_VALUES)
 const NUM_FREQ_IN_YEAR_VALUE_WIDTH_MIN = 5;
 const NUM_FREQ_IN_YEAR_VALUE_WIDTH_MAX = 100;
 const NUM_FREQ_IN_YEAR_VALUES_WIDTHES = NUM_FREQ_IN_YEAR_VALUES.map((value) => {
-  return convertRange(
+  return utils.math.convertRange(
     value,
     NUM_FREQ_IN_YEAR_MIN_VALUE,
     NUM_FREQ_IN_YEAR_MAX_VALUE,
@@ -74,12 +70,12 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
 
   public render() {
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatNumFreqInYear">
+      <section className="StatNumFreqInYear">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
           {this.renderFreq()}
           {this.renderCalendar()}
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -103,7 +99,7 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
     );
 
     return NUM_FREQ_IN_YEAR_VALUES.map((valueAtNum: number, num: number) => {
-      const valueAtNumFormatted: string = formatValueToTimesWithPluralize(valueAtNum);
+      const valueAtNumFormatted: string = utils.format.formatValueToTimesWithPluralize(valueAtNum);
       const horizontalLineWidth = NUM_FREQ_IN_YEAR_VALUES_WIDTHES[num];
       const numsFromNum = this.getNumbersFromNumber(num);
       const isSelected: boolean = numsFromNum.some((n) => animatorCurrDayValueNums.indexOf(n) !== -1);
@@ -128,14 +124,14 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
   };
 
   private renderCalendar(): ReactElement<any> {
-    const dates = getDaysInYearAsDates();
-    const animatorCurrDateFormatted: string = dateToDDMM(new Date(this.state.animatorCurrValue.time));
+    const dates = utils.date.getDaysInYearAsDates();
+    const animatorCurrDateFormatted: string = utils.date.dateToDDMM(new Date(this.state.animatorCurrValue.time));
     return (
       <div className="StatNumFreqInYear-calendar">
         <div className="StatNumFreqInYear-calendarItems">
           {dates.map((date, index) => {
             const isOddMonth: boolean = ((date.getMonth()) % 2) === 0;
-            const dateFormatted = dateToDDMM(date);
+            const dateFormatted = utils.date.dateToDDMM(date);
             const className = classNames(
               'StatNumFreqInYear-calendarItem',
               `is-${isOddMonth ? 'odd' : 'even'}Month`,
@@ -164,7 +160,10 @@ export default class StatNumFreqInYear extends React.Component<TProps, TState> {
       from: [{time: this.state.animatorCurrValue.time}],
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
-        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+        );
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
     });

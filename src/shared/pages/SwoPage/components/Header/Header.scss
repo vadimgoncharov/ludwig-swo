@@ -6,15 +6,26 @@
   background-color: #000;
   z-index: 999;
   box-shadow: 0 1px 2px rgba(#fff, 0.2);
+  padding: 15px 0 5px;
 }
 
 .Header-nav {
   display: flex;
-  margin: 15px 20px;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.Header-nav,
+.Header-navIndicator {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.Header-navIndicator {
+  margin-top: 12px;
 }
 
 .Header-swoDate {
+  text-align: center;
   @include phone {
     font-size: 15px;
   }
@@ -25,17 +36,21 @@
   transition:
     250ms opacity ease-in-out,
     250ms transform ease-in-out,
-    250ms margin ease-in-out;
-  transform: translate(7px, 0);
+    250ms margin ease-in-out,
+    250ms max-width ease-in-out;
+  transform: translate(-7px, 0);
   opacity: 0;
+  max-width: 1%;
+  white-space: nowrap;
   overflow: hidden;
   vertical-align: bottom;
 }
 
 .Header-swoDate.is-valueVisible_yes {
   .Header-swoDateValueInner {
-    transform: translate(0, 0);
+    //transform: translate(0, 0);
     opacity: 1;
+    max-width: 100%;
   }
 
   .Header-swoDateFetchButton {

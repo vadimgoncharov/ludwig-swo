@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToYYYYMMDD} from 'shared/utils/date';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatDayInMonth} from 'shared/types/StatDayInMonth';
 import {TStatTotal} from 'shared/types/StatTotal';
@@ -61,11 +63,9 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
     const maxValue = this.getMaxValue();
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatDayInMonth">
-          <div className="StatDayInMonth-title">
-            Гистограмма
-          </div>
+      <section className="StatDayInMonth">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
+          <div className="StatDayInMonth-title">{navSectionData.title}</div>
           <div className="StatDayInMonth-subTitle">
             Распределение открытия сайта по порядковым номерам дней в месяце:
           </div>
@@ -94,8 +94,8 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
               );
             })}
           </div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -110,7 +110,10 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
       from: [{time: this.state.animatorCurrValue.time}],
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
-        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+        );
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
     });

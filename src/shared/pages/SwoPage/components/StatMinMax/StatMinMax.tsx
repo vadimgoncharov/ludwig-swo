@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as pluralize from 'plural-ru';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonthAccusative, dateToYYYYMMDD} from 'shared/utils/date';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatMinMax} from 'shared/types/StatMinMax';
 import {TStatValueAtDate} from 'shared/types/StatValueAtDate';
@@ -70,8 +72,8 @@ export default class StatMinMax extends React.Component<TProps, TState> {
     });
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="StatMinMax">
+      <section className="StatMinMax">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
           <div className="StatMinMax-title"><abbr className="abbr">ТОП</abbr>-5 и&nbsp;позор микрорайона</div>
           <div className="StatMinMax-columns">
             <div className="StatMinMax-column is-max">
@@ -96,8 +98,8 @@ export default class StatMinMax extends React.Component<TProps, TState> {
               </ol>
             </div>
           </div>
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -107,7 +109,7 @@ export default class StatMinMax extends React.Component<TProps, TState> {
 
     return (
       <li className="StatMinMax-item" key={index}>
-        <div className="StatMinMax-itemDate">{dateToDayMonthAccusative(date)}</div>
+        <div className="StatMinMax-itemDate">{utils.date.dateToDayMonthAccusative(date)}</div>
         <div className="StatMinMax-itemValue">{valueWithPostfix}</div>
       </li>
     );
@@ -119,8 +121,8 @@ export default class StatMinMax extends React.Component<TProps, TState> {
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
         return oldValues.some((oldItem, index) => {
-          const oldDate = dateToYYYYMMDD(new Date(oldItem.time));
-          const newDate = dateToYYYYMMDD(new Date(newValues[index].time));
+          const oldDate = utils.date.dateToYYYYMMDD(new Date(oldItem.time));
+          const newDate = utils.date.dateToYYYYMMDD(new Date(newValues[index].time));
           const oldValue = Math.round(oldItem.value);
           const newValue = Math.round(newValues[index].value);
 

@@ -1,10 +1,12 @@
 import * as React from 'react';
-import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 
+import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
-import {dateToDayMonthAccusative, getDaysCountInYear, getDayNumberInYear, dateToYYYYMMDD} from 'shared/utils/date';
+import * as utils from 'shared/utils';
+
+import navSectionData from './navSectionData';
 
 import {TStatTotal} from 'shared/types/StatTotal';
 
@@ -51,18 +53,18 @@ export default class DayInYearScale extends React.Component<TProps, TState> {
 
   public render() {
     const date: Date = new Date(this.state.animatorCurrValue.time);
-    const dateStr: string = dateToDayMonthAccusative(date);
+    const dateStr: string = utils.date.dateToDayMonthAccusative(date);
     const currYear = date.getFullYear();
-    const daysInYear = getDaysCountInYear(currYear);
-    const dayInYear = getDayNumberInYear(currYear, date.getMonth(), date.getDate());
+    const daysInYear = utils.date.getDaysCountInYear(currYear);
+    const dayInYear = utils.date.getDayNumberInYear(currYear, date.getMonth(), date.getDate());
 
     return (
-      <Waypoint onEnter={this.animator.enableAnimation} onLeave={this.animator.disableAnimation}>
-        <div className="DayInYearScale">
+      <section className="DayInYearScale">
+        <SectionContent animator={this.animator} navSection={navSectionData}>
           <div className="DayInYearScale-title">{dateStr} в году:</div>
           {this.renderScale(daysInYear, dayInYear)}
-        </div>
-      </Waypoint>
+        </SectionContent>
+      </section>
     );
   }
 
@@ -92,7 +94,10 @@ export default class DayInYearScale extends React.Component<TProps, TState> {
       from: [{time: this.state.animatorCurrValue.time}],
       duration: ANIMATION_DURATION_DEFAULT,
       comparator: (oldValues, newValues) => {
-        return (dateToYYYYMMDD(new Date(oldValues[0].time)) !== dateToYYYYMMDD(new Date(newValues[0].time)));
+        return (
+          utils.date.dateToYYYYMMDD(new Date(oldValues[0].time)) !==
+          utils.date.dateToYYYYMMDD(new Date(newValues[0].time))
+        );
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
     });

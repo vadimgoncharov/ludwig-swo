@@ -42,13 +42,16 @@
 .StatSquare-restSquares {
   margin-left: auto;
   margin-right: auto;
-  transition: width 300ms ease-in-out, height 300ms ease-in-out;
   background: url('data:image/gif;base64,R0lGODdhAwADAPAAAP///wAAACwAAAAAAwADAEACBASCYVEAOw==');
+}
+
+.StatSquare .SectionContent.is-inViewport .StatSquare-square,
+.StatSquare .SectionContent.is-inViewport .StatSquare-restSquares {
+  transition: width 300ms ease-in-out, height 300ms ease-in-out;
 }
 
 .StatSquare-rest {
   margin-top: 30px;
-  transition: 200ms transform 300ms ease-in-out, 200ms opacity 300ms ease-in-out;
   transform: translate3d(0, 10px, 0);
   opacity: 0;
 
@@ -56,6 +59,10 @@
     transform: translate3d(0, 0, 0);
     opacity: 1;
   }
+}
+
+.StatSquare .SectionContent.is-inViewport .StatSquare-rest {
+  transition: 200ms transform 300ms ease-in-out, 200ms opacity 300ms ease-in-out;
 }
 
 .StatSquare-restSquares {
