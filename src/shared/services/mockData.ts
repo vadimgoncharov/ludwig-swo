@@ -165,10 +165,11 @@ const getLastStatsAllByLimit = (limit: number): TStatAll[] => {
 };
 
 const getStatAround = (): TStatAround => {
-  const todayDate     = new Date(DATE_NOW);
-  const yesterdayDate = new Date(DATE_NOW.getTime() - DAY_IN_MS);
-  const tomorrowDate  = new Date(DATE_NOW.getTime() + DAY_IN_MS);
-  const todayDateStr      = dateToYYYYMMDD(DATE_NOW);
+  const lastStatTotalItem = STATS_TOTAL[STATS_TOTAL.length - 1];
+  const todayDate     = lastStatTotalItem.generatedDate;
+  const yesterdayDate = new Date(todayDate.getTime() - DAY_IN_MS);
+  const tomorrowDate  = new Date(todayDate.getTime() + DAY_IN_MS);
+  const todayDateStr      = dateToYYYYMMDD(todayDate);
   const yesterdayDateStr  = dateToYYYYMMDD(yesterdayDate);
   const tomorrowDateStr   = dateToYYYYMMDD(tomorrowDate);
 

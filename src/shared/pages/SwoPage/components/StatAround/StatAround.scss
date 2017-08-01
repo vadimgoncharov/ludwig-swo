@@ -21,6 +21,7 @@
 .StatAround-arrow {
   font-size: 72px;
   margin: 0 10px;
+  transition: 1000ms color ease-in-out;
 
   &.is-min {
     color: $color_item_min;
@@ -32,7 +33,10 @@
 
   &.is-normal {
     color: $color_item_normal;
-    margin-top: 1px;
+  }
+
+  &.is-today {
+    margin-top: -1px;
   }
 }
 
