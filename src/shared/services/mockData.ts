@@ -436,7 +436,7 @@ const getMonthsDayStat = (): TStatMonthsDay => {
 };
 
 const getAllStatsData = (): TStats => {
-  return {
+  const stat = {
     statTotal: {
       id: STATS_TOTAL[STATS_TOTAL.length - 1].id,
       date: STATS_TOTAL[STATS_TOTAL.length - 1].generatedDate,
@@ -461,6 +461,7 @@ const getAllStatsData = (): TStats => {
     statMonths: getMonthStats(),
     statMonthsDay: getMonthsDayStat(),
   };
+  return stat;
 };
 
 export {

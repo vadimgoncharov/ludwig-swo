@@ -74,7 +74,7 @@ class SectionContent extends React.Component<TStateFromProps & TDispatchFromProp
         topOffset={headerHeight}
       >
         <div className={rootClassName} id={`section_${navSection.hash}`}>
-          <a name={navSection.hash} />
+          <a id={navSection.hash} />
           {children}
         </div>
       </Waypoint>

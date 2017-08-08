@@ -143,7 +143,7 @@ function getDayNumberInYear(year: number, month: number, day: number): number {
     const dayInYear: number = Math.floor(diff / oneDay);
 
     DAY_NUMBER_IN_YEAR_CACHE[key] = dayInYear;
-    DAY_NUMBER_IN_YEAR_CACHE_REVERSE[dayInYear] = new Date(DATE_NOW.getFullYear(), month, day);
+    DAY_NUMBER_IN_YEAR_CACHE_REVERSE[dayInYear] = new Date(year, month, day);
   }
   return DAY_NUMBER_IN_YEAR_CACHE[key];
 }
@@ -153,7 +153,12 @@ function getDayNumberInYearByDate(date: Date): number {
 }
 
 function getDateByDayNumberInYear(dayNumber: number): Date {
-  return DAY_NUMBER_IN_YEAR_CACHE_REVERSE[dayNumber];
+  const d = DAY_NUMBER_IN_YEAR_CACHE_REVERSE[dayNumber];
+  if (!d) {
+    // FIXME we should always return cached value not `new Date()`
+    return new Date();
+  };
+  return d;
 }
 
 function dateToDayMonth(date: Date, months: string[]): string {

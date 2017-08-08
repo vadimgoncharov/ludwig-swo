@@ -9,16 +9,13 @@ import {AppContainer}   from 'react-hot-loader';
 import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware  from 'redux-thunk';
 
-import reducers from '../shared/reducers';
+import reducers from 'shared/reducers';
+import * as API from 'shared/services/Api';
+import * as mockData from 'shared/services/mockData';
 
 import SwoPage from '../shared/pages/SwoPage/SwoPage';
 
-const store = createStore(
-  reducers,
-  applyMiddleware(
-    thunkMiddleware,
-  ),
-);
+let store;
 
 const render = (Component) => {
   return ReactDOM.render(
@@ -31,7 +28,24 @@ const render = (Component) => {
   );
 };
 
-render(SwoPage);
+API.getStats().then((stats) => {
+  store = createStore(
+    reducers,
+    {
+      stats: {
+        isFetching: false,
+        data: stats,
+      },
+    },
+    applyMiddleware(
+      thunkMiddleware,
+    ),
+  );
+  render(SwoPage);
+}).catch((error) => {
+  console.error(error);
+});
+
 
 if (module.hot) {
   module.hot.accept('../shared/pages/SwoPage/SwoPage', () => {
