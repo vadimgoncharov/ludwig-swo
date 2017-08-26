@@ -1,8 +1,10 @@
+import {getDayNumberInYear} from 'shared/utils/date';
+import {convertRange, isPrimeNumber} from 'shared/utils/math';
+
 import {IApiResponse} from '../types/IApiResponse';
 import {TStats} from '../types/Stats';
-import {getDayNumberInYear} from 'shared/utils/date';
+
 const NOW = new Date();
-let STAT_TOTAL_ID = 1;
 const apiResponseConverter = (r: IApiResponse): TStats => {
   const statTotalValue = r.oddEven.even + r.oddEven.odd;
   const lastGenerateDate = new Date(NOW.getFullYear(), r.rand_date.month - 1, r.rand_date.day);
@@ -11,11 +13,11 @@ const apiResponseConverter = (r: IApiResponse): TStats => {
 
   r.launch.forEach((item) => {
     getDayNumberInYear(2100, item.month - 1, item.day);
-  })
+  });
 
   const stat = {
     statTotal: {
-      id: STAT_TOTAL_ID++,
+      id: statTotalValue,
       date: lastGenerateDate,
       value: statTotalValue,
     },
@@ -28,13 +30,13 @@ const apiResponseConverter = (r: IApiResponse): TStats => {
       evenValue: r.oddEven.even,
       oddValue: r.oddEven.odd,
     },
-    statPrevDates: r.lastSeen.slice(0, 10).map((item) => {
+    statPrevDates: r.lastSeen.slice(0, 10).map((item, index: number) => {
       return {
-        id: undefined,
+        id: statTotalValue - (index + 1),
         date: new Date(NOW.getFullYear(), item.month - 1, item.day),
       };
     }),
-    statMinMax: r.top.slice(0, 4).concat(r.shame.slice(0, 4)).map((item) => {
+    statMinMax: r.top.slice(0, 4).concat(r.shame.slice(0, 4).reverse()).map((item) => {
       return {
         id: undefined,
         value: item.counter,
@@ -44,8 +46,20 @@ const apiResponseConverter = (r: IApiResponse): TStats => {
     statJdan: r.lastSeen.slice(0, 5).map((item) => {
       return {
         id: undefined,
-        chValue: 7800 + r.months[item.month].days[item.day].counter,
-        value: 100 + r.months[item.month].days[item.day].counter,
+        chValue: convertRange(
+          r.months[item.month].days[item.day].counter,
+          r.shame[0].counter,
+          r.top[0].counter,
+          100,
+          200,
+        ),
+        value: convertRange(
+          r.months[item.month].days[item.day].counter,
+          r.shame[0].counter,
+          r.top[0].counter,
+          5000,
+          5300,
+        ),
         date: new Date(NOW.getFullYear(), item.month - 1, item.day),
       };
     }),
@@ -88,18 +102,35 @@ const apiResponseConverter = (r: IApiResponse): TStats => {
       first: [1, 2, 3, 4, 5, 6].reduce((sum, month) => sum + r.months[month].sum, 0),
       second: [7, 8, 9, 10, 11, 12].reduce((sum, month) => sum + r.months[month].sum, 0),
     },
-    statTower: Object.keys(r.tvTower).map((value) => {
-      const data = r.tvTower[value];
-      const dates = data.date.split(',').map((date) => {
-        const [day, month] = date.split('-');
-        return new Date(NOW.getFullYear(), parseInt(month) - 1, parseInt(day));
-      });
-      return {
-        dates,
-        value: parseInt(value),
-        isPrimeValue: !!data.is_prime,
-      };
-    }),
+    statTower: (() => {
+      const {tvTower} = r;
+      const values = Object.keys(tvTower);
+      const min = Math.min.apply(null, values);
+      const max = Math.max.apply(null, values);
+      const finalData = [];
+      for (let value = max; value >= min; value--) {
+        const data = tvTower[value];
+        if (data) {
+          const dates = data.date.split(',').map((date) => {
+            const [day, month] = date.split('-');
+            return new Date(NOW.getFullYear(), parseInt(month) - 1, parseInt(day));
+          });
+          finalData.push({
+            dates,
+            value: parseInt(value),
+            isPrimeValue: !!data.is_prime,
+          });
+        }
+        else {
+          finalData.push({
+            dates: [],
+            value: parseInt(value),
+            isPrimeValue: isPrimeNumber(value),
+          });
+        }
+      }
+      return finalData;
+    })(),
     statMonths: Object.keys(r.months).map((month) => {
       return {
         id: undefined,

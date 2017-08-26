@@ -33,13 +33,19 @@ function isEven(num: number): boolean {
   return Math.round(num) % 2 === 0;
 }
 
+const primeNumberCache = {};
 function isPrimeNumber(num: number): boolean {
+  if (typeof primeNumberCache[num] !== 'undefined') {
+    return primeNumberCache[num];
+  }
   for (let i = 2, s = Math.sqrt(num); i <= s; i++) {
     if (num % i === 0) {
+      primeNumberCache[num] = false;
       return false;
     }
   }
-  return num !== 1;
+  primeNumberCache[num] = num !== 1;
+  return primeNumberCache[num];
 }
 
 function angleToRad(angle: number): number {
