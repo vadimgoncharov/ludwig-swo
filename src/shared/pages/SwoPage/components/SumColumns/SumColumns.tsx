@@ -131,12 +131,12 @@ export default class StatTower extends React.Component<TProps, TState> {
 
   private renderMonthDayColumn() {
     const {statMonthsDay} = this.props;
-    const {animatorCurrValues} = this.state;
-    const day = (new Date(animatorCurrValues[0].time)).getDate();
+    const {animatorCurrValue, animatorCurrValues} = this.state;
+    const day = (new Date(animatorCurrValue.time)).getDate();
     const total = Math.round(statMonthsDay.reduce((sum, item, index) => {
       return sum + animatorCurrValues[index].value;
     }, 0));
-    const currMonth = new Date(this.state.animatorCurrValue.time).getMonth();
+    const currMonth = new Date(animatorCurrValue.time).getMonth();
 
     return (
       <div className="SumColumns-column">
@@ -148,11 +148,14 @@ export default class StatTower extends React.Component<TProps, TState> {
           {statMonthsDay.map((item, index) => {
             const itemClassName = classNames('SumColumns-columnItem', {
               'is-selected': item.date.getMonth() === currMonth,
+              'is-visible_no': item.value === 0,
             });
+            const itemDate = new Date(animatorCurrValues[index].time);
+            itemDate.setDate(day);
             return (
               <div className={itemClassName} key={index}>
                 <div className="SumColumns-columnItemTitle">
-                  {utils.date.dateToDayMonthAccusative(new Date(animatorCurrValues[index].time))}
+                  {utils.date.dateToDayMonthAccusative(itemDate)}
                 </div>
                 <div className="SumColumns-columnItemValue">
                   {utils.format.formatValueToTimesWithPluralize(Math.round(animatorCurrValues[index].value))}

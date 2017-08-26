@@ -84,6 +84,10 @@
     margin-top: 0;
   }
 
+  &.is-visible_no {
+    display: none;
+  }
+
   &.is-total {
     border-top: 1px #fff solid;
 
