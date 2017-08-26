@@ -34,7 +34,6 @@ export default class SwoPage extends React.Component<any, any> {
         <Header />
         <Hero />
         <MonthInClouds />
-        <Typogr />
         <Target />
         {/*<StatTotal />*/}
         <StatPrevDates />
@@ -51,6 +50,7 @@ export default class SwoPage extends React.Component<any, any> {
         <StatSlash />
         <SumColumns />
         <StatYearDaysSorted />
+        <Typogr />
         <StatTower />
         <StatJdan />
         <News />

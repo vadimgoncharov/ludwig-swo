@@ -26,7 +26,6 @@ import newsNavSection           from 'shared/pages/SwoPage/components/News/navSe
 const navSections: TUiNavSection[] = [
   heroNavSection,
   monthInCloudsNavSection,
-  typogrNavSection,
   targetNavSection,
   // statTotalNavSection,
   prevDatesNavSection,
@@ -43,6 +42,7 @@ const navSections: TUiNavSection[] = [
   slashNavSection,
   sumColumnsNavSection,
   yearDaysSortedNavSection,
+  typogrNavSection,
   statTowerNavSection,
   statJdanNavSection,
   newsNavSection,
