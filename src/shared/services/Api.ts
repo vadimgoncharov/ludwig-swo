@@ -34,9 +34,9 @@ function getStatsReal(url: string): Promise<TStats> {
 }
 
 function getStats() {
-  if (process.env.NODE_ENV === 'production') {
+  if (window.location.protocol === 'https:') {
     // We use this because github serves over https, but ludwig servers over http,
-    // so we have mixed content error
+    // so we have mixed content error and we need to use proxy
     return getStatsReal('https://ludwig-swo-zeit-iyjhyxaugi.now.sh/');
   } else {
     return getStatsReal('http://ludwigbistronovsky.ru/new/?@format=json');
