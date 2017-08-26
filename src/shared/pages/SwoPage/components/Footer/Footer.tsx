@@ -4,6 +4,7 @@ import * as classNames from 'classnames';
 import Link from 'shared/components/Link';
 
 import './Footer.scss';
+import {getRandomInt} from 'shared/utils/random';
 
 type TAuthor = {
   name: string,
@@ -20,7 +21,7 @@ const AUTHORS: TAuthor[] = [
   {
     name: 'Алексей Анисимов',
     date: 2015,
-    isCurrMaintainer: false,
+    isCurrMaintainer: true,
   },
   {
     name: 'Андрей Шитов',
@@ -33,6 +34,8 @@ const AUTHORS: TAuthor[] = [
     isCurrMaintainer: false,
   },
 ];
+
+const MAIL_WORDS: string[] = ['почта', 'почва', 'почка'];
 
 export default class Footer extends React.Component<any, any> {
   public render() {
@@ -72,9 +75,10 @@ export default class Footer extends React.Component<any, any> {
   };
 
   private renderContacts() {
+    const mailWord = MAIL_WORDS[getRandomInt(0, MAIL_WORDS.length - 1)];
     return (
       <div className="Footer-contacts">
-        Эл. почта: <Link href="mailto:ludwig@ludwigbistronovsky.ru">ludwig@ludwigbistronovsky.ru</Link>
+        Эл. {mailWord}: <Link href="mailto:ludwig@ludwigbistronovsky.ru">ludwig@ludwigbistronovsky.ru</Link>
       </div>
     );
   }
