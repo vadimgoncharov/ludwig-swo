@@ -1,6 +1,8 @@
 const path    = require('path');
 const webpack = require('webpack');
-const { CheckerPlugin } = require('awesome-typescript-loader');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cleanCss = require('clean-css');
 
 module.exports = {
   entry: [
@@ -12,6 +14,19 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new ExtractTextPlugin({
+      disable: false,
+      filename: 'build/bundle.css',
+      allChunks: true,
+    }),
+    new OptimizeCssAssetsPlugin({
+      // assetNameRegExp: /\.optimize\.css$/g,
+      cssProcessor: cleanCss.process,
+      cssProcessorOptions: {
+        level: 2,
+      },
+      canPrint: true
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
@@ -49,22 +64,24 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader', options: {
-            sourceMap: false,
-          }},
-          {loader: 'sass-loader', options: {
-            sourceMap: false,
-            data: ';@import "global.scss";',
-            includePaths: [
-              path.join(__dirname, 'src/shared/global')
-            ]
-          }},
-          {loader: 'postcss-loader', options: {
-            sourceMap: false,
-          }},
-        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader', options: {
+              sourceMap: true,
+            }},
+            {loader: 'postcss-loader', options: {
+              sourceMap: true,
+            }},
+            {loader: 'sass-loader', options: {
+              sourceMap: true,
+              data: ';@import "global.scss";',
+              includePaths: [
+                path.join(__dirname, 'src/shared/global')
+              ]
+            }},
+          ],
+        }),
       },
     ]
   },

@@ -11,9 +11,10 @@ import thunkMiddleware  from 'redux-thunk';
 
 import reducers from 'shared/reducers';
 import * as API from 'shared/services/Api';
-import * as mockData from 'shared/services/mockData';
+import apiResponseConverter from 'shared/services/apiResponseConverter';
+import SwoPage from 'shared/pages/SwoPage/SwoPage';
 
-import SwoPage from '../shared/pages/SwoPage/SwoPage';
+import {TStats} from 'shared/types/Stats';
 
 let store;
 
@@ -28,7 +29,15 @@ const render = (Component) => {
   );
 };
 
-API.getStats().then((stats) => {
+const fetchStatsFromAPI = () => {
+  API.getStats().then((stats) => {
+    runApp(stats);
+  }).catch((error) => {
+    console.error(error);
+  });
+};
+
+const runApp = (stats: TStats) => {
   store = createStore(
     reducers,
     {
@@ -42,10 +51,25 @@ API.getStats().then((stats) => {
     ),
   );
   render(SwoPage);
-}).catch((error) => {
-  console.error(error);
-});
+};
 
+let statsFromInitialData;
+try {
+  const initialData = (window as any).__INITIAL_DATA__;
+  if (initialData) {
+    statsFromInitialData = JSON.parse(initialData);
+    statsFromInitialData = apiResponseConverter(statsFromInitialData);
+    delete (window as any).__INITIAL_DATA__;
+  }
+} catch (error) {
+  console.error(error);
+}
+
+if (statsFromInitialData) {
+  runApp(statsFromInitialData);
+} else {
+  fetchStatsFromAPI();
+}
 
 if (module.hot) {
   module.hot.accept('../shared/pages/SwoPage/SwoPage', () => {
