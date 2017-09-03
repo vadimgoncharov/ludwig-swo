@@ -12,6 +12,8 @@ import * as utils from 'shared/utils';
 
 import navSectionData from './navSectionData';
 
+import Poloter from '../Poloter';
+
 import {TStatTotal} from 'shared/types/StatTotal';
 
 import './Hero.scss';
@@ -76,7 +78,7 @@ export default class Hero extends React.Component<TProps, TState> {
         <SectionContent navSection={navSectionData}>
           {this.renderDayNum()}
           {this.renderDate()}
-          {this.renderGuy()}
+          {this.renderPoloter()}
           {this.renderTotal()}
           {this.renderTotalDescription()}
           {this.renderSumOfNumbers()}
@@ -125,9 +127,12 @@ export default class Hero extends React.Component<TProps, TState> {
     );
   }
 
-  private renderGuy() {
+  private renderPoloter() {
     return (
-      <div className="Hero-guy" />
+      <div className="Hero-poloter">
+        <Poloter isFetching={this.props.isFetching}/>
+        <Poloter isFetching={this.props.isFetching} isMirrored={true} />
+      </div>
     );
   }
 

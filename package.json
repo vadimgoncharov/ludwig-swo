@@ -25,6 +25,7 @@
   "private": true,
   "dependencies": {
     "@tweenjs/tween.js": "17.1.0",
+    "@types/gsap": "1.19.1",
     "@types/node": "8.0.25",
     "@types/react": "16.0.5",
     "@types/react-dom": "15.5.4",
@@ -45,6 +46,7 @@
     "es6-shim": "0.35.3",
     "extract-text-webpack-plugin": "3.0.0",
     "format-thousands": "1.1.1",
+    "gsap": "1.20.2",
     "lodash.throttle": "4.1.1",
     "node-sass": "4.5.3",
     "onresize": "1.0.1",
@@ -66,6 +68,7 @@
     "style-loader": "0.18.2",
     "stylelint": "8.0.0",
     "stylelint-config-standard": "17.0.0",
+    "svg-inline-loader": "0.8.0",
     "tslint": "5.7.0",
     "tslint-eslint-rules": "4.1.1",
     "tslint-loader": "3.5.3",

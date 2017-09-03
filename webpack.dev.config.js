@@ -73,6 +73,12 @@ module.exports = {
         loader: 'source-map-loader'
       },
       {
+        test: /\.svg$/,
+        use: [
+          {loader: 'svg-inline-loader'},
+        ]
+      },
+      {
         test: /\.scss$/,
         use: [
           {loader: 'style-loader'},

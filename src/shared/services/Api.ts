@@ -34,7 +34,10 @@ function getStatsReal(url: string): Promise<TStats> {
 }
 
 function getStats() {
-  if (window.location.protocol === 'https:') {
+  if (window.location.hostname === 'localhost') {
+    return getStatsReal('http://localhost:4444/new/?@format=json');
+  }
+  else if (window.location.protocol === 'https:') {
     // We use this because github serves over https, but ludwig servers over http,
     // so we have mixed content error and we need to use proxy
     return getStatsReal('https://ludwig-swo-zeit-iyjhyxaugi.now.sh/');

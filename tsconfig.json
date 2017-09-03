@@ -13,6 +13,9 @@
       "shared/*": ["src/shared/*"]
     }
   },
+  "files": [
+    "declarations.d.ts"
+  ],
   "include": [
     "./src/**/*"
   ],
