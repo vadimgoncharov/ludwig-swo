@@ -2,7 +2,7 @@ import * as formatThousandsLib from 'format-thousands';
 import * as pluralize from 'plural-ru';
 
 function formatValueToTimes(value: number, useSuffix: boolean = true): string {
-  const formatted: string = formatThousandsLib(value);
+  const formatted: string = formatThousandsLib(Math.round(value));
 
   if (useSuffix) {
     const suffix: string = pluralize(value, 'раз', 'раза', 'раз');
