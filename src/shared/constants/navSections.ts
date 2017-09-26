@@ -4,7 +4,6 @@ import heroNavSection           from 'shared/pages/SwoPage/components/Hero/navSe
 import monthInCloudsNavSection  from 'shared/pages/SwoPage/components/MonthInClouds/navSectionData';
 import typogrNavSection         from 'shared/pages/SwoPage/components/Typogr/navSectionData';
 import targetNavSection         from 'shared/pages/SwoPage/components/Target/navSectionData';
-// import statTotalNavSection      from 'shared/pages/SwoPage/components/StatTotal/navSectionData';
 import prevDatesNavSection      from 'shared/pages/SwoPage/components/StatPrevDates/navSectionData';
 import minMaxNavSection         from 'shared/pages/SwoPage/components/StatMinMax/navSectionData';
 import dayInYearScaleNavSection from 'shared/pages/SwoPage/components/DayInYearScale/navSectionData';
@@ -27,7 +26,6 @@ const navSections: TUiNavSection[] = [
   heroNavSection,
   monthInCloudsNavSection,
   targetNavSection,
-  // statTotalNavSection,
   prevDatesNavSection,
   minMaxNavSection,
   dayInYearScaleNavSection,
