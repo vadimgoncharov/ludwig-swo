@@ -66,6 +66,14 @@ const apiResponseConverter = (r: IApiResponse): TStats => {
     statDayInMonth: r.days.map((item) => {
       return {
         dayNum: item.day,
+        months: Array.apply(null, Array(12)).map((_, monthIndex) => {
+          const dayData = r.months[monthIndex + 1].days[item.day];
+          if (typeof dayData !== 'undefined') {
+            return dayData.counter;
+          } else {
+            return 0;
+          }
+        }),
         value: item.sum,
       };
     }),

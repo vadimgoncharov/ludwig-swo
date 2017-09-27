@@ -290,7 +290,10 @@ const getDayInMonthStats = (): TStatDayInMonth => {
   });
 
   return Object.keys(dayInMonthStatCount).map((dayNum) => {
-    return dayInMonthStatCount[dayNum];
+    return {
+      ...dayInMonthStatCount[dayNum],
+      months: [], // we should fill it with values like in ApiResponseConverter
+    };
   });
 };
 

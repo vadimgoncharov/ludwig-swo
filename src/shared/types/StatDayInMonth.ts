@@ -1,2 +1,6 @@
-import {TStatValueAtDayNum} from './StatValueAtDayNum';
-export type TStatDayInMonth = TStatValueAtDayNum[];
+export type TStatDayInMonthValue = {
+  value: number,
+  dayNum: number,
+  months: number[],
+};
+export type TStatDayInMonth = TStatDayInMonthValue[];

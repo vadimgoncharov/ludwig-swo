@@ -63,19 +63,21 @@
 
 .StatDayInMonth-item.is-selected {
   color: orange;
+  transition: 500ms color ease-in-out;
 
-  .StatDayInMonth-itemColumn {
-    opacity: 0.2;
+  .StatDayInMonth-itemColumn::after {
+    opacity: 0;
   }
 }
 
 .StatDayInMonth-itemColumn {
+  position: relative;
   @include not-phone {
     margin-top: 20px;
   }
 
   &.is-horizontal {
-    height: 20px;
+    height: 15px;
 
     @include not-phone {
       display: none;
@@ -89,4 +91,16 @@
       display: none;
     }
   }
+}
+
+.StatDayInMonth-itemColumn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: orangered;
+  opacity: 1;
+  transition: 500ms opacity ease-in-out;
 }

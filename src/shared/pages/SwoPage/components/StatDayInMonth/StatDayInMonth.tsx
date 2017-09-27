@@ -8,10 +8,14 @@ import * as utils from 'shared/utils';
 
 import navSectionData from './navSectionData';
 
-import {TStatDayInMonth} from 'shared/types/StatDayInMonth';
+import {
+  TStatDayInMonth,
+  TStatDayInMonthValue,
+} from 'shared/types/StatDayInMonth';
 import {TStatTotal} from 'shared/types/StatTotal';
 
 import './StatDayInMonth.scss';
+import {dateToColor} from 'shared/utils/date';
 
 type TProps = {
   isFetching: boolean,
@@ -59,15 +63,16 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
 
   public render() {
     const {statDayInMonth} = this.props;
-    const animatorCurrDayNum = new Date(this.state.animatorCurrValue.time).getDate();
+    // const animatorCurrDayNum = new Date(this.state.animatorCurrValue.time).getDate();
+    const animatorCurrDayNum = this.props.statTotal.date.getDate();
     const maxValue = this.getMaxValue();
 
     return (
       <section className="StatDayInMonth">
-        <SectionContent animator={this.animator} navSection={navSectionData}>
+        <SectionContent navSection={navSectionData}>
           <div className="StatDayInMonth-title">{navSectionData.title}</div>
           <div className="StatDayInMonth-subTitle">
-            Распределение открытия сайта по порядковым номерам дней в месяце:
+            Распределение открытия сайта по&nbsp;порядковым номерам дней в&nbsp;месяце:
           </div>
           <div className="StatDayInMonth-items">
             {statDayInMonth.map((item, index) => {
@@ -79,17 +84,28 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
               );
               const itemColumnClassNameVertical = classNames(
                 'StatDayInMonth-itemColumn is-vertical',
-                `is-bgColor${dayNum}`,
               );
               const itemColumnClassNameHorizontal = classNames(
                 'StatDayInMonth-itemColumn is-horizontal',
-                `is-bgColor${dayNum}`,
               );
+              const gradientValue = this.getGradientValue(item);
+              const styleVertical: {height: string, background?: string} = {
+                height: `${columnSize}px`,
+                background: `linear-gradient(to bottom, ${gradientValue})`,
+              };
+              const styleHorizontal: {width: string, background?: string} = {
+                width: `${columnSize}px`,
+                background: `linear-gradient(to right, ${gradientValue})`,
+              };
+              // if (dayNum === animatorCurrDayNum) {
+              //   styleVertical.background = `linear-gradient(to bottom, ${gradientValue})`;
+              //   styleHorizontal.background = `linear-gradient(to bottom, ${gradientValue})`;
+              // }
               return (
                 <div className={className} key={index}>
                   <div className="StatDayInMonth-itemDayNum">{dayNum}</div>
-                  <div className={itemColumnClassNameVertical} style={{height: `${columnSize}px`}} />
-                  <div className={itemColumnClassNameHorizontal} style={{width: `${columnSize}px`}} />
+                  <div className={itemColumnClassNameVertical} style={styleVertical} />
+                  <div className={itemColumnClassNameHorizontal} style={styleHorizontal} />
                 </div>
               );
             })}
@@ -97,6 +113,30 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
         </SectionContent>
       </section>
     );
+  }
+
+  private getGradientValue(dayInMonthItem: TStatDayInMonthValue) {
+    const data: Array<{bgColor: string, percent: number}> = [];
+    const daysValuesSumTotal = dayInMonthItem.value;
+
+    for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+      const daysValuesSumAtMonth = dayInMonthItem.months[monthIndex];
+      if (daysValuesSumAtMonth === 0) {
+        continue;
+      }
+      const percent = daysValuesSumAtMonth / daysValuesSumTotal * 100;
+      const {bgColor} = dateToColor(new Date(2017, monthIndex, dayInMonthItem.dayNum));
+      data.push({bgColor, percent});
+    }
+
+    let percentAlreadyTaken = 0;
+    return data.map((item) => {
+      const gradStr = `${item.bgColor} ${percentAlreadyTaken}%`;
+      percentAlreadyTaken += item.percent;
+      return gradStr;
+    }).filter((item, index) => {
+      return (index % 2 === 0)
+    }).join(', ');
   }
 
   private getMaxValue(): number {
