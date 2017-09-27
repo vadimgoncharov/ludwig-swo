@@ -1,4 +1,6 @@
 import {getRandomInt} from './random';
+import {convertColor} from './math';
+import * as c from 'shared/constants';
 
 const DATE_NOW: Date = new Date();
 const DAY_IN_MS = 3600 * 24 * 1000;
@@ -270,6 +272,26 @@ function getSeasonName(date: Date): string {
   }
 }
 
+function dateToColor(date: Date): {bgColor: string, textColor: string} {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const daysInMonth = (() => {
+    const d = new Date(date);
+    d.setDate(0);
+    return d.getDate();
+  })();
+
+  const {bgStart, bgEnd, text} = c.monthColors[month];
+
+  const bgColor = convertColor(day, 1, daysInMonth, bgStart, bgEnd);
+  return {
+    bgColor,
+    textColor: text,
+  };
+}
+
+
+
 export {
   getRandomDate,
   getDaysCountInYear,
@@ -294,4 +316,5 @@ export {
   dateToYYYYMMDD,
   dateToDMMYYYY,
   dateToDDMM,
+  dateToColor,
 };

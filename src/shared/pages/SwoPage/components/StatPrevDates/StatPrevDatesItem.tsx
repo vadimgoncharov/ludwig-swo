@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
-import {dateToMonthStr} from 'shared/utils/date';
+import {dateToColor, dateToMonthStr} from 'shared/utils/date';
 
 type TProps = {
   date: Date,
@@ -45,15 +44,18 @@ export default class StatPrevDatesItem extends React.Component<TProps, any> {
   }
 
   public render() {
-    const {date, index, offsetX, offsetY} = this.props;
-    const bgColorNum = date.getMonth() + 1;
-    const itemValueClassName = classNames('StatPrevDates-itemValue', `is-bgColor${bgColorNum}`);
-    const style = {
+    const {date, offsetX, offsetY} = this.props;
+    const styleItem = {
       transform: getTransformStyle(offsetX, offsetY, 1),
     };
+    const {bgColor, textColor} = dateToColor(date);
+    const styleItemValue = {
+      backgroundColor: bgColor,
+      color: textColor,
+    };
     return (
-      <li className="StatPrevDates-item" ref={this.onRootContainerRefSet} style={style}>
-        <div className={itemValueClassName}>{date.getDate()}</div>
+      <li className="StatPrevDates-item" ref={this.onRootContainerRefSet} style={styleItem}>
+        <div className="StatPrevDates-itemValue" style={styleItemValue}>{date.getDate()}</div>
         <div className="StatPrevDates-itemTitle">{dateToMonthStr(date)}</div>
       </li>
     );

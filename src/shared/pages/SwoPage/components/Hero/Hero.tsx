@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
 import {CSSTransitionGroup} from 'react-transition-group';
-import * as classNames from 'classnames';
 
 import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import Nav from '../Nav';
@@ -90,10 +89,13 @@ export default class Hero extends React.Component<TProps, TState> {
 
   private renderDayNum() {
     const currDate = this.props.statTotal.date;
-    const bgColorNum = currDate.getMonth() + 1;
-    const className = classNames('Hero-day', `is-bgColor${bgColorNum}`);
+    const {bgColor, textColor} = utils.date.dateToColor(currDate);
+    const style = {
+      backgroundColor: bgColor,
+      color: textColor,
+    };
     return (
-      <div className={className}>
+      <div className="Hero-day" style={style}>
         {currDate.getDate()}
       </div>
     );
