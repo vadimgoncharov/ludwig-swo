@@ -3,6 +3,7 @@ import * as classNames from 'classnames';
 
 import SectionContent from 'shared/pages/SwoPage/containers/SectionContent';
 import * as utils from 'shared/utils';
+import * as c from 'shared/constants';
 import {
   getSeasonName,
   SEASON_NAME_AUTUMN,
@@ -40,16 +41,20 @@ export default class StatSeasons extends React.Component<TProps, any> {
     const springLineValue = utils.math.convertRange(spring, min, max, percentMin, percentMax);
     const summerLineValue = utils.math.convertRange(summer, min, max, percentMin, percentMax);
     const autumnLineValue = utils.math.convertRange(autumn, min, max, percentMin, percentMax);
+    const winterColor = c.monthColors[0].bgStart;
+    const springColor = c.monthColors[3].bgStart;
+    const summerColor = c.monthColors[6].bgStart;
+    const autumnColor = c.monthColors[10].bgStart;
 
     return (
       <section className="StatSeasons">
         <SectionContent navSection={navSectionData}>
           <div className="StatSeasons-title">{navSectionData.title}</div>
           <div className="StatSeasons-items">
-            {this.renderItem(winter, winterLineValue, 'Зимой', SEASON_NAME_WINTER, currSeasonKey)}
-            {this.renderItem(spring, springLineValue, 'Весной', SEASON_NAME_SPRING, currSeasonKey)}
-            {this.renderItem(summer, summerLineValue, 'Летом', SEASON_NAME_SUMMER, currSeasonKey)}
-            {this.renderItem(autumn, autumnLineValue, 'Осенью', SEASON_NAME_AUTUMN, currSeasonKey)}
+            {this.renderItem(winter, winterLineValue, 'Зимой', SEASON_NAME_WINTER, currSeasonKey, winterColor)}
+            {this.renderItem(spring, springLineValue, 'Весной', SEASON_NAME_SPRING, currSeasonKey, springColor)}
+            {this.renderItem(summer, summerLineValue, 'Летом', SEASON_NAME_SUMMER, currSeasonKey, summerColor)}
+            {this.renderItem(autumn, autumnLineValue, 'Осенью', SEASON_NAME_AUTUMN, currSeasonKey, autumnColor)}
           </div>
         </SectionContent>
       </section>
@@ -61,14 +66,18 @@ export default class StatSeasons extends React.Component<TProps, any> {
     valueLine: number,
     seasonName: string,
     seasonKey: string,
-    currSeasonKey: string) => {
+    currSeasonKey: string,
+    color: string) => {
     const isSelected = seasonKey === currSeasonKey;
     const className = classNames('StatSeasons-item', `is-${seasonKey}`, {'is-selected': isSelected});
     return (
-      <div className={className}>
+      <div className={className} style={{color}}>
         <div className="StatSeasons-itemName">{seasonName}</div>
         <div className="StatSeasons-itemLine">
-          <div className="StatSeasons-itemLineValue" style={{width: `${valueLine}%`}} />
+          <div
+            className="StatSeasons-itemLineValue"
+            style={{width: `${valueLine}%`, backgroundColor: color}}
+          />
         </div>
         <div className="StatSeasons-itemValue">{utils.format.formatValueToTimesWithPluralize(value)}</div>
       </div>
