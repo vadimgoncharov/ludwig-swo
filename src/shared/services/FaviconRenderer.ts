@@ -2,6 +2,7 @@ import * as TWEEN from '@tweenjs/tween.js';
 import Animator from './Animator';
 import {convertRange} from 'shared/utils/math';
 import * as throttle from 'lodash.throttle';
+import {dateToColor} from 'shared/utils/date';
 
 const CANVAS_SIZE = 16;
 const CANVAS_SCALE_FACTOR = 2;
@@ -21,6 +22,8 @@ export default class FaviconRenderer {
   private favicon: HTMLLinkElement;
   private currDayIndex: number;
   private prevDayIndex: number;
+  private currDate: Date;
+  private prevDate: Date;
   private animator: Animator<TAnimatorValue>;
 
   constructor() {
@@ -38,7 +41,9 @@ export default class FaviconRenderer {
       return;
     }
     this.prevDayIndex = this.currDayIndex;
+    this.prevDate = this.currDate;
     this.currDayIndex = dayIndex;
+    this.currDate = date;
 
     if (useAnimation) {
       this.animator.enableAnimation();
@@ -49,7 +54,7 @@ export default class FaviconRenderer {
   }
 
   private renderCanvas(floatDayIndex: number) {
-    const {ctx, favicon, canvas, currDayIndex, prevDayIndex} = this;
+    const {ctx, favicon, canvas, currDayIndex, prevDayIndex, currDate} = this;
 
     let yOffset;
     if (currDayIndex > prevDayIndex) {
@@ -58,9 +63,17 @@ export default class FaviconRenderer {
       yOffset = convertRange(floatDayIndex, currDayIndex, prevDayIndex, CANVAS_SIZE, 0);
     }
 
-    ctx.fillStyle = CANVAS_BG_COLOR;
+    // TODO
+    // Need to animate rectangles of different colors
+    // For now we just change whole canvas background color
+    const {bgColor, textColor} = dateToColor(new Date(
+      currDate.getFullYear(),
+      currDate.getMonth(),
+      floatDayIndex,
+    ));
+    ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, CANVAS_SIZE * CANVAS_SCALE_FACTOR, CANVAS_SIZE * CANVAS_SCALE_FACTOR);
-    ctx.fillStyle = CANVAS_FONT_COLOR;
+    ctx.fillStyle = textColor;
 
     [prevDayIndex, currDayIndex].forEach((intDayIndex: number, loopIndex: number) => {
       const text = (intDayIndex + 1).toString();
