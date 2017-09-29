@@ -63,7 +63,6 @@
 
 .StatDayInMonth-item.is-selected {
   color: orange;
-  transition: 500ms color ease-in-out;
 
   .StatDayInMonth-itemColumn::after {
     opacity: 0;
@@ -100,7 +99,6 @@
   top: 0;
   bottom: 0;
   right: 0;
-  background: orangered;
+  background: white;
   opacity: 1;
-  transition: 500ms opacity ease-in-out;
 }

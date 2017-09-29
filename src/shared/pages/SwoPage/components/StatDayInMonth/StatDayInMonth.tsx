@@ -64,12 +64,15 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
   public render() {
     const {statDayInMonth} = this.props;
     // const animatorCurrDayNum = new Date(this.state.animatorCurrValue.time).getDate();
-    const animatorCurrDayNum = this.props.statTotal.date.getDate();
+    const currDate = new Date(this.state.animatorCurrValue.time);
+    const animatorCurrDayNum = currDate.getDate();
+    const currMonth = currDate.getMonth();
+    const currYear = currDate.getFullYear();
     const maxValue = this.getMaxValue();
 
     return (
       <section className="StatDayInMonth">
-        <SectionContent navSection={navSectionData}>
+        <SectionContent animator={this.animator} navSection={navSectionData}>
           <div className="StatDayInMonth-title">{navSectionData.title}</div>
           <div className="StatDayInMonth-subTitle">
             Распределение открытия сайта по&nbsp;порядковым номерам дней в&nbsp;месяце:
@@ -88,21 +91,22 @@ export default class StatDayInMonth extends React.Component<TProps, TState> {
               const itemColumnClassNameHorizontal = classNames(
                 'StatDayInMonth-itemColumn is-horizontal',
               );
-              const gradientValue = this.getGradientValue(item);
+              const color = dateToColor(new Date(currYear, currMonth, index)).bgColor;
+              const styleItem = {
+                color: dayNum === animatorCurrDayNum ? color : null,
+              };
               const styleVertical: {height: string, background?: string} = {
                 height: `${columnSize}px`,
-                background: `linear-gradient(to bottom, ${gradientValue})`,
+                // background: `linear-gradient(to bottom, ${gradientValue})`,
+                background: color,
               };
               const styleHorizontal: {width: string, background?: string} = {
                 width: `${columnSize}px`,
-                background: `linear-gradient(to right, ${gradientValue})`,
+                // background: `linear-gradient(to right, ${gradientValue})`,
+                background: color,
               };
-              // if (dayNum === animatorCurrDayNum) {
-              //   styleVertical.background = `linear-gradient(to bottom, ${gradientValue})`;
-              //   styleHorizontal.background = `linear-gradient(to bottom, ${gradientValue})`;
-              // }
               return (
-                <div className={className} key={index}>
+                <div className={className} key={index} style={styleItem}>
                   <div className="StatDayInMonth-itemDayNum">{dayNum}</div>
                   <div className={itemColumnClassNameVertical} style={styleVertical} />
                   <div className={itemColumnClassNameHorizontal} style={styleHorizontal} />
