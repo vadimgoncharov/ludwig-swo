@@ -281,7 +281,8 @@ function dateToColor(date: Date): {bgColor: string, textColor: string} {
     return d.getDate();
   })();
 
-  const {bgStart, bgEnd, text} = c.monthColors[month];
+  const {bg: bgStart, text} = c.monthColors[month];
+  const {bg: bgEnd} = c.monthColors[(month + 1) % c.monthColors.length];
 
   const bgColor = convertColor(day, 1, daysInMonth, bgStart, bgEnd);
   return {

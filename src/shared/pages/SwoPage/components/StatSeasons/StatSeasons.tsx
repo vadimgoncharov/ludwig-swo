@@ -41,10 +41,10 @@ export default class StatSeasons extends React.Component<TProps, any> {
     const springLineValue = utils.math.convertRange(spring, min, max, percentMin, percentMax);
     const summerLineValue = utils.math.convertRange(summer, min, max, percentMin, percentMax);
     const autumnLineValue = utils.math.convertRange(autumn, min, max, percentMin, percentMax);
-    const winterColor = c.monthColors[0].bgStart;
-    const springColor = c.monthColors[3].bgStart;
-    const summerColor = c.monthColors[6].bgStart;
-    const autumnColor = c.monthColors[10].bgStart;
+    const winterColor = c.monthColors[1].bg;
+    const springColor = c.monthColors[3].bg;
+    const summerColor = c.monthColors[7].bg;
+    const autumnColor = c.monthColors[9].bg;
 
     return (
       <section className="StatSeasons">
