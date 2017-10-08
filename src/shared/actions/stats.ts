@@ -1,4 +1,4 @@
-import * as API from 'shared/services/Api';
+import * as API from 'shared/services/api';
 
 import {TStats} from 'shared/types/Stats';
 import {TThunkAction} from 'shared/types/ThunkAction';

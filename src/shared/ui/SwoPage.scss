@@ -1,0 +1,59 @@
+.SwoPage {
+  margin: 0 0 100px;
+  position: relative;
+  padding: 0 20px;
+  overflow: hidden;
+  @include phone {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0;
+  }
+  @include tablet {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .Hero {
+    @include not-phone {
+      padding-top: 200px;
+    }
+    @include phone {
+      padding-top: 130px;
+    }
+  }
+
+  .Total,
+  .MinMax,
+  .PrevDates,
+  .DayInYearScale,
+  .TotalEvenOdd,
+  .Around,
+  .CurrDayAbbr,
+  .Jdan,
+  .NumFreqInYear,
+  .DayInMonthHistogram,
+  .Seasons,
+  .HalfYear,
+  .Square,
+  .Slashes,
+  .SumColumns,
+  .YearGradient,
+  .Tower,
+  .News,
+  .Typogr,
+  .Target,
+  .MonthInClouds,
+  .Footer {
+    margin-top: 200px;
+    @include phone {
+      margin-top: 100px;
+    }
+  }
+
+  .Footer {
+    margin-top: 100px;
+    @include phone {
+      margin-top: 60px;
+    }
+  }
+}

@@ -10,9 +10,9 @@ import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware  from 'redux-thunk';
 
 import reducers from 'shared/reducers';
-import * as API from 'shared/services/Api';
-import apiResponseConverter from 'shared/services/apiResponseConverter';
-import SwoPage from 'shared/pages/SwoPage/SwoPage';
+import * as API from 'shared/services/api';
+import apiResponseMapper from 'shared/services/apiResponseMapper';
+import SwoPage from 'shared/ui/SwoPage';
 
 import {TStats} from 'shared/types/Stats';
 
@@ -58,7 +58,7 @@ try {
   const initialData = (window as any).__INITIAL_DATA__;
   if (initialData) {
     statsFromInitialData = JSON.parse(initialData);
-    statsFromInitialData = apiResponseConverter(statsFromInitialData);
+    statsFromInitialData = apiResponseMapper(statsFromInitialData);
     delete (window as any).__INITIAL_DATA__;
   }
 } catch (error) {
@@ -72,8 +72,8 @@ if (statsFromInitialData) {
 }
 
 if (module.hot) {
-  module.hot.accept('../shared/pages/SwoPage/SwoPage', () => {
-    const NextApp = require('../shared/pages/SwoPage/SwoPage').default;
+  module.hot.accept('../shared/ui/SwoPage', () => {
+    const NextApp = require('../shared/ui/SwoPage').default;
     render(NextApp);
   });
 }

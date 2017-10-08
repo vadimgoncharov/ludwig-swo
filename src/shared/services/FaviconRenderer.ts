@@ -1,13 +1,11 @@
 import * as TWEEN from '@tweenjs/tween.js';
 import Animator from './Animator';
 import {convertRange} from 'shared/utils/math';
-import * as throttle from 'lodash.throttle';
-import {dateToColor} from 'shared/utils/date';
+import {dayNumToColor, dayNumToData} from 'shared/utils/date';
+import throttle from 'shared/utils/throttle';
 
 const CANVAS_SIZE = 16;
 const CANVAS_SCALE_FACTOR = 2;
-const CANVAS_BG_COLOR = '#F00';
-const CANVAS_FONT_COLOR = '#FFFFFF';
 const CANVAS_FONT_SIZE = 12;
 const CANVAS_FONT_SIZE_OFFSET_Y = CANVAS_SIZE - 4;
 const CANVAS_FONT_FAMILY = 'Times New Roman';
@@ -22,8 +20,8 @@ export default class FaviconRenderer {
   private favicon: HTMLLinkElement;
   private currDayIndex: number;
   private prevDayIndex: number;
-  private currDate: Date;
-  private prevDate: Date;
+  private currDate: number;
+  private prevDate: number;
   private animator: Animator<TAnimatorValue>;
 
   constructor() {
@@ -35,15 +33,15 @@ export default class FaviconRenderer {
     this.renderCanvas = throttle(this.renderCanvas, 100);
   }
 
-  public render(date: Date, useAnimation: boolean = true): void {
-    const dayIndex = date.getDate() - 1;
+  public render(dayNum: number, useAnimation: boolean = true): void {
+    const dayIndex = dayNum;
     if (this.currDayIndex === dayIndex) {
       return;
     }
     this.prevDayIndex = this.currDayIndex;
     this.prevDate = this.currDate;
     this.currDayIndex = dayIndex;
-    this.currDate = date;
+    this.currDate = dayNum;
 
     if (useAnimation) {
       this.animator.enableAnimation();
@@ -66,17 +64,17 @@ export default class FaviconRenderer {
     // TODO
     // Need to animate rectangles of different colors
     // For now we just change whole canvas background color
-    const {bgColor, textColor} = dateToColor(new Date(
-      currDate.getFullYear(),
-      currDate.getMonth(),
-      floatDayIndex,
-    ));
+    const {bgColor, textColor} = dayNumToColor(Math.round(floatDayIndex));
     ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, CANVAS_SIZE * CANVAS_SCALE_FACTOR, CANVAS_SIZE * CANVAS_SCALE_FACTOR);
     ctx.fillStyle = textColor;
 
     [prevDayIndex, currDayIndex].forEach((intDayIndex: number, loopIndex: number) => {
-      const text = (intDayIndex + 1).toString();
+      if (intDayIndex === -1) {
+        return;
+      }
+      const {day} = dayNumToData(intDayIndex);
+      const text = day.toString();
       const dimensions = ctx.measureText(text);
       const x = (CANVAS_SIZE - dimensions.width) / 2;
       const y = CANVAS_FONT_SIZE_OFFSET_Y - yOffset + (CANVAS_SIZE * loopIndex);

@@ -47,7 +47,6 @@
     "extract-text-webpack-plugin": "3.0.0",
     "format-thousands": "1.1.1",
     "gsap": "1.20.2",
-    "lodash.throttle": "4.1.1",
     "node-sass": "4.5.3",
     "onresize": "1.0.1",
     "optimize-css-assets-webpack-plugin": "3.2.0",

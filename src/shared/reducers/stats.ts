@@ -1,4 +1,4 @@
-import * as mockData from 'shared/services/mockData';
+// import * as mockData from 'shared/services/mockData';
 
 import {
   ACTION_REQUEST_STATS,
@@ -8,9 +8,9 @@ import {
 import {TStatsState} from '../types/StatsState';
 import {TStatsAction} from '../types/StatsAction';
 
-const INITIAL_STATE: TStatsState = {
+const INITIAL_STATE: any = {
   isFetching: false,
-  data: mockData.getAllStatsData(),
+  data: {},
 };
 
 function stats(state: TStatsState = INITIAL_STATE, action: TStatsAction): TStatsState {

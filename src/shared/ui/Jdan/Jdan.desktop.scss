@@ -1,0 +1,36 @@
+@include not-phone {
+  .Jdan-title {
+    text-align: center;
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+
+  .Jdan-subTitle {
+    font-size: $section_subtitle_font_size_desktop;
+    line-height: 24px;
+    text-align: center;
+    max-width: 800px;
+    margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .Jdan-items {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 0;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .Jdan-item {
+    width: 25%;
+    text-align: center;
+  }
+
+  .Jdan-itemDate {
+    font-size: 14px;
+    margin-top: 30px;
+  }
+}

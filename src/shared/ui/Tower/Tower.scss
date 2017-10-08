@@ -1,0 +1,96 @@
+.Tower {
+  .is-prime {
+    color: greenyellow;
+  }
+
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+}
+
+.Tower-title {
+  text-align: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
+.Tower-subTitle {
+  @include not-phone {
+    font-size: $section_subtitle_font_size_desktop;
+    line-height: $section_subtitle_font_line_height_desktop;
+    margin-top: $section_subtitle_margin_top_desktop;
+  }
+  @include phone {
+    font-size: $section_subtitle_font_size_mobile;
+    line-height: $section_subtitle_font_line_height_mobile;
+    margin-top: $section_subtitle_margin_top_mobile;
+  }
+
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 630px;
+}
+
+.Tower-items {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0;
+}
+
+.Tower-item {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 0;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.Tower-itemValue {
+  font-size: 12px;
+  flex: 0 0 30%;
+
+  &.is-hidden {
+    visibility: hidden;
+  }
+}
+
+.Tower-item:not(.is-prime) .Tower-itemValue {
+  color: #999;
+}
+
+.Tower-item.is-hasSelectedDate .Tower-itemValue,
+.Tower-itemDate.is-selected {
+  color: orange;
+}
+
+.Tower-item.is-hasDates_no {
+  color: #999;
+}
+
+.Tower-itemDates {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.Tower-itemDate {
+  line-height: 20px;
+
+  &:not(:last-child)::after {
+    content: ',';
+    margin-right: 5px;
+  }
+}

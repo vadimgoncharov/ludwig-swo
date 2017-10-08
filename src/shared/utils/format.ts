@@ -16,10 +16,6 @@ function formatValueToTimesWithPluralize(value: number): string {
   return formatValueToTimes(value, true);
 }
 
-function formatValueToTimesWithoutPluralize(value: number): string {
-  return formatValueToTimes(value, false);
-}
-
 function formatThousands(value: number): string {
   return formatThousandsLib(value) as string;
 }
@@ -37,10 +33,20 @@ function caplitalizeFirstLetter(value: string): string {
   return value[0].toUpperCase() + value.slice(1);
 }
 
+function addLeadingZero(value: number|string): string {
+  const numberValue: number = +value;
+
+  if (numberValue < 10) {
+    return `0${numberValue}`;
+  }
+
+  return `${value}`;
+}
+
 export {
   formatValueToTimesWithPluralize,
-  formatValueToTimesWithoutPluralize,
   formatThousands,
   formatDays,
   caplitalizeFirstLetter,
+  addLeadingZero,
 }

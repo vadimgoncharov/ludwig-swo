@@ -1,0 +1,60 @@
+.Seasons {
+  margin: 0 auto;
+  max-width: 940px;
+}
+
+.Seasons-title {
+  text-align: center;
+  @include not-phone {
+    font-size: $section_title_font_size_desktop;
+    line-height: $section_title_font_line_height_desktop;
+  }
+  @include phone {
+    font-size: $section_title_font_size_mobile;
+    line-height: $section_title_font_line_height_mobile;
+  }
+}
+
+.Seasons-items {
+  margin: 15px 10px 0;
+}
+
+.Seasons-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 10px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.Seasons-item.is-selected {
+  .Seasons-itemLineValue {
+    height: 5px;
+  }
+}
+
+.Seasons-itemName {
+  text-align: right;
+  flex: 0 0 55px;
+  text-transform: lowercase;
+}
+
+.Seasons-itemLine {
+  flex: 1 0 0;
+  margin: 0 20px;
+}
+
+.Seasons-itemLineValue {
+  height: 1px;
+}
+
+.Seasons .SectionContent.is-inViewport .Seasons-itemLineValue {
+  transition: width 500ms ease-in, height 500ms ease-in;
+}
+
+.Seasons-itemValue {
+  white-space: nowrap;
+}
