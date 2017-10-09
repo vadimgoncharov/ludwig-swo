@@ -6,13 +6,11 @@ import {TGlobalState} from 'shared/types/GlobalState';
 import {THalfYear} from 'shared/types/HalfYear';
 import {TDispatch} from 'shared/types/Dispatch';
 type TStateFromProps = {
-  isFetching: boolean;
   halfYear: THalfYear;
 };
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     halfYear: state.stats.data.halfYear,
   };
 };

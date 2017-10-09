@@ -8,7 +8,6 @@ import {TDispatch} from 'shared/types/Dispatch';
 import {TTotal} from 'shared/types/Total';
 import {TMinMax} from 'shared/types/MinMax';
 type TStateFromProps = {
-  isFetching: boolean;
   dayInYear: TDayInYear;
   total: TTotal,
   minMax: TMinMax,
@@ -16,7 +15,6 @@ type TStateFromProps = {
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     dayInYear: state.stats.data.dayInYear,
     total: state.stats.data.total,
     minMax: state.stats.data.minMax,
@@ -26,14 +24,12 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
 class MonthInCloudsContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {
-      isFetching,
       dayInYear,
       total,
       minMax,
     } = this.props;
     return (
       <MonthInClouds
-        isFetching={isFetching}
         dayInYear={dayInYear}
         minMax={minMax}
         total={total}

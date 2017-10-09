@@ -9,7 +9,6 @@ import './Slashes.scss';
 import {TDayInYear} from 'shared/types/DayInYear';
 import {TTotal} from 'shared/types/Total';
 type TProps = {
-  isFetching: boolean,
   dayInYear: TDayInYear,
   total: TTotal,
 };

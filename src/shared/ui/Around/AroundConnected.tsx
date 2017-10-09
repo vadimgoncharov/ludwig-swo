@@ -6,18 +6,17 @@ import {TGlobalState} from 'shared/types/GlobalState';
 import {TAround} from 'shared/types/Around';
 import {TDispatch} from 'shared/types/Dispatch';
 type TStateFromProps = {
-  isFetching: boolean;
   around: TAround;
 };
+type TProps = TStateFromProps & DispatchProp<TDispatch>;
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     around: state.stats.data.around,
   };
 };
 
-class StatAroundContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
+class StatAroundContainer extends React.Component<TProps, any> {
   public render() {
     const {dispatch, ...props} = this.props;
     return (

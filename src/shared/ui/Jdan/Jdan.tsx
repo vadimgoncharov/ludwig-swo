@@ -9,7 +9,6 @@ import {TJdan} from 'shared/types/Jdan';
 import {TJdanValueAtDayNum} from 'shared/types/JdanValueAtDayNum';
 enum TToggleSelectedKey {hal, ch}
 type TProps = {
-  isFetching: boolean,
   jdan: TJdan,
 };
 type TState = {

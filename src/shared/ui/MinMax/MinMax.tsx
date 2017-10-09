@@ -11,7 +11,6 @@ import {TMinMax} from 'shared/types/MinMax';
 import {TValueAtDayNum} from 'shared/types/ValueAtDayNum';
 
 type TProps = {
-  isFetching: boolean,
   minMax: TMinMax,
 };
 type TState = {

@@ -7,7 +7,6 @@ import './HalfYear.scss';
 
 import {THalfYear} from 'shared/types/HalfYear';
 type TProps = {
-  isFetching: boolean,
   halfYear: THalfYear,
 };
 type TState = {

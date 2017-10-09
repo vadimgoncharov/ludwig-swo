@@ -8,7 +8,6 @@ import './Around.scss';
 
 import {TAround} from 'shared/types/Around';
 type TProps = {
-  isFetching: boolean,
   around: TAround,
 };
 type TState = {

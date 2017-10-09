@@ -6,13 +6,11 @@ import {TGlobalState} from 'shared/types/GlobalState';
 import {TJdan} from 'shared/types/Jdan';
 import {TDispatch} from 'shared/types/Dispatch';
 type TStateFromProps = {
-  isFetching: boolean;
   jdan: TJdan;
 };
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     jdan: state.stats.data.jdan,
   };
 };

@@ -17,7 +17,6 @@ import {TDayInYear} from 'shared/types/DayInYear';
 import {TTotal} from 'shared/types/Total';
 import {TMinMax} from 'shared/types/MinMax';
 type TProps = {
-  isFetching: boolean,
   dayInYear: TDayInYear,
   total: TTotal,
   minMax: TMinMax,

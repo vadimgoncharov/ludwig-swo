@@ -6,13 +6,11 @@ import {TGlobalState} from 'shared/types/GlobalState';
 import {TDispatch} from 'shared/types/Dispatch';
 import {TPrevDates} from 'shared/types/PrevDates';
 type TStateFromProps = {
-  isFetching: boolean;
   prevDates: TPrevDates;
 };
 
 const mapStateToProps = (state: TGlobalState) => {
   return {
-    isFetching: state.stats.isFetching,
     prevDates: state.stats.data.prevDates,
   };
 };

@@ -8,7 +8,6 @@ import {TTotal} from 'shared/types/Total';
 import {TMonthsDay} from 'shared/types/MonthsDay';
 import {TMonths} from 'shared/types/Months';
 type TStateFromProps = {
-  isFetching: boolean;
   total: TTotal,
   months: TMonths,
   monthsDay: TMonthsDay,
@@ -16,7 +15,6 @@ type TStateFromProps = {
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     total: state.stats.data.total,
     months: state.stats.data.months,
     monthsDay: state.stats.data.monthsDay,
@@ -26,14 +24,12 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
 class SumColumnsContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {
-      isFetching,
       total,
       months,
       monthsDay,
     } = this.props;
     return (
       <SumColumns
-        isFetching={isFetching}
         total={total}
         months={months}
         monthsDay={monthsDay}

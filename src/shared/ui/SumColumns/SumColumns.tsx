@@ -18,7 +18,6 @@ import {
 import {formatDays, formatValueToTimesWithPluralize} from 'shared/utils/format';
 
 type TProps = {
-  isFetching: boolean,
   total: TTotal,
   months: TMonths,
   monthsDay: TMonthsDay,

@@ -10,7 +10,6 @@ import './DayInMonthHistogram.scss';
 import {TDayInMonth} from 'shared/types/DayInMonth';
 import {TTotal} from 'shared/types/Total';
 type TProps = {
-  isFetching: boolean,
   dayInMonth: TDayInMonth,
   total: TTotal,
 };

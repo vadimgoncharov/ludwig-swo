@@ -10,7 +10,6 @@ import './PrevDates.scss';
 
 import {TPrevDates} from 'shared/types/PrevDates';
 type TProps = {
-  isFetching: boolean,
   prevDates: TPrevDates,
 };
 type TState = {

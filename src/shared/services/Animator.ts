@@ -52,6 +52,7 @@ export default class Animator<TValue> {
     }
     if (Array.isArray(newValue) && newValue.length > 0) {
       const newValueFlatten = this.flattenValue(newValue);
+      // TODO change "1" to "0"
       tween.to(newValueFlatten, this.animationEnabled ? this.props.duration : 1);
     }
     this.changeState(AnimationState.RUNNING);

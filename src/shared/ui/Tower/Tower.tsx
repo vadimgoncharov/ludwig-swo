@@ -12,7 +12,6 @@ import {TMinMax} from 'shared/types/MinMax';
 import {TTower} from 'shared/types/Tower';
 import {TDayNumsAtValue} from 'shared/types/DayNumsAtValue';
 type TProps = {
-  isFetching: boolean,
   total: TTotal,
   minMax: TMinMax,
   tower: TTower,

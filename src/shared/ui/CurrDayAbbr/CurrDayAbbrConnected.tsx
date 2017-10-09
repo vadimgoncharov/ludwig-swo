@@ -6,18 +6,17 @@ import {TGlobalState} from 'shared/types/GlobalState';
 import {TTotal} from 'shared/types/Total';
 import {TDispatch} from 'shared/types/Dispatch';
 type TStateFromProps = {
-  isFetching: boolean;
   total: TTotal;
 };
+type TProps = TStateFromProps & DispatchProp<TDispatch>;
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     total: state.stats.data.total,
   };
 };
 
-class CurrDayAbbrContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
+class CurrDayAbbrContainer extends React.Component<TProps, any> {
   public render() {
     const {dispatch, ...props} = this.props;
     return (

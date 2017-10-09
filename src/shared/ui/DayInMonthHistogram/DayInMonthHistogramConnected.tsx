@@ -7,29 +7,26 @@ import {TDayInMonth} from 'shared/types/DayInMonth';
 import {TDispatch} from 'shared/types/Dispatch';
 import {TTotal} from 'shared/types/Total';
 type TStateFromProps = {
-  isFetching: boolean;
   dayInMonth: TDayInMonth;
   total: TTotal,
 };
+type TProps = TStateFromProps & DispatchProp<TDispatch>;
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     dayInMonth: state.stats.data.dayInMonth,
     total: state.stats.data.total,
   };
 };
 
-class StatDayInMonthContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
+class StatDayInMonthContainer extends React.Component<TProps, any> {
   public render() {
     const {
-      isFetching,
       dayInMonth,
       total,
     } = this.props;
     return (
       <DayInMonthHistogram
-        isFetching={isFetching}
         dayInMonth={dayInMonth}
         total={total}
       />

@@ -14,7 +14,6 @@ import './Typogr.scss';
 import {TTotal} from 'shared/types/Total';
 
 type TProps = {
-  isFetching: boolean,
   total: TTotal,
 };
 type TState = {

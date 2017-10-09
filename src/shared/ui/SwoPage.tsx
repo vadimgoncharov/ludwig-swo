@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Header             from './Header/Header.connected';
+import Header             from './Header/HeaderConnected';
 import Hero               from './Hero/HeroConnected';
 import Typogr             from './Typogr/TypogrConnected';
 import Target             from './Target/TargetConnected';

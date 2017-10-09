@@ -11,7 +11,6 @@ import './Square.scss';
 
 import {TLastGeneratedDate} from 'shared/types/LastGeneratedDate';
 type TProps = {
-  isFetching: boolean,
   lastGeneratedDate: TLastGeneratedDate,
 };
 type TState = {

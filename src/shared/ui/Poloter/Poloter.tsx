@@ -51,7 +51,7 @@ export default class Poloter extends React.Component<TProps, any> {
   }
 
   public render() {
-    const className = `Poloter is-mirrored_${this.props.isMirrored ? 'yes' : 'no'}`
+    const className = `Poloter is-mirrored_${this.props.isMirrored ? 'yes' : 'no'}`;
     return (
       <div className={className} ref={this.onRootRefSet} dangerouslySetInnerHTML={{__html: poloterSvg}} />
     );

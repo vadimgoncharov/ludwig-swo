@@ -13,7 +13,6 @@ import {TTotalEvenOdd} from 'shared/types/TotalEvenOdd';
 import {TTotal} from 'shared/types/Total';
 
 type TProps = {
-  isFetching: boolean,
   totalEvenOdd: TTotalEvenOdd,
   total: TTotal,
 };

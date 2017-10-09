@@ -6,12 +6,10 @@ import {TGlobalState} from 'shared/types/GlobalState';
 import {TMinMax} from 'shared/types/MinMax';
 import {TDispatch} from 'shared/types/Dispatch';
 type TStateFromProps = {
-  isFetching: boolean;
   minMax: TMinMax;
 };
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     minMax: state.stats.data.minMax,
   };
 };

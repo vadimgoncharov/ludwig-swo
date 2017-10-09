@@ -8,7 +8,6 @@ import {TTotal} from 'shared/types/Total';
 import {TMinMax} from 'shared/types/MinMax';
 import {TTower} from 'shared/types/Tower';
 type TStateFromProps = {
-  isFetching: boolean;
   total: TTotal,
   minMax: TMinMax,
   tower: TTower,
@@ -16,7 +15,6 @@ type TStateFromProps = {
 
 const mapStateToProps = (state: TGlobalState): TStateFromProps => {
   return {
-    isFetching: state.stats.isFetching,
     total: state.stats.data.total,
     minMax: state.stats.data.minMax,
     tower: state.stats.data.tower,
@@ -26,14 +24,12 @@ const mapStateToProps = (state: TGlobalState): TStateFromProps => {
 class TowerContainer extends React.Component<TStateFromProps & DispatchProp<TDispatch>, any> {
   public render() {
     const {
-      isFetching,
       total,
       minMax,
       tower,
     } = this.props;
     return (
       <Tower
-        isFetching={isFetching}
         minMax={minMax}
         total={total}
         tower={tower}

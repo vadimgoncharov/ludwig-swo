@@ -17,7 +17,6 @@ import './Seasons.scss';
 import {TTotal} from 'shared/types/Total';
 import {TSeasons} from 'shared/types/Seasons';
 type TProps = {
-  isFetching: boolean,
   seasons: TSeasons,
   total: TTotal,
 };
