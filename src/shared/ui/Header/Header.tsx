@@ -52,8 +52,10 @@ export default class Header extends React.Component<TProps, TState> {
   }
 
   public render() {
+    const {isSwoDateVisible} = this.props;
+    const className = classNames('Header', `is-swoDateVisible_${isSwoDateVisible ? 'yes' : 'no'}`);
     return (
-      <section className="Header" id={HEADER_ELEMENT_ID}>
+      <section className={className} id={HEADER_ELEMENT_ID}>
         <div className="Header-nav">
           <div className="Header-navItem is-swo">
             {this.renderSwoDate()}
@@ -74,11 +76,10 @@ export default class Header extends React.Component<TProps, TState> {
   };
 
   private renderSwoDate() {
-    const {isFetching, isSwoDateVisible, total} = this.props;
+    const {isFetching, total} = this.props;
     const className = classNames(
       'Header-swoDate',
       `is-fetching_${isFetching ? 'yes' : 'no'}`,
-      `is-valueVisible_${isSwoDateVisible ? 'yes' : 'no'}`,
     );
 
     return (
@@ -99,9 +100,28 @@ export default class Header extends React.Component<TProps, TState> {
               </span>
             </CSSTransitionGroup>
           </span>
-        </span>{' '}
-        <span className="Header-swoDateFetchButton" onClick={this.onFetchLinkClick}>Другая дата</span>
+        </span>{' '}{this.renderFetchButtonLong()}{this.renderFetchButtonShort()}
       </div>
+    );
+  }
+
+  private renderFetchButtonLong() {
+    return (
+      <span
+        className="Header-swoDateFetchButtonContainer is-long"
+        onClick={this.onFetchLinkClick}
+      >Или в <span className="Header-swoDateFetchButton">другой день</span>
+      </span>
+    );
+  }
+
+  private renderFetchButtonShort() {
+    return (
+      <span
+        className="Header-swoDateFetchButtonContainer is-short"
+        onClick={this.onFetchLinkClick}
+      ><span className="Header-swoDateFetchButton">Другой день</span>
+      </span>
     );
   }
 

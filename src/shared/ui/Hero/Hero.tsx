@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Waypoint from 'react-waypoint';
+import * as classNames from 'classnames';
 import {CSSTransitionGroup} from 'react-transition-group';
 import SectionContent from 'shared/ui/SectionContent/SectionContent';
 import Nav from '../Nav/Nav';
@@ -17,6 +18,7 @@ type TProps = {
   isFetching: boolean,
   total: TTotal,
   onHeaderSwoDateVisibilityChange: (isVisible: boolean) => void,
+  onFetchLinkClick: () => void,
 };
 type TState = {
   animatorCurrValue: TAnimatorValue,
@@ -66,11 +68,16 @@ export default class Hero extends React.Component<TProps, TState> {
   }
 
   public render() {
+    const className = classNames(
+      'Hero',
+      `is-fetching_${this.props.isFetching ? 'yes' : 'no'}`,
+    );
     return (
-      <section className="Hero">
+      <section className={className}>
         <SectionContent navSection={navSectionData}>
           {this.renderDayNum()}
           {this.renderDate()}
+          {this.renderChangeDate()}
           {this.renderPoloter()}
           {this.renderTotal()}
           {this.renderTotalDescription()}
@@ -100,13 +107,7 @@ export default class Hero extends React.Component<TProps, TState> {
     const {total} = this.props;
     return (
       <div className="Hero-swo">
-        <Waypoint
-          onEnter={this.onHeroSwoEnter}
-          onLeave={this.onHeroSwoLeave}
-          onPositionChange={this.onHeroSwoPositionChange}
-        >
-          <div className="Hero-swoText">Сайт откроется</div>
-        </Waypoint>
+        <div className="Hero-swoText">Сайт откроется</div>
         <CSSTransitionGroup
           className="Hero-swoDateContainer"
           component="div"
@@ -122,6 +123,20 @@ export default class Hero extends React.Component<TProps, TState> {
           </div>
         </CSSTransitionGroup>
       </div>
+    );
+  }
+
+  private renderChangeDate() {
+    return (
+      <Waypoint
+        onEnter={this.onHeroSwoEnter}
+        onLeave={this.onHeroSwoLeave}
+        onPositionChange={this.onHeroSwoPositionChange}
+      >
+        <div className="Hero-changeDate">
+          Или в <span className="Hero-fetchButton" onClick={this.onFetchLinkClick}>другой день</span>
+        </div>
+      </Waypoint>
     );
   }
 
@@ -200,6 +215,13 @@ export default class Hero extends React.Component<TProps, TState> {
      if (data.currentPosition !== 'inside') {
        this.props.onHeaderSwoDateVisibilityChange(true);
      }
+  };
+
+  private onFetchLinkClick = () => {
+    const {isFetching, onFetchLinkClick} = this.props;
+    if (!isFetching) {
+      onFetchLinkClick();
+    }
   };
 
   private createAnimator(): Animator<TAnimatorValue> {

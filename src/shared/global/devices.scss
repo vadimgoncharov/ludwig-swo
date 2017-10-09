@@ -31,7 +31,7 @@ $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 
 @mixin phone-small {
-  @media screen and (max-width: #{$screen-xxs-max}) {
+  @media screen and (max-width: #{$screen-xxs}) {
     @content;
   }
 }

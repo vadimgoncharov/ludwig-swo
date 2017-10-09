@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+import {fetchStats} from 'shared/actions/stats';
 import Header from './Header';
 
-import {fetchStats} from 'shared/actions/stats';
 import {TGlobalState} from 'shared/types/GlobalState';
 import {TDispatch} from 'shared/types/Dispatch';
 import {TTotal} from 'shared/types/Total';

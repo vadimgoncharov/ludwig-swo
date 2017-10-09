@@ -1,12 +1,25 @@
 .Header {
   position: fixed;
   left: 0;
-  top: 0;
+  top: auto;
+  bottom: 0;
   width: 100%;
   background-color: #000;
   z-index: 999;
-  box-shadow: 0 1px 2px rgba(#fff, 0.2);
-  padding: 15px 0 5px;
+  box-shadow: 0 -1px 2px rgba(#fff, 0.2);
+  padding: 15px 0;
+  transform: translate3d(0, 100%, 0);
+  opacity: 0;
+  transition: 250ms transform ease-in-out, 250ms opacity ease-in-out;
+
+  @include phone {
+    padding: 12px 0;
+  }
+
+  &.is-swoDateVisible_yes {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
 .Header-nav {
@@ -33,37 +46,40 @@
 
 .Header-swoDateValueInner {
   display: inline-block;
-  transition:
-    250ms opacity ease-in-out,
-    250ms transform ease-in-out,
-    250ms margin ease-in-out,
-    250ms max-width ease-in-out;
-  transform: translate(-7px, 0);
-  opacity: 0;
-  max-width: 1%;
+  transform: translate(0, 0);
   white-space: nowrap;
   overflow: hidden;
   vertical-align: bottom;
+  opacity: 1;
+  max-width: 100%;
 }
 
-.Header-swoDate.is-valueVisible_yes {
-  .Header-swoDateValueInner {
-    //transform: translate(0, 0);
-    opacity: 1;
-    max-width: 100%;
+
+.Header-swoDateFetchButtonContainer {
+  position: relative;
+  top: 1px;
+  padding: 2px;
+  margin-left: 3px;
+
+  &.is-long {
+    display: inline;
+    @include phone-small {
+      display: none;
+    }
   }
 
-  .Header-swoDateFetchButton {
-    text-transform: lowercase;
-    margin-left: 3px;
+  &.is-short {
+    display: none;
+    @include phone-small {
+      display: inline;
+    }
   }
 }
 
 .Header-swoDateFetchButton {
   transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
   user-select: none;
-  padding: 2px;
-  margin-left: 0;
+  white-space: nowrap;
 }
 
 .Header-swoDate {

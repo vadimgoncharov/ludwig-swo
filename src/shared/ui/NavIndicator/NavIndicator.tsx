@@ -49,13 +49,12 @@ export default class NavIndicator extends React.Component<TProps, any> {
   private onClick = (event: React.FormEvent<HTMLDivElement>) => {
     const targetId = event.currentTarget.dataset.target;
     const targetEl = document.getElementById(targetId);
-    const headerEl = document.getElementById(HEADER_ELEMENT_ID);
+    // const headerEl = document.getElementById(HEADER_ELEMENT_ID);
     const SAFE_PADDING = 10;
     if (targetEl) {
       const pos = (
         targetEl.getBoundingClientRect().top -
         document.body.getBoundingClientRect().top -
-        headerEl.offsetHeight -
         SAFE_PADDING
       );
       animateScrollTo(pos);
