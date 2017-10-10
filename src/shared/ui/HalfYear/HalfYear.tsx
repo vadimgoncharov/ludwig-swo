@@ -84,6 +84,7 @@ export default class HalfYear extends React.Component<TProps, TState> {
     return new Animator<TAnimatorValue>({
       from: [{first: this.state.animatorCurrValue.first, second: this.state.animatorCurrValue.second}],
       duration: ANIMATION_DURATION_DEFAULT,
+      roundValues: false,
       comparator: (oldValues, newValues) => {
         return (oldValues[0].first !== newValues[0].first || oldValues[0].second !== newValues[0].second)
       },
