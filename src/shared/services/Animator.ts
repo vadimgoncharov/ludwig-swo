@@ -8,6 +8,7 @@ type TProps<TValue> = {
   onStateChange?: (animationState: AnimationState) => void,
   comparator: (oldValues: TValue[], newValues: TValue[]) => boolean,
   easing?: (k: number) => number,
+  roundValues?: boolean,
 };
 
 export enum AnimationState {
@@ -28,10 +29,14 @@ export default class Animator<TValue> {
   private animationEnabled: boolean = false;
   private animationState: AnimationState = AnimationState.NOT_STARTED;
   private tween: typeof TWEEN.Tween.prototype;
+  private roundValues: boolean = true;
 
   constructor(props: TProps<TValue>) {
     this.props = props;
 
+    if (typeof props.roundValues === 'boolean') {
+      this.roundValues = props.roundValues;
+    }
     this.currValue = this.flattenValue(props.from);
     this.tween = this.createTween();
   }
@@ -44,6 +49,10 @@ export default class Animator<TValue> {
     this.animationEnabled = false;
   };
 
+  public enabled() {
+    return this.animationEnabled;
+  }
+
   public start(newValue: TValue[]): void {
     const {tween} = this;
     if (this.animationState !== AnimationState.NOT_STARTED) {
@@ -52,8 +61,7 @@ export default class Animator<TValue> {
     }
     if (Array.isArray(newValue) && newValue.length > 0) {
       const newValueFlatten = this.flattenValue(newValue);
-      // TODO change "1" to "0"
-      tween.to(newValueFlatten, this.animationEnabled ? this.props.duration : 1);
+      tween.to(newValueFlatten, this.animationEnabled ? this.props.duration : 0);
     }
     this.changeState(AnimationState.RUNNING);
     tween.start();
@@ -95,7 +103,7 @@ export default class Animator<TValue> {
     });
     tween.easing(this.props.easing || TWEEN.Easing.Exponential.Out);
     tween.onComplete(() => {
-      this.changeValue(this.fromFlattenToArray(this.currValue));
+      this.changeValue(this.fromFlattenToArray(this.currValue), true);
       this.changeState(AnimationState.FINISHED);
       const {onComplete} = this.props;
       if (typeof onComplete === 'function') {
@@ -118,6 +126,7 @@ export default class Animator<TValue> {
   }
 
   private fromFlattenToArray(flattenValue: TFlattenValue<TValue>): TValue[] {
+    const {roundValues} = this;
     let maxIndex = 0;
     Object.keys(flattenValue).forEach((flattenKey) => {
       const [index, key] = flattenKey.split('.');
@@ -129,7 +138,11 @@ export default class Animator<TValue> {
       if (typeof values[index] === 'undefined') {
         values[index] = {};
       }
-      values[index][key] = flattenValue[flattenKey];
+      let finalValue: any = flattenValue[flattenKey];
+      if (typeof finalValue === 'number' && roundValues) {
+        finalValue = Math.round(finalValue);
+      }
+      values[index][key] = finalValue;
     });
     return values as TValue[];
   }
@@ -142,7 +155,9 @@ export default class Animator<TValue> {
     }
   }
 
-  private changeValue(newValues: TValue[]): void {
-    this.props.onValueChange(newValues);
+  private changeValue(newValues: TValue[], forceChange: boolean = false): void {
+    if (forceChange || this.animationEnabled) {
+      this.props.onValueChange(newValues);
+    }
   }
 }
