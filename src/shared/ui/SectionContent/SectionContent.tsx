@@ -66,7 +66,6 @@ class SectionContent extends React.Component<TStateFromProps & TDispatchFromProp
     return (
       <Waypoint
         onPositionChange={this.onSectionPositionChange}
-        topOffset={headerHeight}
       >
         <div className={rootClassName} id={`section_${navSection.hash}`}>
           <a id={navSection.hash} />
