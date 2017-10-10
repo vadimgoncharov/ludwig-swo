@@ -175,7 +175,9 @@ function seasonKeyToColor(seasonKey: string): {bg: string, text: string} {
     case SEASON_NAME_SUMMER:
       return MONTH_COLORS[7];
     case SEASON_NAME_AUTUMN:
-      return MONTH_COLORS[9];
+      // TODO replace hardcoded values
+      return {bg: '#927b89', text: '#ffffff'};
+      // return MONTH_COLORS[9];
   }
 }
 
