@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import Link from 'shared/components/Link/Link';
+import Link from '../Link';
 import {getRandomInt} from 'shared/utils/random';
 import './Footer.scss';
 
