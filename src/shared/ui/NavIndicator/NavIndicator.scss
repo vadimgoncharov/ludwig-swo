@@ -11,17 +11,18 @@
 }
 
 .NavIndicator-item {
-  $size_hover: 20px;
+  $width_hover: 30px;
+  $height_hover: 20px;
   $size_bg: 6px;
 
-  width: $size_hover;
-  height: $size_hover;
+  width: $width_hover;
+  height: $height_hover;
   position: relative;
   z-index: 10;
   cursor: pointer;
   background-color: #000;
 
-  &::before {
+  &:not(.is-hasImg)::before {
     content: '';
     position: absolute;
     left: 50%;
@@ -36,15 +37,36 @@
     transition: background-color 100ms ease-out;
   }
 
-  &.is-selectedFirst::before {
-    background-color: orange;
-  }
+  &.is-selectedFirst {
+    &::before {
+      background-color: orange;
+    }
 
-  &.is-selected:not(.is-selectedFirst)::before {
-    //background-color: rgba(orange, 0.3);
+    .NavIndicator-itemImg {
+      opacity: 1;
+    }
   }
 
   &:hover::before {
     background-color: rgba(orange, 0.9);
+  }
+
+  &:hover .NavIndicator-itemImg {
+    opacity: 1;
+  }
+}
+
+.NavIndicator-itemImg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: 250ms opacity ease-in-out;
+  opacity: 0.5;
+
+  &,
+  > svg {
+    width: 20px;
+    height: 20px;
   }
 }

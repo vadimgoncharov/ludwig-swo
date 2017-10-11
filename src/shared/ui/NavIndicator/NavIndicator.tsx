@@ -21,7 +21,8 @@ export default class NavIndicator extends React.Component<TProps, any> {
       <div className="NavIndicator">
         <div className="NavIndicator-items">
           {navSections.map((section, index) => {
-            const isSelected = selectedNavHashes[section.hash];
+            const {title, hash, img} = section;
+            const isSelected = selectedNavHashes[hash];
             let isSelectedFirst = false;
             if (!atLeastOneHashSelected && isSelected) {
               atLeastOneHashSelected = true;
@@ -30,15 +31,17 @@ export default class NavIndicator extends React.Component<TProps, any> {
             const className = classNames('NavIndicator-item', {
               'is-selectedFirst': isSelectedFirst,
               'is-selected': isSelected,
+              'is-hasImg': Boolean(img),
             });
             return (
               <div
                 className={className}
                 key={index}
-                data-target={`section_${section.hash}`}
+                data-target={`section_${hash}`}
                 onClick={this.onClick}
-                title={section.title}
-              />
+                title={title}
+              >{img && <div className="NavIndicator-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
+              </div>
             );
           })}
         </div>

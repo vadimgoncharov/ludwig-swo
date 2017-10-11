@@ -19,14 +19,16 @@ export default class Nav extends React.Component<TProps, any> {
         <div className="Nav-title">Краткое содержание:</div>
         <div className="Nav-items">
           {navSections.slice(1).map((section, index) => {
+            const {hash, title, img} = section;
             return (
               <div
                 className="Nav-item"
                 key={index}
-                data-target={`section_${section.hash}`}
+                data-target={`section_${hash}`}
                 onClick={this.onClick}
               >
-                {section.title}
+                {img && <div className="Nav-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
+                <div className="Nav-itemTitle"> {title}</div>
               </div>
             );
           })}
