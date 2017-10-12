@@ -27,7 +27,7 @@
   min-height: 100px;
   margin: 5px;
   padding: 10px;
-  border: 1px #3d3d3d solid;
+  border: 0px #3d3d3d solid;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +44,7 @@
   }
 
   &:hover {
-    border: 1px orange solid;
+    border: 0px orange solid;
     color: orange;
   }
 }
@@ -52,11 +52,12 @@
 .Nav-itemImg {
   &,
   > svg {
-    width: 56px;
-    height: 56px;
+    width: 100px;
+    height: 100px;
   }
 }
 
 .Nav-itemImg + .Nav-itemTitle {
   margin-top: 10px;
+  display: none;
 }

@@ -19,7 +19,7 @@ export default class Nav extends React.Component<TProps, any> {
         <div className="Nav-title">Краткое содержание:</div>
         <div className="Nav-items">
           {navSections.slice(1).map((section, index) => {
-            const {hash, title, img} = section;
+            const {hash, title, img, Component} = section;
             return (
               <div
                 className="Nav-item"
@@ -27,7 +27,8 @@ export default class Nav extends React.Component<TProps, any> {
                 data-target={`section_${hash}`}
                 onClick={this.onClick}
               >
-                {img && <div className="Nav-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
+                {Component && <div className="Nav-itemImg"><Component /></div>}
+                {(!Component && img) && <div className="Nav-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
                 <div className="Nav-itemTitle"> {title}</div>
               </div>
             );
