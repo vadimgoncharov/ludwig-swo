@@ -69,6 +69,12 @@ module.exports = {
         ]
       },
       {
+        test: /\.(jpe?g|png|gif)$/,
+        use: [
+          {loader: 'base64-inline-loader'},
+        ]
+      },
+      {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
