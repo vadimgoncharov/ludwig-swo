@@ -25,17 +25,15 @@
 .Nav-item {
   width: 20%;
   min-height: 100px;
-  margin: 5px;
   padding: 10px;
-  border: 0px #3d3d3d solid;
+  border: 0 #3d3d3d solid;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   transition: background-color 250ms ease-in-out, border 250ms ease-in-out, color 250ms ease-in-out;
   cursor: pointer;
   @include not-phone {
-    margin: 5px;
+    margin: 5px 5px 20px;
   }
   @include phone {
     width: 35%;
@@ -44,20 +42,24 @@
   }
 
   &:hover {
-    border: 0px orange solid;
+    border: 0 orange solid;
     color: orange;
   }
 }
 
 .Nav-itemImg {
   &,
-  > svg {
+  > * {
     width: 100px;
     height: 100px;
   }
 }
 
 .Nav-itemImg + .Nav-itemTitle {
-  margin-top: 10px;
-  display: none;
+  margin-top: 18px;
+}
+
+.Nav-itemTitle {
+  font-size: 16px;
+  line-height: 20px;
 }

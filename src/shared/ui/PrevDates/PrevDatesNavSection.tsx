@@ -7,8 +7,11 @@ type TPosition = {
   x: number,
   y: number,
 };
+type TProps = {
+  triggerAnimation: boolean,
+};
 
-export default class PrevDatesNavSection extends React.Component<void, void> {
+export default class PrevDatesNavSection extends React.Component<TProps, void> {
   private rootEl: HTMLElement;
   private svgSquare1: SVGPathElement;
   private svgSquare2: SVGPathElement;
@@ -39,6 +42,17 @@ export default class PrevDatesNavSection extends React.Component<void, void> {
     {x: 29 * 2, y: 0},
     {x: -29 * 2, y: 0},
   ];
+
+  public componentWillReceiveProps(nextProps: TProps) {
+    if (this.props.triggerAnimation !== nextProps.triggerAnimation) {
+      if (nextProps.triggerAnimation) {
+        this.tweens.forEach((tween) => tween.play());
+      } else {
+        this.tweens.forEach((tween) => tween.reverse());
+      }
+    }
+  }
+
   public componentDidMount() {
     this.tweens = [
       this.createTween(this.svgSquare1, this.position[0], this.positionTo[0]),
@@ -57,8 +71,6 @@ export default class PrevDatesNavSection extends React.Component<void, void> {
       <div
         className="NavSection"
         ref={this.onRefSet}
-        onMouseOver={this.onMouseOver}
-        onMouseLeave={this.onMouseLeave}
         dangerouslySetInnerHTML={{__html: svg}}
       />
     );
@@ -78,14 +90,6 @@ export default class PrevDatesNavSection extends React.Component<void, void> {
         ease: gsap.Linear.easeInOut,
       });
   }
-
-  private onMouseOver = () => {
-    this.tweens.forEach((tween) => tween.play());
-  };
-
-  private onMouseLeave = () => {
-    this.tweens.forEach((tween) => tween.reverse());
-  };
 
   private move = (element: SVGPathElement, position: TPosition) => {
     const {x, y} = position;
