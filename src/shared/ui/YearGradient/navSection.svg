@@ -2,12 +2,12 @@
     <style>
         .YearGradientSvg0{fill:url(#YearGradientSvg_SVGID_1_);} .YearGradientSvg1{fill:#F9A33F;}
     </style>
-    <g id="Layer_1">
+    <g>
         <linearGradient id="YearGradientSvg_SVGID_1_" gradientUnits="userSpaceOnUse" x1="-958.1024" y1="541.8976" x2="-875.8976" y2="541.8976">
             <stop offset="0" stop-color="#EB2026"/>
             <stop offset="1" stop-color="#1F0E0F"/>
         </linearGradient>
         <rect x="-958.1" y="500.8" class="YearGradientSvg0" width="82.2" height="82.2"/>
     </g>
-    <rect x="-918" y="500.8" class="YearGradientSvg1" width="2" height="82.2" id="Layer_2"/>
+    <rect x="-918" y="500.8" class="YearGradientSvg1" width="2" height="82.2"/>
 </svg>

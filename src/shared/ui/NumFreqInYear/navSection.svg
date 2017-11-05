@@ -2,14 +2,14 @@
     <style>
         .NumFreqInYearSvg0{fill:#EF4A23;} .NumFreqInYearSvg1{fill:#F9A41C;}
     </style>
-    <rect x="-878.5" y="500.8" class="NumFreqInYearSvg0" width="2.8" height="82.2" id="Layer_1"/>
-    <rect x="-887.4" y="500.8" class="NumFreqInYearSvg1" width="2.8" height="82.2" id="Layer_10"/>
-    <rect x="-896.2" y="505.8" class="NumFreqInYearSvg0" width="2.8" height="77.2" id="Layer_9"/>
-    <rect x="-905.1" y="500.8" class="NumFreqInYearSvg0" width="2.8" height="82.2" id="Layer_8"/>
-    <rect x="-914" y="507.8" class="NumFreqInYearSvg0" width="2.8" height="75.2" id="Layer_7"/>
-    <rect x="-922.9" y="520.8" class="NumFreqInYearSvg0" width="2.8" height="62.2" id="Layer_6"/>
-    <rect x="-931.7" y="520.8" class="NumFreqInYearSvg1" width="2.8" height="62.2" id="Layer_5"/>
-    <rect x="-940.6" y="530.8" class="NumFreqInYearSvg0" width="2.8" height="52.2" id="Layer_4"/>
-    <rect x="-949.5" y="507.8" class="NumFreqInYearSvg0" width="2.8" height="75.2" id="Layer_3"/>
-    <rect x="-958.3" y="500.8" class="NumFreqInYearSvg0" width="2.8" height="82.2" id="Layer_2"/>
+    <rect x="-878.5" y="500.8" class="NumFreqInYearSvg0" width="2.8" height="82.2"/>
+    <rect x="-887.4" y="500.8" class="NumFreqInYearSvg1" width="2.8" height="82.2"/>
+    <rect x="-896.2" y="505.8" class="NumFreqInYearSvg0" width="2.8" height="77.2"/>
+    <rect x="-905.1" y="500.8" class="NumFreqInYearSvg0" width="2.8" height="82.2"/>
+    <rect x="-914" y="507.8" class="NumFreqInYearSvg0" width="2.8" height="75.2"/>
+    <rect x="-922.9" y="520.8" class="NumFreqInYearSvg0" width="2.8" height="62.2"/>
+    <rect x="-931.7" y="520.8" class="NumFreqInYearSvg1" width="2.8" height="62.2"/>
+    <rect x="-940.6" y="530.8" class="NumFreqInYearSvg0" width="2.8" height="52.2"/>
+    <rect x="-949.5" y="507.8" class="NumFreqInYearSvg0" width="2.8" height="75.2"/>
+    <rect x="-958.3" y="500.8" class="NumFreqInYearSvg0" width="2.8" height="82.2"/>
 </svg>

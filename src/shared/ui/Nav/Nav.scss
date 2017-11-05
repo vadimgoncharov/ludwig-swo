@@ -48,8 +48,10 @@
 }
 
 .Nav-itemImg {
+  // TODO Make it more clear
   &,
-  > * {
+  > *,
+  > * > svg {
     width: 100px;
     height: 100px;
   }

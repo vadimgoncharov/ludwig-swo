@@ -2,8 +2,8 @@
     <style>
         .SeasonsSvg0{fill:#F6932F;} .SeasonsSvg1{fill:#33B459;} .SeasonsSvg2{fill:#B7D562;} .SeasonsSvg3{fill:#98D9EE;}
     </style>
-    <rect x="-959.3" y="581" class="SeasonsSvg0" width="82.2" height="1" id="Layer_1"/>
-    <rect x="-959.3" y="553.9" class="SeasonsSvg1" width="82.2" height="1" id="Layer_2"/>
-    <rect x="-959.3" y="526.9" class="SeasonsSvg2" width="82.2" height="1" id="Layer_3"/>
-    <rect x="-959.3" y="499.8" class="SeasonsSvg3" width="82.2" height="6" id="Layer_4"/>
+    <rect x="-959.3" y="581" class="SeasonsSvg0" width="82.2" height="1"/>
+    <rect x="-959.3" y="553.9" class="SeasonsSvg1" width="82.2" height="1"/>
+    <rect x="-959.3" y="526.9" class="SeasonsSvg2" width="82.2" height="6"/>
+    <rect x="-959.3" y="499.8" class="SeasonsSvg3" width="82.2" height="1"/>
 </svg>
