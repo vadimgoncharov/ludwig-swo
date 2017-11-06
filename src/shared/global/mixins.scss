@@ -11,6 +11,10 @@
 }
 
 @mixin LinkBlue {
+  .Link {
+    transition: 250ms color ease-out;
+  }
+
   .Link:link,
   .Link:visited {
     color: #428bca;
@@ -18,6 +22,6 @@
 
   .Link:hover,
   .Link:active {
-    color: red;
+    color: rgba(#428bca, 0.7);
   }
 }

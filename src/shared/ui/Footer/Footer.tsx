@@ -8,22 +8,26 @@ type TAuthor = {
   name: string,
   date: number,
   isCurrMaintainer: boolean,
+  link?: string,
 };
 const AUTHORS: TAuthor[] = [
   {
     name: 'Вадим Гончаров',
     date: 2017,
     isCurrMaintainer: true,
+    link: 'http://vadimgoncharov.ru',
   },
   {
     name: 'Алексей Анисимов',
     date: 2015,
     isCurrMaintainer: true,
+    link: 'http://for-fun-dev.com',
   },
   {
     name: 'Андрей Шитов',
     date: 2007,
     isCurrMaintainer: false,
+    link: 'http://shitov.ru',
   },
   {
     name: 'Сергей Муратов',
@@ -47,7 +51,9 @@ export default class Footer extends React.Component<any, any> {
   private renderAuthors() {
     return (
       <div className="Footer-authors">
-        <div className="Footer-authorsOwner">Сайт откроется Людвигом Быстроновским.</div>
+        <div className="Footer-authorsOwner">
+          Сайт откроется <a className="Link" href="/">Людвигом Быстроновским</a>.
+        </div>
         <div className="Footer-authorsDevs">
           <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали:</span>
           <ol className="Footer-authorsDevsItems">
@@ -62,10 +68,18 @@ export default class Footer extends React.Component<any, any> {
     const devsItemClassName = classNames('Footer-authorsDevsItem', {
       'is-currMaintainer': item.isCurrMaintainer,
     });
-    const {name, date} = item;
+    const {name, date, link} = item;
+    let devName = (
+      <span className="Footer-authorsDevsItemName">{name}</span>
+    );
+    if (link) {
+      devName = (
+        <a className="Link" href={link}>{devName}</a>
+      );
+    }
     return (
       <li className={devsItemClassName} key={index}>
-        <span className="Footer-authorsDevsItemName">{name}</span>
+        {devName}
         <span className="Footer-authorsDevsItemDate">{date}</span>
       </li>
     );
