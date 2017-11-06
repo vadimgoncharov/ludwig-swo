@@ -12,8 +12,8 @@ export default class AroundNavSection extends React.Component<TProps, void> {
   private svgPaths: SVGPathElement;
   private tweens: TweenLite[];
   private stylesTo: Array<{fill: string}> = [
-    {fill: '#FF4500'},
-    {fill: '#8B0000'},
+    {fill: '#009b96'},
+    {fill: '#012331'},
   ];
 
   public componentWillReceiveProps(nextProps: TProps) {

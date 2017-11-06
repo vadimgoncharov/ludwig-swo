@@ -54,14 +54,15 @@
   &.is-min,
   &.is-max,
   &.is-selected {
+    background-image: none;
+    background-color: rgba(#000, 0.4);
+    border-radius: 100%;
+    border: 1px #000 solid;
     z-index: 20;
   }
 
   &.is-selected {
-    background-image: none;
-    background-color: orange;
-    border-radius: 100%;
-    border: 1px #000 solid;
+    background-color: $color_item_selected;
     z-index: 30;
   }
 }
@@ -84,7 +85,7 @@
 }
 
 .Target-item.is-selected .Target-itemContent {
-  color: orange;
+  color: $color_item_selected;
 }
 
 .Target.is-lessThenMaxSize .Target-itemContentDate {

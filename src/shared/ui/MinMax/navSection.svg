@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83 83">
-    <path style="fill: rgb(127, 0, 0)" class="MinMaxSvg1" d="M83 83h-2.8V0H83z"/>
-    <path style="fill: rgb(145, 0, 0)" class="MinMaxSvg2" d="M77.3 83h-2.9V0h2.9z"/>
-    <path style="fill: rgb(163, 0, 0)" class="MinMaxSvg3" d="M71.5 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(182, 0, 0)" class="MinMaxSvg4" d="M65.8 83H63V0h2.8z"/>
-    <path style="fill: rgb(200, 0, 0)" class="MinMaxSvg5" d="M60.1 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(218, 0, 0)" class="MinMaxSvg6" d="M54.4 83h-2.9V0h2.9z"/>
-    <path style="fill: rgb(236, 0, 0)" class="MinMaxSvg7" d="M48.6 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(255, 0, 0)" class="MinMaxSvg8" d="M42.9 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(236, 0, 0)" class="MinMaxSvg9" d="M37.2 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(218, 0, 0)" class="MinMaxSvg10" d="M31.5 83h-2.9V0h2.9z"/>
-    <path style="fill: rgb(200, 0, 0)" class="MinMaxSvg11" d="M25.7 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(182, 0, 0)" class="MinMaxSvg12" d="M20 83h-2.8V0H20z"/>
-    <path style="fill: rgb(163, 0, 0)" class="MinMaxSvg13" d="M14.3 83h-2.8V0h2.8z"/>
-    <path style="fill: rgb(145, 0, 0)" class="MinMaxSvg14" d="M8.6 83H5.7V0h2.9z"/>
-    <path style="fill: rgb(127, 0, 0)" class="MinMaxSvg15" d="M2.8 83H0V0h2.8z"/>
+    <path style="fill: rgb(0, 127, 152);" class="MinMaxSvg1" d="M83 83h-2.8V0H83z" />
+    <path style="fill: rgb(0, 140, 166);" class="MinMaxSvg2" d="M77.3 83h-2.9V0h2.9z" />
+    <path style="fill: rgb(0, 153, 181);" class="MinMaxSvg3" d="M71.5 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 166, 196);" class="MinMaxSvg4" d="M65.8 83H63V0h2.8z" />
+    <path style="fill: rgb(0, 179, 210);" class="MinMaxSvg5" d="M60.1 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 192, 225);" class="MinMaxSvg6" d="M54.4 83h-2.9V0h2.9z" />
+    <path style="fill: rgb(0, 205, 240);" class="MinMaxSvg7" d="M48.6 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 219, 255);" class="MinMaxSvg8" d="M42.9 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 205, 240);" class="MinMaxSvg9" d="M37.2 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 192, 225);" class="MinMaxSvg10" d="M31.5 83h-2.9V0h2.9z" />
+    <path style="fill: rgb(0, 179, 210);" class="MinMaxSvg11" d="M25.7 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 166, 196);" class="MinMaxSvg12" d="M20 83h-2.8V0H20z" />
+    <path style="fill: rgb(0, 153, 181);" class="MinMaxSvg13" d="M14.3 83h-2.8V0h2.8z" />
+    <path style="fill: rgb(0, 140, 166);" class="MinMaxSvg14" d="M8.6 83H5.7V0h2.9z" />
+    <path style="fill: rgb(0, 127, 152);" class="MinMaxSvg15" d="M2.8 83H0V0h2.8z" />
 </svg>

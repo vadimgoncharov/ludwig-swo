@@ -59,12 +59,12 @@
   &.is-odd .TotalEvenOdd-descriptionOdd,
   &.is-even .TotalEvenOdd-side.is-orel,
   &.is-odd .TotalEvenOdd-side.is-reshka {
-    color: orange;
+    color: $color_item_selected;
   }
 
   &.is-even .TotalEvenOdd-side.is-orel .TotalEvenOdd-sideImg::before,
   &.is-odd .TotalEvenOdd-side.is-reshka .TotalEvenOdd-sideImg::before {
-    background-color: orange;
+    background-color: $color_item_selected;
     opacity: 0.15;
   }
 }

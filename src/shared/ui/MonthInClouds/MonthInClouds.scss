@@ -116,7 +116,7 @@
   transform: translate3d(0, 0, 0);
 
   &.is-selected {
-    color: orange;
+    color: $color_item_selected;
   }
 
   &.is-visible_no {

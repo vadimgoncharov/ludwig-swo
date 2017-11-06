@@ -1,6 +1,6 @@
 .Tower {
   .is-prime {
-    color: greenyellow;
+    color: #2ffff8;
   }
 
   margin-left: auto;
@@ -71,7 +71,7 @@
 
 .Tower-item.is-hasSelectedDate .Tower-itemValue,
 .Tower-itemDate.is-selected {
-  color: orange;
+  color: $color_item_selected;
 }
 
 .Tower-item.is-hasDates_no {

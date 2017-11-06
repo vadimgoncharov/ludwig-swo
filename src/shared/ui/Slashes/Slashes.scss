@@ -47,7 +47,7 @@
   }
 
   &.is-gt {
-    color: greenyellow;
+    color: #00dbff;
   }
 
   &.is-lt {
@@ -64,6 +64,6 @@
   }
 
   &.is-selected {
-    color: orange;
+    color: $color_item_selected;
   }
 }

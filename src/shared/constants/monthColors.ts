@@ -5,8 +5,8 @@ const monthColors: Array<{bg: string, text: string}> = [
   {bg: '#19B448', text: '#ffffff'}, // apr
   {bg: '#23D210', text: '#000000'}, // may
   {bg: '#FFE508', text: '#000000'}, // june
-  {bg: '#f5560a', text: '#ffffff'}, // july
-  {bg: '#D91B09', text: '#ffffff'}, // aug
+  {bg: '#db520f', text: '#ffffff'}, // july
+  {bg: '#9c2216', text: '#ffffff'}, // aug
   {bg: '#b3b750', text: '#ffffff'}, // sep
   {bg: '#611a45', text: '#ffffff'}, // oct
   {bg: '#420f3e', text: '#ffffff'}, // nov

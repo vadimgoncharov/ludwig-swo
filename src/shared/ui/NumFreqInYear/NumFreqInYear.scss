@@ -55,16 +55,16 @@
 
 .NumFreqInYear-freqColumn.is-selected {
   .NumFreqInYear-freqColumnLine {
-    background-color: orange;
+    background-color: $color_item_selected;
   }
 
   .NumFreqInYear-freqColumnData {
-    color: orange;
+    color: $color_item_selected;
   }
 }
 
 .NumFreqInYear-freqColumnLine {
-  background-color: orangered;
+  background-color: #00ff7a;
   @include not-phone {
     width: 2px;
 
@@ -119,10 +119,10 @@
   margin: 1px 2px;
 
   &.is-oddMonth {
-    color: red;
+    color: #00ff4d;
   }
 
   &.is-selected {
-    color: orange;
+    color: $color_item_selected;
   }
 }

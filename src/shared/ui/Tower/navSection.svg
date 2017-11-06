@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-958.3 500.8 82.7 82.2">
     <style>
-        .TowerSvg0{fill:#FFFFFF;} .TowerSvg1{fill:#AED153;}
-        .TowerSvgSelected{fill:#F9A33F;}
+        .TowerSvg0{fill:#FFFFFF;} .TowerSvg1{fill:#2ffff8;}
+        .TowerSvgSelected{fill:#ff6b00;}
     </style>
     <rect x="-922.8" y="500.8" class="TowerSvg0" width="11.6" height="3"/>
     <rect x="-922.8" y="508.7" class="TowerSvg0" width="11.6" height="3"/>

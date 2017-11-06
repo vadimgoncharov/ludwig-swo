@@ -167,17 +167,24 @@ function dayNumToSeasonKey(dayNum: number): string {
 }
 
 function seasonKeyToColor(seasonKey: string): {bg: string, text: string} {
+  // TODO replace hardcoded values
   switch (seasonKey) {
     case SEASON_NAME_WINTER:
-      return MONTH_COLORS[1];
+      // return MONTH_COLORS[1];
+      // range value = 53
+      return {bg: '#618eed', text: '#ffffff'};
     case SEASON_NAME_SPRING:
-      return MONTH_COLORS[3];
+      // return MONTH_COLORS[3];
+      // range value = 67
+      return {bg: '#48d50e', text: '#ffffff'};
     case SEASON_NAME_SUMMER:
-      return MONTH_COLORS[7];
+      // return MONTH_COLORS[7];
+      // range value = 13
+      return {bg: '#f0aa0a', text: '#ffffff'};
     case SEASON_NAME_AUTUMN:
-      // TODO replace hardcoded values
-      return {bg: '#927b89', text: '#ffffff'};
       // return MONTH_COLORS[9];
+      // range value = 1
+      return {bg: '#b3b750', text: '#ffffff'};
   }
 }
 

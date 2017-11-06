@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-958.3 500.8 82.7 82.2">
     <style>
-        .SlashesSvg0{fill:#AED153;} .SlashesSvg1{fill:#FFFFFF;} .SlashesSvgSelected{fill:#F9A33F;}
+        .SlashesSvg0{fill:#00dbff;} .SlashesSvg1{fill:#FFFFFF;} .SlashesSvgSelected{fill:#ff6b00;}
     </style>
     <polygon class="SlashesSvg0" points="-942.1,500.8 -945.1,500.8 -957.1,535.4 -954.1,535.4"/>
     <polygon class="SlashesSvg0" points="-920.8,500.8 -923.8,500.8 -935.7,535.4 -932.7,535.4"/>

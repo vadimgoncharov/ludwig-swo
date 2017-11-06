@@ -56,8 +56,8 @@ export default class MinMaxNavSection extends React.Component<TProps, void> {
 
   private getFillColors(selectedIndex: number): string[] {
     const colors = [];
-    const colorMin = '#000000';
-    const colorMax = '#ff0000';
+    const colorMin = '#012331';
+    const colorMax = '#00dbff';
     const {svgPaths} = this;
     const svgPathsLen = svgPaths.length;
     const valueMin = selectedIndex - (svgPathsLen - 1); // TODO this value could be wrong

@@ -9,7 +9,7 @@ import {
   DAY_NUM_LAST_IN_YEAR,
 } from 'shared/constants';
 import {dayNumToDayMonthAccusative} from 'shared/utils/date';
-import {convertRange} from 'shared/utils/math';
+import {convertColor} from 'shared/utils/math';
 import navSectionData from './navSectionData';
 import './YearGradient.scss';
 
@@ -74,8 +74,7 @@ export default class YearGradient extends React.Component<TProps, TState> {
     const {minMax} = this.props;
     const max = minMax[0].value;
     const min = minMax[minMax.length - 1].value;
-    const decAsHex = Math.round(convertRange(value, min, max, 0, 255));
-    return `rgb(${decAsHex}, 0, 0)`;
+    return convertColor(value, min, max, '#012331', '#00dbff')
   }
 
   private renderItems(items: TDayInYear) {

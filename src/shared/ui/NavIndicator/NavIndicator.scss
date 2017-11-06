@@ -39,7 +39,7 @@
 
   &.is-selectedFirst {
     &::before {
-      background-color: orange;
+      background-color: $color_item_selected;
     }
 
     .NavIndicator-itemImg {
@@ -48,7 +48,7 @@
   }
 
   &:hover::before {
-    background-color: rgba(orange, 0.9);
+    background-color: rgba($color_item_selected, 0.9);
   }
 
   &:hover .NavIndicator-itemImg {

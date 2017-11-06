@@ -27,7 +27,7 @@ export default class NewsNavSection extends React.Component<TProps, void> {
 
   public componentDidMount() {
     this.tween = new TweenLite(this.svgPolygon, 0.3, {
-      fill: '#F9A33F',
+      fill: '#ff6b00',
       paused: true,
       ease: gsap.Linear.easeInOut,
     });

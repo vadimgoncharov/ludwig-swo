@@ -62,7 +62,7 @@
 }
 
 .DayInMonthHistogram-item.is-selected {
-  color: orange;
+  color: $color_item_selected;
 
   .DayInMonthHistogram-itemColumn::after {
     opacity: 0;

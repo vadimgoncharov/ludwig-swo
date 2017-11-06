@@ -6,15 +6,20 @@
   margin-left: 3px;
   margin-right: 3px;
   border-radius: 4px;
+  transition: 250ms background-color ease-in-out;
 
   &:not(.is-selected) {
     cursor: pointer;
     text-decoration: underline;
-    background-color: darkslategrey;
+    background-color: rgba($color_item_selected, 0.2);
   }
 
   &.is-selected {
-    background-color: orangered;
+    background-color: $color_item_selected;
+  }
+
+  &:not(.is-selected):hover {
+    background-color: rgba($color_item_selected, 0.4);
   }
 }
 

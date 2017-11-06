@@ -1,6 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-958.3 500.8 82.7 82.2">
     <style>
-        .DayInMonthHistogramSvg0{fill:#CD5E60;} .DayInMonthHistogramSvg1{fill:#F9A42B;} .DayInMonthHistogramSvg2{fill:#7F8033;} .DayInMonthHistogramSvg3{fill:#C178B1;} .DayInMonthHistogramSvg4{fill:#D9A52E;} .DayInMonthHistogramSvg5{fill:#FFFCF5;} .DayInMonthHistogramSvg6{fill:#7C1517;} .DayInMonthHistogramSvg7{fill:#2A2B69;} .DayInMonthHistogramSvg8{fill:#FFEBCF;} .DayInMonthHistogramSvg9{fill:#89181B;} .DayInMonthHistogramSvg10{fill:#FFEBCF;} .DayInMonthHistogramSvg11{fill:#EF4B26;} .DayInMonthHistogramSvg12{fill:#F3FAFD;} .DayInMonthHistogramSvg13{fill:#B2E0E6;} .DayInMonthHistogramSvg14{fill:#4882B3;} .DayInMonthHistogramSvg15{fill:#8FBB90;} .DayInMonthHistogramSvg16{fill:#3DB272;} .DayInMonthHistogramSvg17{fill:#ED2229;}
+        .DayInMonthHistogramSvg0{fill:#CD5E60;}
+        .DayInMonthHistogramSvg1{fill:#F9A42B;}
+        .DayInMonthHistogramSvg2{fill:#7F8033;}
+        .DayInMonthHistogramSvg3{fill:#C178B1;}
+        .DayInMonthHistogramSvg4{fill:#D9A52E;}
+        .DayInMonthHistogramSvg5{fill:#FFFCF5;}
+        .DayInMonthHistogramSvg6{fill:#7C1517;}
+        .DayInMonthHistogramSvg7{fill:#2A2B69;}
+        .DayInMonthHistogramSvg8{fill:#FFEBCF;}
+        .DayInMonthHistogramSvg9{fill:#89181B;}
+        .DayInMonthHistogramSvg10{fill:#FFEBCF;}
+        .DayInMonthHistogramSvg11{fill:#EF4B26;}
+        .DayInMonthHistogramSvg12{fill:#F3FAFD;}
+        .DayInMonthHistogramSvg13{fill:#B2E0E6;}
+        .DayInMonthHistogramSvg14{fill:#4882B3;}
+        .DayInMonthHistogramSvg15{fill:#8FBB90;}
+        .DayInMonthHistogramSvg16{fill:#3DB272;}
+        .DayInMonthHistogramSvg17{fill:#ED2229;}
         .DayInMonthHistogramSvgSelected{fill:#2A161B;}
     </style>
     <rect x="-924.5" y="500.8" class="DayInMonthHistogramSvg0" width="4.8" height="82.2"/>

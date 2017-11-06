@@ -30,8 +30,8 @@ export default class NumFreqInYearNavSection extends React.Component<TProps, voi
     const {svgRects, obj} = this;
     const svgRectsLen = svgRects.length;
     this.tween = new TweenLite(obj, 0.3, {
-      selectedIndex1: 8,
-      selectedIndex2: 1,
+      selectedIndex1: 0,
+      selectedIndex2: 4,
       paused: true,
       ease: gsap.Linear.easeInOut,
       onUpdate: () => {

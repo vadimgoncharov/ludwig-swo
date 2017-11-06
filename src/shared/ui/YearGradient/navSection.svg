@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-958.3 500.8 82.7 82.2">
     <style>
-        .YearGradientSvg0{fill:url(#YearGradientSvg_SVGID_1_);} .YearGradientSvg1{fill:#F9A33F;}
+        .YearGradientSvg0{fill:url(#YearGradientSvg_SVGID_1_);} .YearGradientSvg1{fill:#ff6b00;}
     </style>
     <g>
         <linearGradient id="YearGradientSvg_SVGID_1_" gradientUnits="userSpaceOnUse" x1="-958.1024" y1="541.8976" x2="-875.8976" y2="541.8976">
-            <stop offset="0" stop-color="#EB2026"/>
-            <stop offset="1" stop-color="#1F0E0F"/>
+            <stop offset="0" stop-color="#012331"/>
+            <stop offset="1" stop-color="#00dbff"/>
         </linearGradient>
         <rect x="-958.1" y="500.8" class="YearGradientSvg0" width="82.2" height="82.2"/>
     </g>
