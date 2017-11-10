@@ -34,7 +34,7 @@
 .Footer-authorsDevsItem {
   &:last-child {
     .Footer-authorsDevsItemDate::after {
-      content: '-м).';
+      content: '-м)';
     }
   }
 }
@@ -47,7 +47,13 @@
   }
 
   &::after {
-    content: '-м),';
+    @include not-phone {
+      content: '-м),';
+    }
+
+    @include phone {
+      content: '-м)';
+    }
   }
 }
 
@@ -57,7 +63,13 @@
   }
 
   &::after {
-    content: '-го),';
+    @include not-phone {
+      content: '-го),';
+    }
+
+    @include phone {
+      content: '-го)';
+    }
   }
 }
 

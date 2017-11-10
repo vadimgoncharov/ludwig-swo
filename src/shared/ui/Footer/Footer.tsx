@@ -52,7 +52,7 @@ export default class Footer extends React.Component<any, any> {
     return (
       <div className="Footer-authors">
         <div className="Footer-authorsOwner">
-          Сайт откроется <a className="Link" href="/">Людвигом Быстроновским</a>.
+          Сайт откроется <a className="Link" href="/">Людвигом Быстроновским</a>
         </div>
         <div className="Footer-authorsDevs">
           <span className="Footer-authorsDevsTitle">Над сайтооткрыванием работали:</span>
@@ -89,7 +89,7 @@ export default class Footer extends React.Component<any, any> {
     const mailWord = MAIL_WORDS[getRandomInt(0, MAIL_WORDS.length - 1)];
     return (
       <div className="Footer-contacts">
-        Эл. {mailWord}: <Link href="mailto:ludwig@ludwigbistronovsky.ru">ludwig@ludwigbistronovsky.ru</Link>
+        Эл. {mailWord}: <Link href="mailto:lu@ldwg.ru">lu@ldwg.ru</Link>
       </div>
     );
   }
