@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
+import * as TWEEN from '@tweenjs/tween.js';
 import {CSSTransitionGroup} from 'react-transition-group';
 import NavIndicator from 'shared/ui/NavIndicator/NavIndicator';
 import Animator from 'shared/services/Animator';
@@ -18,6 +19,7 @@ type TProps = {
 };
 type TState = {
   animatorCurrValue: TAnimatorValue,
+  dateAnimateString: string,
 };
 type TAnimatorValue = {
   dayNum: number,
@@ -30,16 +32,19 @@ export default class Header extends React.Component<TProps, TState> {
     animatorCurrValue: {
       dayNum: 0,
     },
+    dateAnimateString: '',
   };
   public props: TProps;
   private animator: Animator<TAnimatorValue>;
+  private tween: typeof TWEEN.Tween.prototype;
 
   constructor(props: TProps) {
     super(props);
 
     this.state.animatorCurrValue.dayNum = props.total.dayNum;
-    this.animator = this.createAnimator();
-    this.animator.enableAnimation();
+    this.state.dateAnimateString = dayNumToDayMonthAccusative(props.total.dayNum);
+    // this.animator = this.createAnimator();
+    // this.animator.enableAnimation();
   }
 
   public componentWillReceiveProps(nextProps: TProps) {
@@ -49,6 +54,46 @@ export default class Header extends React.Component<TProps, TState> {
     if (oldDayNum === newDayNum) {
       return;
     }
+
+    const arr = this.createDateStringArr(oldDayNum, newDayNum);
+    const obj = {index: 0};
+    let isRunning = false;
+    const tween = new TWEEN.Tween(obj);
+    tween.onUpdate(() => {
+      this.setState({
+        dateAnimateString: arr[Math.round(obj.index)],
+      });
+    });
+    tween.onComplete(() => {
+      isRunning = false;
+    });
+    tween.to({index: arr.length - 1}, 1000);
+    isRunning = true;
+    tween.start();
+    const update = (time) => {
+      if (isRunning) {
+        requestAnimationFrame(update);
+        tween.update(time);
+      }
+    };
+    requestAnimationFrame(update);
+  }
+
+  private createDateStringArr(oldDayNum: number, newDayNum: number) {
+    const prevDate = dayNumToDayMonthAccusative(oldDayNum);
+    const nextDate = dayNumToDayMonthAccusative(newDayNum);
+    const arr = [];
+    for (let i = 0, len = prevDate.length; i < len; i++) {
+      const word = prevDate.slice(0, len - i);
+      arr.push(word);
+    }
+    arr.push('');
+    arr.push('');
+    for (let i = 0, len = nextDate.length; i < len; i++) {
+      const word = nextDate.slice(0, i + 1);
+      arr.push(word);
+    }
+    return arr;
   }
 
   public render() {
@@ -78,50 +123,24 @@ export default class Header extends React.Component<TProps, TState> {
   private renderSwoDate() {
     const {isFetching, total} = this.props;
     const className = classNames(
-      'Header-swoDate',
+      'Header-swo',
       `is-fetching_${isFetching ? 'yes' : 'no'}`,
     );
 
     return (
       <div className={className}>
-        <span className="Header-swoDateValue">
-          <span className="Header-swoDateValueInner">
-            <span className="Header-swoDateValueText">Сайт откроется</span>{' '}
-            <CSSTransitionGroup
-              className="Header-swoDateValueContainer"
-              transitionName="slide"
-              transitionEnterTimeout={600}
-              transitionLeaveTimeout={600}
-            >
-              <span
-                className="Header-swoDateValueContainerValue"
-                key={total.id}
-              >{dayNumToDayMonthAccusative(total.dayNum)}
-              </span>
-            </CSSTransitionGroup>
-          </span>
-        </span>{' '}{this.renderFetchButtonLong()}{this.renderFetchButtonShort()}
+        <span>
+          Сайт откроется {this.renderDate()}
+        </span>
+        {' '}или в
+        {' '}<span onClick={this.onFetchLinkClick} className="Header-swoFetchButton">другой день</span>
       </div>
     );
   }
 
-  private renderFetchButtonLong() {
+  private renderDate() {
     return (
-      <span
-        className="Header-swoDateFetchButtonContainer is-long"
-        onClick={this.onFetchLinkClick}
-      >Или в <span className="Header-swoDateFetchButton">другой день</span>
-      </span>
-    );
-  }
-
-  private renderFetchButtonShort() {
-    return (
-      <span
-        className="Header-swoDateFetchButtonContainer is-short"
-        onClick={this.onFetchLinkClick}
-      ><span className="Header-swoDateFetchButton">Другой день</span>
-      </span>
+      <span className="Header-swoDate">{this.state.dateAnimateString}</span>
     );
   }
 
