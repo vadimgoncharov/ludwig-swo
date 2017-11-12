@@ -50,10 +50,12 @@ export default class Hero extends React.Component<TProps, TState> {
 
   public componentDidMount() {
     this.renderFavicon(false);
+    this.renderHeadTitle();
   }
 
   public componentDidUpdate() {
     this.renderFavicon();
+    this.renderHeadTitle();
   }
 
   public componentWillReceiveProps(nextProps: TProps) {
@@ -201,6 +203,11 @@ export default class Hero extends React.Component<TProps, TState> {
   private renderFavicon(useAnimation: boolean = true): void {
     // TODO Move faviconRenderer to separate component
     this.faviconRenderer.render(this.props.total.dayNum, useAnimation);
+  }
+
+  private renderHeadTitle() {
+    // TODO Move to separate component
+    document.title = `Сайт откроется ${dayNumToDayMonthAccusative(this.props.total.dayNum)}`;
   }
 
   private onHeroSwoEnter = (): void => {
