@@ -40,25 +40,52 @@ const apiResponseMapper = (r: IApiResponse): TStats => {
         dayNum: dayMonthToDayNum(item.day, item.month - 1),
       }
     }),
-    jdan: r.lastSeen.slice(0, 5).map((item) => {
-      return {
-        chValue: convertRange(
-          r.months[item.month].days[item.day].counter,
-          r.shame[0].counter,
-          r.top[0].counter,
-          100,
-          200,
-        ),
-        value: convertRange(
-          r.months[item.month].days[item.day].counter,
-          r.shame[0].counter,
-          r.top[0].counter,
-          5000,
-          5300,
-        ),
-        dayNum: dayMonthToDayNum(item.day, item.month - 1),
-      };
-    }),
+    jdan: (() => {
+      const last = r.lastSeen.slice(0, 5);
+      const lastValues = last.map((item) => {
+        return r.months[item.month].days[item.day].counter;
+      });
+      const minLastSeenValue = Math.min.apply(null, lastValues);
+      const maxLastSeenValue = Math.max.apply(null, lastValues);
+      return last.map((item) => {
+        return {
+          chValue: convertRange(
+            r.months[item.month].days[item.day].counter,
+            minLastSeenValue,
+            maxLastSeenValue,
+            100, // TODO Extract hardcoded values
+            200,
+          ),
+          value: convertRange(
+            r.months[item.month].days[item.day].counter,
+            minLastSeenValue,
+            maxLastSeenValue,
+            5000, // TODO Extract hardcoded values
+            5300,
+          ),
+          dayNum: dayMonthToDayNum(item.day, item.month - 1),
+        };
+      });
+      // r.lastSeen.slice(0, 5).map((item) => {
+      //   return {
+      //     chValue: convertRange(
+      //       r.months[item.month].days[item.day].counter,
+      //       r.shame[0].counter,
+      //       r.top[0].counter,
+      //       100,
+      //       200,
+      //     ),
+      //     value: convertRange(
+      //       r.months[item.month].days[item.day].counter,
+      //       r.shame[0].counter,
+      //       r.top[0].counter,
+      //       5000,
+      //       5300,
+      //     ),
+      //     dayNum: dayMonthToDayNum(item.day, item.month - 1),
+      //   };
+      // })
+    })(),
     dayInMonth: r.days.map((item) => {
       return {
         dayNumAtMonth: item.day, // 0-30 not (0-365)

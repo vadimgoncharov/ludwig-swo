@@ -20,6 +20,14 @@
     align-items: flex-end;
   }
 
+  .Jdan.is-chSelected .Jdan-items {
+    height: 285px;
+  }
+
+  .Jdan.is-halSelected .Jdan-items {
+    height: 5400px;
+  }
+
   .Jdan-item {
     width: 25%;
   }

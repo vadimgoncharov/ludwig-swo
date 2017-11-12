@@ -30,9 +30,13 @@ export default class Jdan extends React.Component<TProps, TState> {
     const togglerChClassName = classNames('Jdan-toggler is-ch', {
       'is-selected': togglerSelectedKey === TToggleSelectedKey.ch,
     });
+    const rootClassName = classNames('Jdan', {
+      'is-halSelected': togglerSelectedKey === TToggleSelectedKey.hal,
+      'is-chSelected': togglerSelectedKey === TToggleSelectedKey.ch,
+    });
 
     return (
-      <section className="Jdan">
+      <section className={rootClassName}>
         <SectionContent navSection={navSectionData}>
           <div className="Jdan-title">{navSectionData.title}</div>
           <div className="Jdan-subTitle">
@@ -74,10 +78,8 @@ export default class Jdan extends React.Component<TProps, TState> {
 
     return (
       <li className="Jdan-item" key={index}>
-        <div className="Jdan-itemImgContainer">
-          <div className="Jdan-itemImg is-head" />
-          <div className="Jdan-itemImg is-body" style={imgBodyStyle} />
-          <div className="Jdan-itemImg is-legs" />
+        <div className="JdanImg">
+          <div className="JdanImg-body" style={imgBodyStyle} />
         </div>
        <div className="Jdan-itemDate">{dayNumToDayMonthAccusative(dayNum)}</div>
       </li>
