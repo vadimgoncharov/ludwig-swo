@@ -18,6 +18,12 @@ const AUTHORS: TAuthor[] = [
     link: 'http://vadimgoncharov.ru',
   },
   {
+    name: 'Лёля Ле',
+    date: 2017,
+    isCurrMaintainer: true,
+    link: 'http://leindustrial.ru',
+  },
+  {
     name: 'Алексей Анисимов',
     date: 2015,
     isCurrMaintainer: true,
