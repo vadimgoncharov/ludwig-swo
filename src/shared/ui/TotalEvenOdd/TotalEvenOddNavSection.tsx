@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as gsap from 'gsap';
 import {TweenLite} from 'gsap';
-const OrelImg = require('./navSectionOrel.png') as string;
-const ReshkaImg = require('./navSectionReshka.png') as string;
+const OrelImg = require('./navSectionOrel.jpg') as string;
+const ReshkaImg = require('./navSectionReshka.jpg') as string;
 
 type TProps = {
   triggerAnimation: boolean,
@@ -27,13 +27,13 @@ export default class TotalEvenOddNavSection extends React.Component<TProps, void
 
   public componentDidMount() {
     const {orelImg, reshkaImg} = this;
-    orelImg.style.opacity = '0';
+    reshkaImg.style.opacity = '0';
     this.tween = new TweenLite(this.obj, 0.3, {
       value: 10,
       paused: true,
       ease: gsap.Linear.ease,
       onUpdate: () => {
-        if (Math.round(this.obj.value) % 2 === 0) {
+        if (Math.round(this.obj.value) % 2 === 1) {
           TweenLite.set(orelImg, {opacity: 1});
           TweenLite.set(reshkaImg, {opacity: 0});
         } else {
@@ -52,7 +52,8 @@ export default class TotalEvenOddNavSection extends React.Component<TProps, void
           style={{
             backgroundImage: `url(${OrelImg})`,
             backgroundSize: 'contain',
-            width: '100px',
+            backgroundRepeat: 'no-repeat',
+            width: '101px',
             height: '100px',
             position: 'absolute',
             left: '0',
@@ -64,7 +65,8 @@ export default class TotalEvenOddNavSection extends React.Component<TProps, void
           style={{
             backgroundImage: `url(${ReshkaImg})`,
             backgroundSize: 'contain',
-            width: '100px',
+            backgroundRepeat: 'no-repeat',
+            width: '101px',
             height: '100px',
             position: 'absolute',
             left: '0',
