@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 import * as onresize from 'onresize';
+import analytics from 'shared/services/analytics';
+import {GOAL_ID_SECTION_SCROLL_ENTER} from 'shared/constants/analytics';
 import {HEADER_ELEMENT_ID} from 'shared/ui/Header';
 import {
   addNavHashAction,
@@ -103,7 +105,12 @@ class SectionContent extends React.Component<TStateFromProps & TDispatchFromProp
       isInViewport,
     });
 
-    isInViewport ? addNavSelectedHash(hash) : removeNavSelectedHash(hash);
+    if (isInViewport) {
+      analytics.reachYaGoal(GOAL_ID_SECTION_SCROLL_ENTER, {hash});
+      addNavSelectedHash(hash);
+    } else {
+      removeNavSelectedHash(hash);
+    }
 
     if (animator) {
       isInViewport ? animator.enableAnimation() : animator.disableAnimation();

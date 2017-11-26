@@ -1,6 +1,11 @@
 import * as React from 'react';
 import {CSSTransitionGroup} from 'react-transition-group';
 import animateScrollTo from 'animated-scroll-to';
+import analytics from 'shared/services/analytics';
+import {
+  GOAL_ID_SECTION_NAV_ITEM_CLICK,
+  GOAL_ID_SECTION_NAV_ITEM_HOVER,
+} from 'shared/constants/analytics';
 import {HEADER_ELEMENT_ID} from 'shared/ui/Header';
 import './Nav.scss';
 
@@ -28,6 +33,7 @@ export default class NavItem extends React.Component<TProps, any> {
       <div
         className="Nav-item"
         data-target={`section_${hash}`}
+        data-hash={hash}
         onClick={this.onClick}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
@@ -40,8 +46,9 @@ export default class NavItem extends React.Component<TProps, any> {
   }
 
   private onClick = (event: React.FormEvent<HTMLDivElement>) => {
-    const targetId = event.currentTarget.dataset.target;
+    const {target: targetId, hash} = event.currentTarget.dataset;
     const targetEl = document.getElementById(targetId);
+    analytics.reachYaGoal(GOAL_ID_SECTION_NAV_ITEM_CLICK, {hash});
     // const headerEl = document.getElementById(HEADER_ELEMENT_ID);
     const SAFE_PADDING = 10;
     if (targetEl) {
@@ -54,7 +61,9 @@ export default class NavItem extends React.Component<TProps, any> {
     }
   };
 
-  private onMouseEnter = () => {
+  private onMouseEnter = (event: React.FormEvent<HTMLDivElement>) => {
+    const {hash} = event.currentTarget.dataset;
+    analytics.reachYaGoal(GOAL_ID_SECTION_NAV_ITEM_HOVER, {hash});
     if (!this.state.triggerAnimation) {
       this.setState({
         triggerAnimation: true,

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import SectionContent from 'shared/ui/SectionContent';
+import analytics from 'shared/services/analytics';
+import {GOAL_ID_JDAN_TOGGLE_BUTTON_CLICK} from 'shared/constants/analytics';
 import navSectionData from './navSectionData';
 import {dayNumToDayMonthAccusative} from 'shared/utils/date';
 import './Jdan.scss';
@@ -56,12 +58,14 @@ export default class Jdan extends React.Component<TProps, TState> {
   }
 
   private onTogglerHalClick = (): void => {
+    analytics.reachYaGoal(GOAL_ID_JDAN_TOGGLE_BUTTON_CLICK, {button: 'hallucination'});
     this.setState({
       togglerSelectedKey: TToggleSelectedKey.hal,
     });
   };
 
   private onTogglerChClick = (): void => {
+    analytics.reachYaGoal(GOAL_ID_JDAN_TOGGLE_BUTTON_CLICK, {button: 'changing'});
     this.setState({
       togglerSelectedKey: TToggleSelectedKey.ch,
     });

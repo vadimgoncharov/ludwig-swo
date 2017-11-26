@@ -4,6 +4,8 @@ import * as classNames from 'classnames';
 import {CSSTransitionGroup} from 'react-transition-group';
 import SectionContent from 'shared/ui/SectionContent/SectionContent';
 import Nav from '../Nav/Nav';
+import analytics from 'shared/services/analytics';
+import {GOAL_ID_HERO_CHANGE_DATE_CLICK} from 'shared/constants/analytics';
 import FaviconRenderer from 'shared/services/FaviconRenderer';
 import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT, navSections} from 'shared/constants';
@@ -226,6 +228,7 @@ export default class Hero extends React.Component<TProps, TState> {
 
   private onFetchLinkClick = () => {
     const {isFetching, onFetchLinkClick} = this.props;
+    analytics.reachYaGoal(GOAL_ID_HERO_CHANGE_DATE_CLICK);
     if (!isFetching) {
       onFetchLinkClick();
     }

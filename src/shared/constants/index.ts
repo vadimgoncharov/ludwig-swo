@@ -3,7 +3,9 @@ import _monthColors from './monthColors';
 import * as _dayNumMapping from './dayNumMapping';
 import * as _dateStrings from './dateStrings';
 import * as _seasons from './seasons';
+import * as _analytics from './analytics';
 
+export const analytics = _analytics;
 export const ANIMATION_DURATION_DEFAULT = 3000;
 export const navSections = _navSections;
 export const monthColors = _monthColors;

@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import * as TWEEN from '@tweenjs/tween.js';
 import {CSSTransitionGroup} from 'react-transition-group';
+import analytics from 'shared/services/analytics';
+import {GOAL_ID_NAVBAR_CHANGE_DATE_CLICK} from 'shared/constants/analytics';
 import NavIndicator from 'shared/ui/NavIndicator/NavIndicator';
 import Animator from 'shared/services/Animator';
 import {dayNumToDayMonthAccusative} from 'shared/utils/date';
@@ -115,6 +117,7 @@ export default class Header extends React.Component<TProps, TState> {
 
   private onFetchLinkClick = () => {
     const {isFetching, onFetchLinkClick} = this.props;
+    analytics.reachYaGoal(GOAL_ID_NAVBAR_CHANGE_DATE_CLICK);
     if (!isFetching) {
       onFetchLinkClick();
     }

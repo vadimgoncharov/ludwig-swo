@@ -2,6 +2,11 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import {CSSTransitionGroup} from 'react-transition-group';
 import animateScrollTo from 'animated-scroll-to';
+import analytics from 'shared/services/analytics';
+import {
+  GOAL_ID_NAVBAR_NAV_ITEM_CLICK,
+  GOAL_ID_NAVBAR_NAV_ITEM_HOVER,
+} from 'shared/constants/analytics';
 import {HEADER_ELEMENT_ID} from 'shared/ui/Header';
 import './NavIndicator.scss';
 
@@ -38,7 +43,9 @@ export default class NavIndicator extends React.Component<TProps, any> {
                 className={className}
                 key={index}
                 data-target={`section_${hash}`}
+                data-hash={hash}
                 onClick={this.onClick}
+                onMouseEnter={this.onMouseEnter}
                 title={title}
               >{img && <div className="NavIndicator-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
               </div>
@@ -50,8 +57,9 @@ export default class NavIndicator extends React.Component<TProps, any> {
   }
 
   private onClick = (event: React.FormEvent<HTMLDivElement>) => {
-    const targetId = event.currentTarget.dataset.target;
+    const {target: targetId, hash} = event.currentTarget.dataset;
     const targetEl = document.getElementById(targetId);
+    analytics.reachYaGoal(GOAL_ID_NAVBAR_NAV_ITEM_CLICK, {hash});
     // const headerEl = document.getElementById(HEADER_ELEMENT_ID);
     const SAFE_PADDING = 10;
     if (targetEl) {
@@ -62,5 +70,10 @@ export default class NavIndicator extends React.Component<TProps, any> {
       );
       animateScrollTo(pos);
     }
+  };
+
+  private onMouseEnter = (event: React.FormEvent<HTMLDivElement>) => {
+    const {hash} = event.currentTarget.dataset;
+    analytics.reachYaGoal(GOAL_ID_NAVBAR_NAV_ITEM_HOVER, {hash});
   };
 }
