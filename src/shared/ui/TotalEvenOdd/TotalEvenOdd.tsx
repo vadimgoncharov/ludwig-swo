@@ -5,7 +5,7 @@ import Animator from 'shared/services/Animator';
 import {ANIMATION_DURATION_DEFAULT} from 'shared/constants';
 import {dayNumToData} from 'shared/utils/date';
 import {isEven} from 'shared/utils/math';
-import {formatThousands, formatValueToTimesWithPluralize} from 'shared/utils/format';
+import {formatValueToTimesWithPluralize} from 'shared/utils/format';
 import navSectionData from './navSectionData';
 import './TotalEvenOdd.scss';
 
@@ -34,6 +34,8 @@ export default class TotalEvenOdd extends React.Component<TProps, TState> {
     },
   };
   private animator: Animator<TAnimatorValue>;
+  private fromType: 'even' | 'odd' = 'even';
+  private toType: 'even' | 'odd' = 'even';
 
   constructor(props: TProps) {
     super(props);
@@ -56,6 +58,8 @@ export default class TotalEvenOdd extends React.Component<TProps, TState> {
       return;
     }
 
+    this.fromType = isEven(dayNumToData(oldDayNum).day) ? 'even' : 'odd';
+    this.toType = isEven(dayNumToData(newDayNum).day) ? 'even' : 'odd';
     this.animator.start([{oddValue: newOddValue, evenValue: newEvenValue, dayNum: newDayNum}]);
   }
 
@@ -70,6 +74,13 @@ export default class TotalEvenOdd extends React.Component<TProps, TState> {
       'is-even': isTimeEven,
       'is-odd': !isTimeEven,
     });
+    const sidesClassName = classNames(
+      'TotalEvenOdd-sides',
+      `is-animationType_${this.getAnimationType()}`, {
+        'is-even': isTimeEven,
+        'is-odd': !isTimeEven,
+      },
+    );
 
     return (
       <section className={rootClassName}>
@@ -80,53 +91,29 @@ export default class TotalEvenOdd extends React.Component<TProps, TState> {
             <span className="TotalEvenOdd-descriptionOdd">{oddValueFormatted}</span>,{' '}
             а <span className="TotalEvenOdd-descriptionEven">по&nbsp;четным — {evenValueFormatted}</span>
           </div>
-          <div className="TotalEvenOdd-sides">
-            <div className="TotalEvenOdd-side is-reshka">
-              <div className="TotalEvenOdd-sideImgContainer">
-                <div className="TotalEvenOdd-sideImg" style={this.getImgSizeStyle(oddValue)} />
-              </div>
-              {this.renderSideValue(oddValue)}
-            </div>
-            <div className="TotalEvenOdd-side is-orel">
-              <div className="TotalEvenOdd-sideImgContainer">
-                <div className="TotalEvenOdd-sideImg" style={this.getImgSizeStyle(evenValue)} />
-              </div>
-              {this.renderSideValue(evenValue)}
-            </div>
+          <div className={sidesClassName}>
+            <div className="TotalEvenOdd-side is-reshka" />
+            <div className="TotalEvenOdd-side is-orel" />
           </div>
         </SectionContent>
       </section>
     );
   }
 
-  private getImgSizeStyle(value: number): object {
-    const px = this.getPx(value, 1);
-    return {
-      width: `${px}px`,
-      height: `${px}px`,
-    };
-  }
-
-  private getPx(value: number, multiplier: number = 2): number {
-    const {oddValue, evenValue} = this.state.animatorCurrValue;
-    const max = Math.max(oddValue, evenValue);
-    // TODO rename «dim» to more understandable name
-    const dim = 200;
-    const px = Math.round((dim * multiplier * Math.sqrt(value / max)));
-    return px;
-  }
-
-  private renderSideValue(value: number) {
-    const formatted = formatThousands(Math.round(value));
-    const px = this.getPx(value);
-
-    return (
-      <div className="TotalEvenOdd-sideValue">
-        &theta; &times; &radic;
-        <span className="TotalEvenOdd-radixValue">&nbsp;{formatted}/&pi;&nbsp;</span>{' '}
-        &asymp; {px} пикс.
-      </div>
-    );
+  private getAnimationType() {
+    const {fromType, toType, animator} = this;
+    if (!animator.isAnimationInProgress()) {
+      return 'none';
+    }
+    if (fromType === 'even' && toType === 'even') {
+      return 'even-even';
+    } else if (fromType === 'even' && toType === 'odd') {
+      return 'even-odd';
+    } else if (fromType === 'odd' && toType === 'even') {
+      return 'odd-even';
+    } else {
+      return 'odd-odd';
+    }
   }
 
   private getFormattedValue(value: number): string {
@@ -147,6 +134,9 @@ export default class TotalEvenOdd extends React.Component<TProps, TState> {
         );
       },
       onValueChange: (newValues) => this.setState({animatorCurrValue: newValues[0]}),
+      onComplete: () => {
+        this.forceUpdate();
+      },
     });
   }
 }
