@@ -115,3 +115,33 @@
     z-index: 20;
   }
 }
+
+.NavSection.is-totalEvenOdd {
+  position: relative;
+  transition: transform 500ms ease-in-out;
+  transform-style: preserve-3d;
+
+  .NavSectionImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 101px;
+    height: 100px;
+    background: no-repeat center center;
+    background-size: contain;
+    backface-visibility: hidden;
+
+    &.is-orel {
+      z-index: 20;
+    }
+
+    &.is-reshka {
+      transform: rotateY(-180deg);
+      z-index: 10;
+    }
+  }
+
+  &.is-hover {
+    transform: rotateY(540deg);
+  }
+}
