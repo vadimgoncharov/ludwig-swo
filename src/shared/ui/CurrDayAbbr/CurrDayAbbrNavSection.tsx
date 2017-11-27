@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as gsap from 'gsap';
 import {TweenLite} from 'gsap';
-const svg = require('./navSection.svg') as string;
+const svg = require('./navSectionWithMask.svg') as string;
 
 type TProps = {
   triggerAnimation: boolean,
@@ -12,7 +12,7 @@ export default class CurrDayAbbrNavSection extends React.Component<TProps, void>
   private svgLeftQuote: SVGPathElement;
   private svgRightQuote: SVGPathElement;
   private svgLine: SVGRectElement;
-  private svgGlyph: SVGPathElement;
+  private svgGlyphClipRect: SVGRectElement;
   private tweens: TweenLite[];
 
   public componentWillReceiveProps(nextProps: TProps) {
@@ -26,43 +26,35 @@ export default class CurrDayAbbrNavSection extends React.Component<TProps, void>
   }
 
   public componentDidMount() {
-    const {svgLeftQuote, svgRightQuote, svgGlyph, svgLine} = this;
-    TweenLite.set(svgGlyph, {
-      scaleX: 0,
-      opacity: 0,
+    const {svgLeftQuote, svgRightQuote, svgLine, svgGlyphClipRect} = this;
+    const TIME = 0.2;
+    const EASING = gsap.Linear.easeIn;
+    TweenLite.set(svgGlyphClipRect, {
+      x: -60,
       ease: gsap.Linear.easeInOut,
     });
     this.tweens = [
-      new TweenLite(svgLeftQuote, 0.3, {
-        x: '0',
+      new TweenLite(svgLeftQuote, TIME, {
+        x: 0,
         paused: true,
-        ease: gsap.Linear.easeInOut,
+        ease: EASING,
       }),
-      new TweenLite(svgRightQuote, 0.3, {
-        x: '0',
+      new TweenLite(svgRightQuote, TIME, {
+        x: 0,
         paused: true,
-        ease: gsap.Linear.easeInOut,
+        ease: EASING,
       }),
-      new TweenLite(svgGlyph, 0.3, {
-        scaleX: 1,
-        // transformOrigin: '-30px center',
-        opacity: 1,
+      new TweenLite(svgGlyphClipRect, TIME, {
+        x: 0,
         paused: true,
-        ease: gsap.Linear.easeInOut,
+        ease: EASING,
       }),
-      new TweenLite(svgLine, 0.3, {
-        x: '24px',
+      new TweenLite(svgLine, TIME, {
+        x: 24,
         paused: true,
-        ease: gsap.Linear.easeInOut,
+        ease: EASING,
       }),
     ];
-    // svgLine.style.transform = 'translateX(24)';
-    // this.tween = new TweenLite(this.svgRotatingPath, 0.3, {
-    //   transformOrigin: `0 ${85 / 2}px`, // Half of viewBox
-    //   rotation: 70,
-    //   paused: true,
-    //   ease: gsap.Linear.easeInOut,
-    // });
   }
 
   public render() {
@@ -80,7 +72,7 @@ export default class CurrDayAbbrNavSection extends React.Component<TProps, void>
     const paths = [].slice.call(el.querySelectorAll('path'));
     this.svgLeftQuote = paths[0];
     this.svgRightQuote = paths[1];
-    this.svgGlyph = paths[2];
-    this.svgLine = el.querySelector('rect');
+    this.svgLine = el.querySelector('.SvgLine');
+    this.svgGlyphClipRect = this.rootEl.querySelector('clipPath rect');
   };
 }
