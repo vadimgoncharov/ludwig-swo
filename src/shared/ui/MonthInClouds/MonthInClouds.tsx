@@ -71,35 +71,37 @@ export default class MonthInClouds extends React.Component<TProps, TState> {
      <section className="MonthInClouds">
        <SectionContent animator={this.animator} navSection={navSectionData}>
          {this.renderTitle()}
-         <div className="MonthInClouds-items">
-           {Array.apply(null, Array(31)).map((_, index) => {
-             const item = days[index];
-             const dayNum = index + 1;
-             let sizeStyle;
-             let isVisible = false;
-             let day = 0;
-             if (typeof item !== 'undefined') {
-               day = dayNumToData(item.dayNum).day;
-               isVisible = true;
-               const {value} = days[index];
-               // Initial font-size in CSS == 42px
-               // So we downscale it to 42px / 3 = 14px (min font-size)
-               // Or do nothing, so it will have font-size = 42px (max font-size)
-               // We need it, because Safari renders upscaled font-size very badly
-               const fontSize = convertRange(value, min, max, 1 / 3, 1).toFixed(2);
-               sizeStyle = {
-                 transform: `scale(${fontSize})`,
-               };
-             }
-             const itemClassName = classNames('MonthInClouds-item', `is-visible_${isVisible ? 'yes' : 'no'}`, {
-               'is-selected': currDay === day,
-             });
-             return (
-               <div className={itemClassName} key={index} style={sizeStyle}>
-                 {dayNum}
-               </div>
-             );
-           })}
+         <div className="MonthInClouds-itemsContainer">
+           <div className="MonthInClouds-items">
+             {Array.apply(null, Array(31)).map((_, index) => {
+               const item = days[index];
+               const dayNum = index + 1;
+               let sizeStyle;
+               let isVisible = false;
+               let day = 0;
+               if (typeof item !== 'undefined') {
+                 day = dayNumToData(item.dayNum).day;
+                 isVisible = true;
+                 const {value} = days[index];
+                 // Initial font-size in CSS == 42px
+                 // So we downscale it to 42px / 3 = 14px (min font-size)
+                 // Or do nothing, so it will have font-size = 42px (max font-size)
+                 // We need it, because Safari renders upscaled font-size very badly
+                 const fontSize = convertRange(value, min, max, 1 / 3, 1).toFixed(2);
+                 sizeStyle = {
+                   transform: `scale(${fontSize})`,
+                 };
+               }
+               const itemClassName = classNames('MonthInClouds-item', `is-visible_${isVisible ? 'yes' : 'no'}`, {
+                 'is-selected': currDay === day,
+               });
+               return (
+                 <div className={itemClassName} key={index} style={sizeStyle}>
+                   {dayNum}
+                 </div>
+               );
+             })}
+           </div>
          </div>
        </SectionContent>
      </section>

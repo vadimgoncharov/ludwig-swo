@@ -93,14 +93,30 @@
   }
 }
 
+.MonthInClouds-itemsContainer {
+  max-width: 900px;
+  margin: 15px auto 0;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  @include not-phone {
+    min-height: 100px;
+  }
+  @include phone {
+    min-height: 200px;
+  }
+}
+
+/* We use pos-abs to prevent viewport height changing when changeDate button pushed */
 .MonthInClouds-items {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
-  max-width: 900px;
-  margin: 15px auto 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .MonthInClouds-item {
