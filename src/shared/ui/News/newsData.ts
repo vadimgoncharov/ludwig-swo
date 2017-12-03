@@ -111,7 +111,7 @@ const NEWS_ITEMS: TNewsItem[] = [
   },
   {
     content: 'Открыта четвертая версия сайта: добавлен интерактив и\u00a0версия для\u00a0мобильников',
-    date: new Date(2017, 8 - 1, 26),
+    date: new Date(2017, 12 - 1, 3),
   },
 ].sort((a, b) => b.date.getTime() - a.date.getTime());
 

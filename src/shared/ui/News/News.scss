@@ -5,6 +5,8 @@
 }
 
 .News-title {
+  text-align: center;
+
   @include not-phone {
     font-size: $section_title_font_size_desktop;
     line-height: $section_title_font_line_height_desktop;

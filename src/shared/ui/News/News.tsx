@@ -3,7 +3,7 @@ import * as React from 'react';
 import SectionContent from 'shared/ui/SectionContent/SectionContent';
 import navSectionData from './navSectionData';
 import newsData from './newsData';
-import {dateToDMMYYYY} from 'shared/utils/date';
+import {dateToDayMonthYearAccusative} from 'shared/utils/date';
 import './News.scss';
 
 export type TNewsItem = {
@@ -28,7 +28,7 @@ export default class News extends React.Component<any, any> {
   private renderItem = (item: TNewsItem, index: number) => {
     return (
       <li className="News-item" key={index}>
-        <span className="News-itemDate">{dateToDMMYYYY(item.date)}</span>{' '}&nbsp;
+        <span className="News-itemDate">{dateToDayMonthYearAccusative(item.date)}</span>{' '}&nbsp;
         {item.content}{' '}&nbsp;{' '}
       </li>
     );

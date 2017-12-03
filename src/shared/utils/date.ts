@@ -42,6 +42,13 @@ function dateToYYYYMMDD(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
+function dateToDayMonthYearAccusative(date: Date): string {
+  const day: string = date.getDate().toString();
+  const month: string = MONTHS_ACCUSATIVE[date.getMonth()];
+  const year: number = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 function dateToDMMYYYY(date: Date): string {
   const day: number = date.getDate();
   const month: string = addLeadingZero(date.getMonth() + 1);
@@ -197,6 +204,7 @@ export {
   dateToYYYYMMDD,
   dateToDMMYYYY,
   dateToDayNum,
+  dateToDayMonthYearAccusative,
   dayMonthToDayNum,
   dayNumToDayMonthAccusative,
   dayNumToMonthAccusative,
