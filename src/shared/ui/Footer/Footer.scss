@@ -1,82 +1,99 @@
 .Footer {
   font-size: 14px;
-  text-align: center;
-  max-width: 900px;
+  max-width: 945px;
   margin-left: auto;
   margin-right: auto;
 
   @include LinkBlue();
 }
 
-.Footer-authorsDevs {
-  margin-top: 15px;
+.Footer-authors {
+  margin-top: 30px;
 }
 
-.Footer-authorsDevsItems {
-  padding: 0;
-  margin: 5px 0 0;
-  list-style: none;
+.Footer-authorsTitle {
+  font-size: 28px;
+  line-height: 32px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.Footer-authorsItemsItemsContainer {
+  margin: 20px auto;
+  max-width: 810px;
+}
+
+.Footer-authorsItems {
   @include not-phone {
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0 -12px;
   }
+
+  padding: 0;
+  list-style: none;
 }
 
-.Footer-authorsDevsItem {
+.Footer-authorsItem {
   @include not-phone {
-    display: inline-block;
-    margin: 0 5px 5px 0;
+    flex: 0 0 auto;
+    min-width: 200px;
   }
   @include phone {
-    margin-top: 3px;
+    text-align: center;
   }
 }
 
-.Footer-authorsDevsItem {
-  &:last-child {
-    .Footer-authorsDevsItemDate::after {
-      content: '-м)';
-    }
+.Footer-authorsItemLayout {
+  @include not-phone {
+    margin: 0 12px 24px;
+  }
+  @include phone {
+    margin-bottom: 12px;
   }
 }
 
-.Footer-authorsDevsItemDate {
-  margin-left: 5px;
+.Footer-authorsItemName {
+  font-size: 16px;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+
+.Footer-authorsItemRole,
+.Footer-authorsItemDate {
+  display: inline;
+}
+
+.Footer-authorsItemRole {
+  font-size: 14px;
+  color: #666;
+
+  &:after {
+    content: ' ';
+  }
+}
+
+.Footer-authorsItemDate {
+  font-size: 12px;
+  color: #666;
 
   &::before {
-    content: '(в ';
-  }
-
-  &::after {
-    @include not-phone {
-      content: '-м),';
-    }
-
-    @include phone {
-      content: '-м)';
-    }
+    content: 'в ';
   }
 }
 
-.Footer-authorsDevsItem.is-currMaintainer .Footer-authorsDevsItemDate {
-  &::before {
-    content: '(с ';
-  }
-
-  &::after {
-    @include not-phone {
-      content: '-го),';
-    }
-
-    @include phone {
-      content: '-го)';
-    }
-  }
+.Footer-authorsItem.is-currMaintainer .Footer-authorsItemDate::before {
+  content: 'с ';
 }
 
 .Footer-contacts {
   padding-top: 50px;
   margin-top: 50px;
-  border-top: 1px #fff solid;
+  border-top: 1px #666 solid;
+  font-size: 20px;
+  text-align: center;
 
   @include phone {
     padding-top: 30px;
