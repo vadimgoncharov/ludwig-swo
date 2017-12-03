@@ -22,6 +22,7 @@ type TProps = {
 type TState = {
   animatorCurrValue: TAnimatorValue,
   dateAnimateString: string,
+  isFetchButtonFadeAnimationEnabled: boolean,
 };
 type TAnimatorValue = {
   dayNum: number,
@@ -35,6 +36,7 @@ export default class Header extends React.Component<TProps, TState> {
       dayNum: 0,
     },
     dateAnimateString: '',
+    isFetchButtonFadeAnimationEnabled: false,
   };
   public props: TProps;
   private animator: Animator<TAnimatorValue>;
@@ -72,14 +74,16 @@ export default class Header extends React.Component<TProps, TState> {
     });
     tween.to({index: arr.length - 1}, 1000);
     isRunning = true;
-    tween.start();
-    const update = (time) => {
-      if (isRunning) {
-        requestAnimationFrame(update);
-        tween.update(time);
-      }
-    };
-    requestAnimationFrame(update);
+    setTimeout(() => {
+      tween.start();
+      const update = (time) => {
+        if (isRunning) {
+          requestAnimationFrame(update);
+          tween.update(time);
+        }
+      };
+      requestAnimationFrame(update);
+    }, 250);
   }
 
   public render() {
@@ -116,11 +120,21 @@ export default class Header extends React.Component<TProps, TState> {
     return arr;
   }
 
-  private onFetchLinkClick = () => {
+  private onFetchLinkClick = (event: React.MouseEvent<HTMLSpanElement>) => {
     const {isFetching, onFetchLinkClick} = this.props;
     analytics.reachYaGoal(GOAL_ID_NAVBAR_CHANGE_DATE_CLICK);
     if (!isFetching) {
-      onFetchLinkClick();
+      this.setState({
+        isFetchButtonFadeAnimationEnabled: true,
+      }, () => onFetchLinkClick());
+    }
+  };
+
+  private onFetchButtonAnimationIteration = () => {
+    if (!this.props.isFetching && this.state.isFetchButtonFadeAnimationEnabled) {
+      this.setState({
+        isFetchButtonFadeAnimationEnabled: false,
+      });
     }
   };
 
@@ -136,8 +150,16 @@ export default class Header extends React.Component<TProps, TState> {
         <span>
           Сайт откроется {this.renderDate()}
         </span>
-        {' '}или в
-        {' '}<span onClick={this.onFetchLinkClick} className="Header-swoFetchButton">другой день</span>
+        {' '}или в{' '}
+        <span
+          onClick={this.onFetchLinkClick}
+          onAnimationIteration={this.onFetchButtonAnimationIteration}
+          className={classNames(
+            'Header-swoFetchButton',
+            {'is-fadeAnimationEnabled': this.state.isFetchButtonFadeAnimationEnabled},
+          )}
+        ><span>другой день</span>
+        </span>
       </div>
     );
   }

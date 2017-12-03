@@ -49,29 +49,53 @@
   }
 }
 
-.Header-swoDateFetchButton {
-  transition: opacity 250ms ease-in-out, border 250ms ease-in-out;
+.Header-swoFetchButton {
   user-select: none;
   white-space: nowrap;
+  color: #428bca;
+  border-bottom: 1px dashed #428bca;
+
+  > span {
+    transition: opacity 250ms ease-in-out;
+  }
 }
 
 .Header-swo {
   &.is-fetching_no .Header-swoFetchButton {
-    border-bottom: 1px dashed #fff;
     cursor: pointer;
 
-    &:hover {
+    > span:hover {
       opacity: 0.8;
     }
 
-    &:active {
-      opacity: 0.5;
+    > span:active {
+      opacity: 0.8;
     }
   }
 
   &.is-fetching_yes .Header-swoFetchButton {
-    opacity: 0.2;
-    border-bottom: 1px dashed transparent;
     cursor: default;
+
+    > span {
+      opacity: 0.8;
+    }
+  }
+
+  .Header-swoFetchButton.is-fadeAnimationEnabled {
+    animation-duration: 500ms;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: loadingFade;
+  }
+}
+
+@keyframes loadingFade {
+  0% {
+    border-bottom: 1px dashed rgba(#428bca, 1);
+  }
+
+  100% {
+    border-bottom: 1px dashed rgba(#428bca, 0.4);
   }
 }

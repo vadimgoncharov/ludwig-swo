@@ -103,16 +103,19 @@
 }
 
 .Hero-fetchButton {
-  transition: opacity 250ms ease-in-out, border 250ms ease-in-out, color 250ms ease-in-out;
+  transition:
+    opacity 250ms ease-in-out,
+    border-bottom 250ms ease-in-out,
+    color 250ms ease-in-out;
   user-select: none;
   padding: 2px;
   margin-left: 0;
   color: #428bca;
+  border-bottom: 1px dashed #428bca;
 }
 
 .Hero {
   &.is-fetching_no .Hero-fetchButton {
-    border-bottom: 1px dashed #428bca;
     cursor: pointer;
 
     &:hover {
@@ -120,14 +123,12 @@
     }
 
     &:active {
-      opacity: 0.8;
+      opacity: 0.5;
     }
   }
 
   &.is-fetching_yes .Hero-fetchButton {
-    opacity: 0.8;
-    color: #fff;
-    border-bottom: 1px dashed #fff;
+    opacity: 0.5;
     cursor: default;
   }
 }
