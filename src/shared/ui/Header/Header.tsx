@@ -57,6 +57,7 @@ export default class Header extends React.Component<TProps, TState> {
       return;
     }
 
+    // TODO Need refactoring
     const arr = this.createDateStringArr(oldDayNum, newDayNum);
     const obj = {index: 0};
     let isRunning = false;
@@ -81,23 +82,6 @@ export default class Header extends React.Component<TProps, TState> {
     requestAnimationFrame(update);
   }
 
-  private createDateStringArr(oldDayNum: number, newDayNum: number) {
-    const prevDate = dayNumToDayMonthAccusative(oldDayNum);
-    const nextDate = dayNumToDayMonthAccusative(newDayNum);
-    const arr = [];
-    for (let i = 0, len = prevDate.length; i < len; i++) {
-      const word = prevDate.slice(0, len - i);
-      arr.push(word);
-    }
-    arr.push('');
-    arr.push('');
-    for (let i = 0, len = nextDate.length; i < len; i++) {
-      const word = nextDate.slice(0, i + 1);
-      arr.push(word);
-    }
-    return arr;
-  }
-
   public render() {
     const {isSwoDateVisible} = this.props;
     const className = classNames('Header', `is-swoDateVisible_${isSwoDateVisible ? 'yes' : 'no'}`);
@@ -113,6 +97,23 @@ export default class Header extends React.Component<TProps, TState> {
         </div>
       </section>
     );
+  }
+
+  private createDateStringArr(oldDayNum: number, newDayNum: number) {
+    const prevDate = dayNumToDayMonthAccusative(oldDayNum);
+    const nextDate = dayNumToDayMonthAccusative(newDayNum);
+    const arr = [];
+    for (let i = 0, len = prevDate.length; i < len; i++) {
+      const word = prevDate.slice(0, len - i);
+      arr.push(word);
+    }
+    arr.push('');
+    arr.push('');
+    for (let i = 0, len = nextDate.length; i < len; i++) {
+      const word = nextDate.slice(0, i + 1);
+      arr.push(word);
+    }
+    return arr;
   }
 
   private onFetchLinkClick = () => {
