@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as Waypoint from 'react-waypoint';
 import * as classNames from 'classnames';
 import * as onresize from 'onresize';
+import uaParser from 'shared/services/uaParser';
 import analytics from 'shared/services/analytics';
 import {GOAL_ID_SECTION_SCROLL_ENTER} from 'shared/constants/analytics';
 import {HEADER_ELEMENT_ID} from 'shared/ui/Header';
@@ -112,7 +113,7 @@ class SectionContent extends React.Component<TStateFromProps & TDispatchFromProp
       removeNavSelectedHash(hash);
     }
 
-    if (animator) {
+    if (animator && uaParser().isGoodPerformance) {
       isInViewport ? animator.enableAnimation() : animator.disableAnimation();
     }
   };
