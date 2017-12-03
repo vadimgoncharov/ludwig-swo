@@ -30,8 +30,11 @@
   }
 }
 
-.Square-square {
-  margin-top: 20px;
+.Square-squareContainer {
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Square-calc {

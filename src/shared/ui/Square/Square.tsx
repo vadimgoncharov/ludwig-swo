@@ -9,9 +9,11 @@ import {formatThousands} from 'shared/utils/format';
 import navSectionData from './navSectionData';
 import './Square.scss';
 
+import {TMinMax} from 'shared/types/MinMax';
 import {TLastGeneratedDate} from 'shared/types/LastGeneratedDate';
 type TProps = {
   lastGeneratedDate: TLastGeneratedDate,
+  minMax: TMinMax,
 };
 type TState = {
   animatorCurrValue: TAnimatorValue,
@@ -54,9 +56,14 @@ export default class Square extends React.Component<TProps, TState> {
 
   public render() {
     const value: number = Math.round(this.state.animatorCurrValue.value);
+    const maxValueSquareRootRounded = this.getSquareRootRounded(this.getMaxValue());
     const valueSquareRootRounded = this.getSquareRootRounded(value);
     const valueSquareRounded = this.getSquareRounded(value);
     const date = dayNumToDayMonthAccusative(Math.round(this.state.animatorCurrValue.dayNum));
+    const squareContainerStyle = {
+      width: `${maxValueSquareRootRounded * GIF_PIXEL_MULTIPLIER}px`,
+      height: `${maxValueSquareRootRounded * GIF_PIXEL_MULTIPLIER}px`,
+    };
     const squareStyle = {
       width: `${valueSquareRootRounded * GIF_PIXEL_MULTIPLIER}px`,
       height: `${valueSquareRootRounded * GIF_PIXEL_MULTIPLIER}px`,
@@ -77,7 +84,9 @@ export default class Square extends React.Component<TProps, TState> {
             <span className="Square-value">{valueFormatted} пкс<sup>2</sup></span>{' '}
             (числу открытий сайта <span className="Square-date">{date}</span>):
           </div>
-          <div className="Square-square" style={squareStyle} />
+          <div className="Square-squareContainer" style={squareContainerStyle}>
+            <div className="Square-square" style={squareStyle} />
+          </div>
           <div className="Square-calc">
             <span className="Square-value">{valueSquareRootRoundedFormatted}</span>{' '}
             ×{' '}
@@ -118,6 +127,10 @@ export default class Square extends React.Component<TProps, TState> {
   private getSquareRounded(value: number): number {
     const squareRoot = this.getSquareRootRounded(value);
     return squareRoot * squareRoot;
+  }
+
+  private getMaxValue(): number {
+    return this.props.minMax[0].value;
   }
 
   private createAnimator(): Animator<TAnimatorValue> {
