@@ -73,6 +73,6 @@ export default class CurrDayAbbrNavSection extends React.Component<TProps, void>
     this.svgLeftQuote = paths[0];
     this.svgRightQuote = paths[1];
     this.svgLine = el.querySelector('.SvgLine');
-    this.svgGlyphClipRect = this.rootEl.querySelector('clipPath rect');
+    this.svgGlyphClipRect = this.rootEl.querySelector('#svgCurrDayAbbrClipPath rect');
   };
 }
