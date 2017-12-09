@@ -10,3 +10,13 @@ body {
   color: #fff;
   font-family: 'Times New Roman', serif;
 }
+
+button {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}

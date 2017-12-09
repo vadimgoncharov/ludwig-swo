@@ -39,16 +39,18 @@ export default class NavIndicator extends React.Component<TProps, any> {
               'is-hasImg': Boolean(img),
             });
             return (
-              <div
+              <button
+                type="button"
                 className={className}
                 key={index}
                 data-target={`section_${hash}`}
                 data-hash={hash}
                 onClick={this.onClick}
-                onMouseEnter={this.onMouseEnter}
+                onMouseEnter={this.onPointerEnter}
+                onFocus={this.onPointerEnter}
                 title={title}
               >{img && <div className="NavIndicator-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -56,7 +58,7 @@ export default class NavIndicator extends React.Component<TProps, any> {
     );
   }
 
-  private onClick = (event: React.FormEvent<HTMLDivElement>) => {
+  private onClick = (event: React.FormEvent<HTMLButtonElement>) => {
     const {target: targetId, hash} = event.currentTarget.dataset;
     const targetEl = document.getElementById(targetId);
     analytics.reachYaGoal(GOAL_ID_NAVBAR_NAV_ITEM_CLICK, {hash});
@@ -72,7 +74,7 @@ export default class NavIndicator extends React.Component<TProps, any> {
     }
   };
 
-  private onMouseEnter = (event: React.FormEvent<HTMLDivElement>) => {
+  private onPointerEnter = (event: React.FormEvent<HTMLButtonElement>) => {
     const {hash} = event.currentTarget.dataset;
     analytics.reachYaGoal(GOAL_ID_NAVBAR_NAV_ITEM_HOVER, {hash});
   };

@@ -30,7 +30,6 @@ export default class SwoPage extends React.Component<any, any> {
   public render() {
     return (
       <div className="SwoPage">
-        <Header />
         <Hero />
         <MonthInClouds />
         <Target />
@@ -52,6 +51,7 @@ export default class SwoPage extends React.Component<any, any> {
         <StatTower />
         <StatJdan />
         <News />
+        <Header />
         <Footer />
       </div>
     );

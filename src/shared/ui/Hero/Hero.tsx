@@ -138,7 +138,7 @@ export default class Hero extends React.Component<TProps, TState> {
         onPositionChange={this.onHeroSwoPositionChange}
       >
         <div className="Hero-changeDate">
-          Или в <span className="Hero-fetchButton" onClick={this.onFetchLinkClick}>другой день</span>
+          Или в <button className="Hero-fetchButton" onClick={this.onFetchLinkClick} tabIndex={0}>другой день</button>
         </div>
       </Waypoint>
     );

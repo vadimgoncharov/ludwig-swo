@@ -97,7 +97,10 @@ export default class Header extends React.Component<TProps, TState> {
           </div>
         </div>
         <div className="Header-navIndicator">
-          <NavIndicator navSections={navSections} selectedNavHashes={this.props.selectedNavHashes} />
+          <NavIndicator
+            navSections={navSections}
+            selectedNavHashes={this.props.selectedNavHashes}
+          />
         </div>
       </section>
     );
@@ -139,27 +142,28 @@ export default class Header extends React.Component<TProps, TState> {
   };
 
   private renderSwoDate() {
-    const {isFetching, total} = this.props;
+    const {isFetching} = this.props;
     const className = classNames(
       'Header-swo',
       `is-fetching_${isFetching ? 'yes' : 'no'}`,
     );
-
     return (
       <div className={className}>
         <span>
           Сайт откроется {this.renderDate()}
         </span>
         {' '}или в{' '}
-        <span
+        <button
+          type="button"
           onClick={this.onFetchLinkClick}
           onAnimationIteration={this.onFetchButtonAnimationIteration}
           className={classNames(
             'Header-swoFetchButton',
             {'is-fadeAnimationEnabled': this.state.isFetchButtonFadeAnimationEnabled},
           )}
+          tabIndex={0}
         ><span>другой день</span>
-        </span>
+        </button>
       </div>
     );
   }

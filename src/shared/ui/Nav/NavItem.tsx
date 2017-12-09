@@ -30,22 +30,25 @@ export default class NavItem extends React.Component<TProps, any> {
     const {hash, Component, title, img} = this.props;
     const {triggerAnimation} = this.state;
     return (
-      <div
+      <button
         className="Nav-item"
         data-target={`section_${hash}`}
         data-hash={hash}
         onClick={this.onClick}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
+        onMouseEnter={this.onPointerEnter}
+        onMouseLeave={this.onPointerLeave}
+        onFocus={this.onPointerEnter}
+        onBlur={this.onPointerLeave}
+        tabIndex={0}
       >
         {Component && <div className="Nav-itemImg"><Component triggerAnimation={triggerAnimation} /></div>}
         {(!Component && img) && <div className="Nav-itemImg" dangerouslySetInnerHTML={{__html: img}} />}
         <div className="Nav-itemTitle">{title}</div>
-      </div>
+      </button>
     );
   }
 
-  private onClick = (event: React.FormEvent<HTMLDivElement>) => {
+  private onClick = (event: React.FormEvent<HTMLButtonElement>) => {
     const {target: targetId, hash} = event.currentTarget.dataset;
     const targetEl = document.getElementById(targetId);
     analytics.reachYaGoal(GOAL_ID_SECTION_NAV_ITEM_CLICK, {hash});
@@ -61,7 +64,7 @@ export default class NavItem extends React.Component<TProps, any> {
     }
   };
 
-  private onMouseEnter = (event: React.FormEvent<HTMLDivElement>) => {
+  private onPointerEnter = (event: React.FormEvent<HTMLButtonElement>) => {
     const {hash} = event.currentTarget.dataset;
     analytics.reachYaGoal(GOAL_ID_SECTION_NAV_ITEM_HOVER, {hash});
     if (!this.state.triggerAnimation) {
@@ -71,7 +74,7 @@ export default class NavItem extends React.Component<TProps, any> {
     }
   };
 
-  private onMouseLeave = () => {
+  private onPointerLeave = () => {
     if (this.state.triggerAnimation) {
       this.setState({
         triggerAnimation: false,
