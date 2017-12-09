@@ -27,6 +27,16 @@ import Footer             from './Footer/Footer';
 import './SwoPage.scss';
 
 export default class SwoPage extends React.Component<any, any> {
+  public componentDidMount() {
+    const loader = document.getElementById('pageLoader');
+    const root = document.getElementById('root');
+    loader.classList.remove('is-visible');
+    root.classList.add('is-visible');
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 1000);
+  }
+
   public render() {
     return (
       <div className="SwoPage">

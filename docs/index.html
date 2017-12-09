@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Сайт откроется</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="build/bundle.css?v=201712040100" />
     <meta property="og:title" content="Сайт откроется" />
     <meta
         property="og:description"
@@ -15,8 +14,80 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 </head>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        font-family: 'Times New Roman', serif;
+    }
+    .PageLoader {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 200;
+        opacity: 0;
+        transform: translate(0, 10px);
+        transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+    }
+    .PageLoader.is-visible {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    .PageLoader-text {
+        width: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        animation: pageLoaderFade 2s infinite linear alternate;
+        text-align: center;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: #ff6b00;
+
+    }
+    @keyframes pageLoaderFade {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0.4;
+        }
+    }
+    #root {
+        position: relative;
+        z-index: 100;
+        opacity: 0;
+        transition: 800ms opacity 400ms ease-in-out, 800ms transform 400ms ease-in-out;
+        transform: translate(0, 30px);
+    }
+    #root.is-visible {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+</style>
 <body>
+    <div class="PageLoader is-visible" id="pageLoader">
+        <div class="PageLoader-text">Загрузка</div>
+    </div>
     <div id="root"></div>
-    <script src="build/bundle.js?v=201712040100"></script>
+    <script>
+        (function() {
+            var v = 201712040100;
+            var script = document.createElement('script');
+            var css = document.createElement('link');
+            script.type = 'text/javascript';
+            css.rel = 'stylesheet';
+            script.src = 'build/bundle.js?v=' + v;
+            css.href = 'build/bundle.css?v=' + v;
+            document.head.appendChild(css);
+            document.head.appendChild(script);
+        })();
+    </script>
 </body>
 </html>
