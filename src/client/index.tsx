@@ -1,6 +1,7 @@
 /* global document, module, require */
 
 import 'es6-shim';
+import 'what-input';
 
 import * as React       from 'react';
 import * as ReactDOM    from 'react-dom';

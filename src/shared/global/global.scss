@@ -20,3 +20,7 @@ button {
   line-height: inherit;
   font-family: inherit;
 }
+
+[data-whatintent='mouse'] *:focus {
+  outline: none;
+}
