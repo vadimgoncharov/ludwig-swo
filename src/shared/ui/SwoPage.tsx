@@ -28,13 +28,15 @@ import './SwoPage.scss';
 
 export default class SwoPage extends React.Component<any, any> {
   public componentDidMount() {
+    const TOTAL_LOADING_ANIMATIONS_DURATION = 2000;
     const loader = document.getElementById('pageLoader');
     const root = document.getElementById('root');
     loader.classList.remove('is-visible');
     root.classList.add('is-visible');
     setTimeout(() => {
       loader.style.display = 'none';
-    }, 1000);
+      root.classList.remove('is-onPageLoaderActive');
+    }, TOTAL_LOADING_ANIMATIONS_DURATION);
   }
 
   public render() {
