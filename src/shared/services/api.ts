@@ -34,6 +34,7 @@ function getStatsReal(url: string): Promise<TStats> {
 }
 
 function getStats() {
+  // TODO Move urls to config
   if (window.location.hostname === 'localhost') {
     return getStatsReal('http://localhost:4444/new/?@format=json');
   }
@@ -42,7 +43,7 @@ function getStats() {
     // so we have mixed content error and we need to use proxy
     return getStatsReal('https://ludwig-swo-zeit-iyjhyxaugi.now.sh/');
   } else {
-    return getStatsReal('http://ludwigbistronovsky.ru/new/?@format=json');
+    return getStatsReal('http://ldwg.ru/new/?@format=json');
   }
 }
 
