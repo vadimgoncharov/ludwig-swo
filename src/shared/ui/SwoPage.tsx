@@ -35,7 +35,7 @@ export default class SwoPage extends React.Component<any, any> {
     root.classList.add('is-visible');
     setTimeout(() => {
       loader.style.display = 'none';
-      root.classList.remove('is-onPageLoaderActive');
+      root.classList.remove('is-pageLoaderActive');
     }, TOTAL_LOADING_ANIMATIONS_DURATION);
   }
 

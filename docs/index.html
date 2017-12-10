@@ -30,11 +30,15 @@
         bottom: 0;
         z-index: 200;
         opacity: 0;
+        -webkit-transform: translate(0, 10px);
         transform: translate(0, 10px);
+        transition: opacity 400ms ease-in-out, -webkit-transform 400ms ease-in-out;
         transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+        transition: opacity 400ms ease-in-out, transform 400ms ease-in-out, -webkit-transform 400ms ease-in-out;
     }
     .PageLoader.is-visible {
         opacity: 1;
+        -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
     }
     .PageLoader-text {
@@ -42,7 +46,9 @@
         position: absolute;
         left: 50%;
         top: 50%;
+        -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
+        -webkit-animation: pageLoaderFade 2s infinite linear alternate;
         animation: pageLoaderFade 2s infinite linear alternate;
         text-align: center;
         font-size: 16px;
@@ -50,6 +56,14 @@
         letter-spacing: 5px;
         color: #ff6b00;
 
+    }
+    @-webkit-keyframes pageLoaderFade {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0.4;
+        }
     }
     @keyframes pageLoaderFade {
         0% {
@@ -59,15 +73,19 @@
             opacity: 0.4;
         }
     }
-    #root {
+    #root.is-pageLoaderActive {
         position: relative;
         z-index: 100;
         opacity: 0;
+        transition: 800ms opacity 400ms ease-in-out, 800ms -webkit-transform 400ms ease-in-out;
         transition: 800ms opacity 400ms ease-in-out, 800ms transform 400ms ease-in-out;
+        transition: 800ms opacity 400ms ease-in-out, 800ms transform 400ms ease-in-out, 800ms -webkit-transform 400ms ease-in-out;
+        -webkit-transform: translate(0, 30px);
         transform: translate(0, 30px);
     }
-    #root.is-visible {
+    #root.is-pageLoaderActive.is-visible {
         opacity: 1;
+        -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
     }
 </style>
@@ -75,10 +93,10 @@
     <div class="PageLoader is-visible" id="pageLoader">
         <div class="PageLoader-text">Загрузка</div>
     </div>
-    <div id="root"></div>
+    <div class="is-pageLoaderActive" id="root"></div>
     <script>
         (function() {
-            var v = 201712091730;
+            var v = 201712102325;
             var script = document.createElement('script');
             var css = document.createElement('link');
             script.type = 'text/javascript';
