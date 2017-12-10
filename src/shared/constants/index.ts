@@ -7,6 +7,7 @@ import * as _analytics from './analytics';
 
 export const analytics = _analytics;
 export const ANIMATION_DURATION_DEFAULT = 3000;
+export const INITIAL_LOADING_ANIMATIONS_DURATION = 2000;
 export const navSections = _navSections;
 export const monthColors = _monthColors;
 

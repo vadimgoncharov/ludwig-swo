@@ -8,7 +8,11 @@ import analytics from 'shared/services/analytics';
 import {GOAL_ID_HERO_CHANGE_DATE_CLICK} from 'shared/constants/analytics';
 import FaviconRenderer from 'shared/services/FaviconRenderer';
 import Animator from 'shared/services/Animator';
-import {ANIMATION_DURATION_DEFAULT, navSections} from 'shared/constants';
+import {
+  ANIMATION_DURATION_DEFAULT,
+  INITIAL_LOADING_ANIMATIONS_DURATION,
+  navSections
+} from 'shared/constants';
 import {dayNumToColor, dayNumToData, dayNumToDayMonthAccusative} from 'shared/utils/date';
 import {formatValueToTimesWithPluralize} from 'shared/utils/format';
 import navSectionData from './navSectionData';
@@ -38,6 +42,7 @@ export default class Hero extends React.Component<TProps, TState> {
       value: 0,
     },
   };
+  private changeDateEl: HTMLElement;
   private animator: Animator<TAnimatorValue>;
   private faviconRenderer: FaviconRenderer;
 
@@ -53,6 +58,7 @@ export default class Hero extends React.Component<TProps, TState> {
   public componentDidMount() {
     this.renderFavicon(false);
     this.renderHeadTitle();
+    this.changeSwoDateVisibilityIfBelow();
   }
 
   public componentDidUpdate() {
@@ -137,7 +143,7 @@ export default class Hero extends React.Component<TProps, TState> {
         onLeave={this.onHeroSwoLeave}
         onPositionChange={this.onHeroSwoPositionChange}
       >
-        <div className="Hero-changeDate">
+        <div className="Hero-changeDate" ref={this.onChangeDateRefSet}>
           Или в <button className="Hero-fetchButton" onClick={this.onFetchLinkClick} tabIndex={0}>другой день</button>
         </div>
       </Waypoint>
@@ -211,6 +217,22 @@ export default class Hero extends React.Component<TProps, TState> {
     // TODO Move to separate component
     document.title = `Сайт откроется ${dayNumToDayMonthAccusative(this.props.total.dayNum)}`;
   }
+
+  private changeSwoDateVisibilityIfBelow() {
+    setTimeout(() => {
+      const {changeDateEl} = this;
+      if (changeDateEl) {
+        const {top} = this.changeDateEl.getBoundingClientRect();
+        if (top < 0) {
+          this.props.onHeaderSwoDateVisibilityChange(true);
+        }
+      }
+    }, INITIAL_LOADING_ANIMATIONS_DURATION);
+  }
+
+  private onChangeDateRefSet = (el: HTMLElement) => {
+    this.changeDateEl = el;
+  };
 
   private onHeroSwoEnter = (): void => {
     this.props.onHeaderSwoDateVisibilityChange(false);

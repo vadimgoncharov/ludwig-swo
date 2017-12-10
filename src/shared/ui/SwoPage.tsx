@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import {INITIAL_LOADING_ANIMATIONS_DURATION} from 'shared/constants';
 import Header             from './Header/HeaderConnected';
 import Hero               from './Hero/HeroConnected';
 import Typogr             from './Typogr/TypogrConnected';
@@ -28,7 +29,6 @@ import './SwoPage.scss';
 
 export default class SwoPage extends React.Component<any, any> {
   public componentDidMount() {
-    const TOTAL_LOADING_ANIMATIONS_DURATION = 2000;
     const loader = document.getElementById('pageLoader');
     const root = document.getElementById('root');
     loader.classList.remove('is-visible');
@@ -36,7 +36,7 @@ export default class SwoPage extends React.Component<any, any> {
     setTimeout(() => {
       loader.style.display = 'none';
       root.classList.remove('is-pageLoaderActive');
-    }, TOTAL_LOADING_ANIMATIONS_DURATION);
+    }, INITIAL_LOADING_ANIMATIONS_DURATION);
   }
 
   public render() {
