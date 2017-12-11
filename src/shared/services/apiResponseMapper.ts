@@ -7,12 +7,13 @@ import {convertRange, isPrimeNumber} from 'shared/utils/math';
 import {IApiResponse} from '../types/IApiResponse';
 import {TStats} from '../types/Stats';
 
-const NOW = new Date();
 const apiResponseMapper = (r: IApiResponse): TStats => {
+  const NOW = new Date();
+  const DAY_IN_MS = 3600 * 24 * 1000;
   const statTotalValue = r.oddEven.even + r.oddEven.odd;
   const lastGenerateDate = new Date(NOW.getFullYear(), r.rand_date.month - 1, r.rand_date.day);
-  const lastGenerateDateYesterday = new Date(lastGenerateDate.getTime() - 3600 * 24);
-  const lastGenerateDateTomorrow = new Date(lastGenerateDate.getTime() + 3600 * 24);
+  const lastGenerateDateYesterday = new Date(lastGenerateDate.getTime() - DAY_IN_MS);
+  const lastGenerateDateTomorrow = new Date(lastGenerateDate.getTime() + DAY_IN_MS);
 
   const stat = {
     total: {

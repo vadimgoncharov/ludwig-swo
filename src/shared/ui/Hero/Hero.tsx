@@ -11,7 +11,7 @@ import Animator from 'shared/services/Animator';
 import {
   ANIMATION_DURATION_DEFAULT,
   INITIAL_LOADING_ANIMATIONS_DURATION,
-  navSections
+  navSections,
 } from 'shared/constants';
 import {dayNumToColor, dayNumToData, dayNumToDayMonthAccusative} from 'shared/utils/date';
 import {formatValueToTimesWithPluralize} from 'shared/utils/format';
