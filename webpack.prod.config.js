@@ -1,6 +1,5 @@
 const path    = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const cleanCss = require('clean-css');
 
@@ -14,11 +13,6 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
-    new ExtractTextPlugin({
-      disable: false,
-      filename: 'build/bundle.css',
-      allChunks: true,
-    }),
     new OptimizeCssAssetsPlugin({
       // assetNameRegExp: /\.optimize\.css$/g,
       cssProcessor: cleanCss.process,
@@ -76,24 +70,25 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {loader: 'css-loader', options: {
-              sourceMap: true,
-            }},
-            {loader: 'postcss-loader', options: {
-              sourceMap: true,
-            }},
-            {loader: 'sass-loader', options: {
-              sourceMap: true,
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader', options: {
+              sourceMap: false,
+            }
+          },
+          {loader: 'postcss-loader', options: {
+              sourceMap: false,
+            }
+          },
+          {loader: 'sass-loader', options: {
+              sourceMap: false,
               data: ';@import "global.scss";',
               includePaths: [
                 path.join(__dirname, 'src/shared/global')
               ]
-            }},
-          ],
-        }),
+            }
+          },
+        ],
       },
     ]
   },

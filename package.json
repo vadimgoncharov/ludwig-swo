@@ -45,7 +45,6 @@
     "clean-css": "4.1.9",
     "css-loader": "0.28.7",
     "es6-shim": "0.35.3",
-    "extract-text-webpack-plugin": "3.0.2",
     "format-thousands": "1.1.1",
     "gsap": "1.20.3",
     "node-sass": "4.7.2",
