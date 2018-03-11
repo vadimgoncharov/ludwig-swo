@@ -35,15 +35,13 @@ function getStatsReal(url: string): Promise<TStats> {
 
 function getStats() {
   // TODO Move urls to config
-  if (window.location.hostname === 'localhost') {
+  if (process.env.NODE_ENV !== 'production' && window.location.hostname === 'localhost') {
     return getStatsReal('http://localhost:4444/new/?@format=json');
   }
-  else if (window.location.protocol === 'https:') {
-    // We use this because github serves over https, but ludwig servers over http,
-    // so we have mixed content error and we need to use proxy
+  else if (window.location.host.match(/.github.io$/i)) {
     return getStatsReal('https://ludwig-swo-zeit-iyjhyxaugi.now.sh/');
   } else {
-    return getStatsReal('http://ldwg.ru/new/?@format=json');
+    return getStatsReal('https://ldwg.ru/new/?@format=json');
   }
 }
 
